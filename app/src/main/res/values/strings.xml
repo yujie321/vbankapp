@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">金库出入管理系统</string>
+
+
+    <string name="library_not_found">未找到库文件，请检查是否有将.so文件放至工程的 app\\src\\main\\jniLibs 目录下</string>
+    <string name="permission_denied">权限被拒绝！</string>
+    <string name="active_success">激活引擎成功</string>
+    <string name="already_activated">引擎已激活，无需再次激活</string>
+    <string name="active_failed">引擎激活失败，错误码为 %d</string>
+    <string name="init_failed">引擎初始化失败，错误码为 %d</string>
+
+    <string name="recognize_failed_notice">未通过:%s</string>
+    <string name="recognize_success_notice">通过:%s</string>
+    <string name="low_confidence_level">人脸置信度低</string>
+    <string name="specific_engine_init_failed">%s 初始化失败，错误码为:%d</string>
+    <string name="rank">第%s名</string>
+    <string name="passenger">相比前一天%s/%s</string>
+    <string name="version">V%s</string>
+    <string name="main_home_title">徐汇区南京路支行智能终端</string>
+    <string name="main_home_name">上海农商银行</string>
+    <string name="main_home_logs">SRCB</string>
+    <string name="sign_same_day">当日打卡人数</string>
+    <string name="network_ranking">网点排名</string>
+    <string name="passenger_flow_volume_today">今日客流数量</string>
+    <string name="person_times">人次</string>
+    <string name="compared_day_before">相比前一天%s/%s</string>
+    <string name="compare">%s%%</string>
+    <string name="security_people_number">安保运营人数：%s人</string>
+    <string name="security_region">安保运营区域：%s个</string>
+    <string name="main_notice_title">通知通告</string>
+    <string name="main_escort_vehicle">押运车辆</string>
+    <string name="main_escort_vehicle_day">当日押运车辆</string>
+    <string name="main_escort_day">当日押运人员</string>
+    <string name="main_navigation_menu">导航菜单</string>
+</resources>

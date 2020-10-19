@@ -1,0 +1,37 @@
+package com.vieboo.vbankapp.application;
+
+import android.app.Application;
+
+import com.example.toollib.ToolLib;
+import com.qmuiteam.qmui.arch.QMUISwipeBackActivityManager;
+import com.usc.tts.TTSPlayer;
+
+public class VBankAppApplication extends Application {
+
+    private static VBankAppApplication vBankAppApplication;
+
+
+    public static final String BASE_URL = "http://192.168.1.203:8082/";
+//    public static final String BASE_URL = "http://192.168.1.39:8082/";
+
+    public static VBankAppApplication getInstance() {
+        return vBankAppApplication;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        vBankAppApplication = this;
+
+        QMUISwipeBackActivityManager.init(vBankAppApplication);
+
+        ToolLib.getInstance().init(vBankAppApplication)
+                .setBaseUrl(BASE_URL);
+
+        registerActivityLifecycleCallbacks(new LifecycleCallbacks());
+
+        TTSPlayer.getInstance().initTts(vBankAppApplication);
+    }
+
+
+}

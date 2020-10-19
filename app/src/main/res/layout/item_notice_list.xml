@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/cyan_hypotenuse_bg"
+    android:padding="4dp">
+
+    <TextView
+        android:id="@+id/tvSerialNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:textColor="@android:color/white"
+        android:textSize="28sp"
+        tools:text="1" />
+
+    <TextView
+        android:id="@+id/tvFilename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="4dp"
+        android:layout_toEndOf="@+id/tvSerialNum"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        tools:text="关于浙江省余杭区科学技术委员会领导班子劳动模范奖章获取的通知" />
+
+    <ImageView
+        android:id="@+id/ivIsRead"
+        android:layout_width="27dp"
+        android:layout_height="12dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_unread" />
+
+
+</RelativeLayout>

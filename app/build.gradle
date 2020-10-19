@@ -1,0 +1,76 @@
+apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
+def libs = rootProject.ext.dependencies
+def config = rootProject.ext.android
+
+android {
+    compileSdkVersion config.compileSdkVersion
+    defaultConfig {
+        applicationId config.applicationId
+        minSdkVersion config.minSdkVersion
+        targetSdkVersion config.targetSdkVersion
+        versionCode config.versionCode
+        versionName config.versionName
+        multiDexEnabled true
+        ndk {
+            abiFilters "armeabi-v7a"
+        }
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //压缩
+            zipAlignEnabled true
+            //是否移除无用资源
+            shrinkResources false
+        }
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+    buildToolsVersion = config.buildToolsVersion
+
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java', 'src/main/database']
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+greendao {
+    //数据库
+    schemaVersion 1
+    targetGenDir 'src/main/database'
+    daoPackage config.applicationId
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    implementation 'com.blankj:utilcodex:1.25.9'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    annotationProcessor libs["butterknife-compiler"]
+    implementation libs["autosize"]
+    implementation project(':toollib')
+    implementation files('libs/smdt.jar')
+    implementation project(':ttslibrary')
+    implementation files('libs/arcsoft_face.jar')
+    implementation files('libs/arcsoft_image_util.jar')
+    implementation files('libs/jcore-android-2.2.4.jar')
+}
