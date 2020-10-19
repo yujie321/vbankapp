@@ -47,6 +47,8 @@ public class BaseListFragment<M extends IBaseModule, T extends BaseQuickAdapter>
     public void initView() {
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setOnRefreshListener(this);
+        //Header标准高度（显示下拉高度>=标准高度 触发刷新）
+        refreshLayout.setHeaderHeight(100);
         refreshLayout.setEnableLoadMoreWhenContentNotFull(true);
         if (rvBaseList != null) {
             rvBaseList.setLayoutManager(new LinearLayoutManager(getActivity()));

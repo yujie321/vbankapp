@@ -43,13 +43,13 @@
     <style name="tool_lib_horizontal_line">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
-        <item name="android:background">@color/tool_lib_gray_E8E8E8</item>
+        <item name="android:background">@color/tool_lib_color_ACB4B7</item>
     </style>
 
     <style name="tool_lib_vertical_line">
         <item name="android:layout_width">1dp</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@color/tool_lib_gray_E8E8E8</item>
+        <item name="android:background">@color/tool_lib_color_ACB4B7</item>
     </style>
 
 

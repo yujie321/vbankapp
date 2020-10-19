@@ -17,6 +17,9 @@ import com.vieboo.vbankapp.utils.FaceAlgoUtils;
 
 import butterknife.BindView;
 
+/**
+ * 启动过渡
+ */
 public class SplashFragment extends BaseFragment<ISplashModel> implements ISplashView {
 
     @BindView(R.id.tvVersion)

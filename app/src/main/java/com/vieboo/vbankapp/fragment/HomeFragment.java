@@ -37,6 +37,9 @@ import java.util.List;
 
 import butterknife.BindView;
 
+/**
+ * 首页
+ */
 public class HomeFragment extends BaseListFragment<IHomeModel , NoticeListAdapter> implements IHomeView {
 
 
@@ -215,6 +218,7 @@ public class HomeFragment extends BaseListFragment<IHomeModel , NoticeListAdapte
         switch (position) {
             case 0:
                 //人员管控
+                startFragment(PersonnelControlFragment.newInstance());
                 break;
             case 1:
                 //设备状态

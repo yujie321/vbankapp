@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/black">
+
+    <ImageView
+        android:id="@+id/ivPersonalHead"
+        android:layout_width="71dp"
+        android:layout_height="70dp"
+        android:scaleType="fitXY"
+        tools:src="@drawable/bg_test" />
+
+    <TextView
+        android:id="@+id/tvPersonalName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivPersonalHead"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="3dp"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        tools:ignore="SmallSp"
+        tools:text="黄晓敏" />
+
+    <TextView
+        android:id="@+id/tvPersonalPosition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivPersonalHead"
+        android:layout_alignTop="@+id/tvPersonalName"
+        android:layout_alignBottom="@+id/tvPersonalName"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:layout_toEndOf="@+id/tvPersonalName"
+        android:gravity="center_vertical"
+        android:textColor="@android:color/white"
+        android:textSize="6sp"
+        tools:ignore="SmallSp"
+        tools:text="柜员\n100100" />
+</RelativeLayout>

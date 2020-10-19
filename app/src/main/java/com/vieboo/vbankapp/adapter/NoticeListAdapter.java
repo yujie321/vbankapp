@@ -39,7 +39,5 @@ public class NoticeListAdapter extends BaseQuickAdapter<NoticeListVO, BaseViewHo
         }else {
             ivIsRead.setImageResource(R.drawable.ic_read);
         }
-
-
     }
 }

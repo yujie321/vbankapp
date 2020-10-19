@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/black">
+
+    <ImageView
+        android:id="@+id/ivRecordPersonalHead"
+        android:layout_width="71dp"
+        android:scaleType="fitXY"
+        android:layout_height="70dp"
+        tools:src="@drawable/bg_test" />
+
+    <TextView
+        android:id="@+id/tvRecordPersonalName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivRecordPersonalHead"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="3dp"
+        android:textColor="@android:color/white"
+        android:textSize="10sp"
+        tools:ignore="SmallSp"
+        tools:text="黄晓敏" />
+
+    <TextView
+        android:id="@+id/tvRecordPersonalPosition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivRecordPersonalHead"
+        android:layout_alignTop="@+id/tvRecordPersonalName"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="1dp"
+        android:layout_toEndOf="@+id/tvRecordPersonalName"
+        android:gravity="center_vertical"
+        android:textColor="@android:color/white"
+        android:textSize="6sp"
+        tools:ignore="SmallSp"
+        tools:text="柜员 100100" />
+
+    <TextView
+        android:id="@+id/tvRecordDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvRecordPersonalPosition"
+        android:layout_marginStart="2dp"
+        android:layout_toEndOf="@+id/tvRecordPersonalName"
+        android:textColor="@android:color/white"
+        android:textSize="5sp"
+        tools:ignore="SmallSp"
+        tools:text="10:10:10" />
+</RelativeLayout>

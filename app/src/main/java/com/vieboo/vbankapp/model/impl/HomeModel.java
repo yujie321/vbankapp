@@ -50,7 +50,6 @@ public class HomeModel extends BaseModule<IHomeView> implements IHomeModel  {
                 .subscribe(new BaseHttpRxObserver<List<NoticeListVO>>() {
                     @Override
                     protected void onSuccess(List<NoticeListVO> passengerVO) {
-
                         if (mViewRef.get().getPage() == StaticExplain.PAGE_NUMBER.getCode()) {
                             //刷新
                             mViewRef.get().refreshNoticeListSuccess(passengerVO);

@@ -32,4 +32,15 @@
     <string name="main_escort_vehicle_day">当日押运车辆</string>
     <string name="main_escort_day">当日押运人员</string>
     <string name="main_navigation_menu">导航菜单</string>
+    <string name="main_video_window">视频窗口</string>
+    <string name="main_staff_style">员工风采</string>
+    <string name="main_punch_record">打卡记录</string>
+    <string name="clock_in_success">上班打卡成功</string>
+    <string name="clock_out_success">下班打卡成功</string>
+    <string name="main_new_personnel_steps">人员新增步骤</string>
+    <string name="swipe_id_card">1、刷身份证</string>
+    <string name="face_capture">2、人脸抓拍</string>
+    <string name="verification">3、人证合一验证</string>
+    <string name="save">保存</string>
+    <string name="employee_file">员工档案</string>
 </resources>
