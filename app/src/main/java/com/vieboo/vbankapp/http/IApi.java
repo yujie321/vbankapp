@@ -1,8 +1,11 @@
 package com.vieboo.vbankapp.http;
 
 import com.example.toollib.http.HttpResult;
+import com.vieboo.vbankapp.data.AuthVO;
+import com.vieboo.vbankapp.data.DepartmentVO;
 import com.vieboo.vbankapp.data.NoticeListVO;
 import com.vieboo.vbankapp.data.PassengerVO;
+import com.vieboo.vbankapp.data.PositionsVO;
 import com.vieboo.vbankapp.data.PunchRecordVO;
 import com.vieboo.vbankapp.data.RecordVO;
 import com.vieboo.vbankapp.data.StaticTodaySummeryVo;
@@ -55,14 +58,31 @@ public interface IApi {
     /**
      * 上班打卡
      */
-    @GET("/microservice-pad//rest/clockIn")
+    @GET("/microservice-pad/rest/clockIn")
     Observable<HttpResult<String>> clockIn(@Query("id") String id);
 
     /**
      * 下班打卡
      */
-    @GET("/microservice-pad//rest/clockOut")
+    @GET("/microservice-pad/rest/clockOut")
     Observable<HttpResult<String>> clockOut(@Query("id") String id);
 
+    /**
+     * 部门查询
+     */
+    @GET("/microservice-pad/rest/findDepartment")
+    Observable<HttpResult<List<DepartmentVO>>> findDepartment();
+
+    /**
+     * 职务查询
+     */
+    @GET("/microservice-pad/rest/findPositions")
+    Observable<HttpResult<List<PositionsVO>>> findPositions();
+
+    /**
+     * 权限查询
+     */
+    @GET("/microservice-pad/rest/findAuth")
+    Observable<HttpResult<List<AuthVO>>> findAuth();
 
 }

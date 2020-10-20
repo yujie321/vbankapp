@@ -43,4 +43,24 @@
     <string name="verification">3、人证合一验证</string>
     <string name="save">保存</string>
     <string name="employee_file">员工档案</string>
+    <string name="main_name">姓名：</string>
+    <string name="main_sex">性别：</string>
+    <string name="main_number">工号：</string>
+    <string name="main_department">部门：</string>
+    <string name="main_positions">职务：</string>
+    <string name="jurisdiction">权&#12288;&#12288;限：</string>
+    <string name="nation">民&#12288;&#12288;&#12288;族：</string>
+    <string name="please_input">请输入</string>
+    <string name="company">单&#12288;&#12288;位：</string>
+    <string name="id_card_address">身份证地址：</string>
+    <string name="phone">联系电话：</string>
+    <string name="date_birth">出&#8197;生&#8197;日&#8197;期：&#8197;</string>
+    <string name="political_outlook">政治面貌：</string>
+    <string name="id_card_number">身份证号码：</string>
+    <string name="main_id_card_name">姓&#12288;名</string>
+    <string name="main_id_card_sex">姓&#12288;别</string>
+    <string name="main_id_card_nation">民&#12288;族</string>
+    <string name="main_id_card_birth">出&#12288;生</string>
+    <string name="main_id_card_address">住&#12288;址</string>
+    <string name="main_id_card_number">公&#8197;民&#8197;身&#8197;份&#8197;证&#8197;号&#8197;码</string>
 </resources>

@@ -2,6 +2,8 @@ package com.example.toollib.http.util;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.Window;
 
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
@@ -18,6 +20,10 @@ public class DialogUtil {
         tipLoadingDialog = new QMUITipDialog.Builder(context).setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord(TextUtils.isEmpty(msg) ? "" : msg)
                 .create();
+        Window window = tipLoadingDialog.getWindow();
+        if (window != null){
+            window.setGravity(Gravity.CENTER);
+        }
         return tipLoadingDialog;
     }
 

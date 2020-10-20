@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="479dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_id_card"
+    android:paddingStart="50dp"
+    android:paddingEnd="34dp">
+
+    <LinearLayout
+        android:id="@+id/layIdCardName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_id_card_name"
+            android:textColor="@color/tool_lib_color_516790"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tvIdCardName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            tools:text="黄光广" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layIdCardSex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layIdCardName"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_id_card_sex"
+            android:textColor="@color/tool_lib_color_516790"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tvIdCardSex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            tools:text="男" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:text="@string/main_id_card_nation"
+            android:textColor="@color/tool_lib_color_516790"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tvIdCardNation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            tools:text="汉" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layIdCardBirth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layIdCardSex"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_id_card_birth"
+            android:textColor="@color/tool_lib_color_516790"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tvIdCardBirth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            tools:text="1998  年 3  月 10  日" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layIdCardAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layIdCardBirth"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:layout_toStartOf="@+id/ivIdCardHead"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_id_card_address"
+            android:textColor="@color/tool_lib_color_516790"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tvIdCardAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:gravity="start"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            tools:text="北京市海定区姑姑咯咯社区明前街道" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivIdCardHead"
+        android:layout_width="114dp"
+        android:layout_height="141dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="13dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_test" />
+
+    <LinearLayout
+        android:id="@+id/layIdCardNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layIdCardAddress"
+        android:layout_marginTop="62dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_id_card_number"
+            android:textColor="@color/tool_lib_color_516790"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tvIdCardNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            tools:text="350102100000001200" />
+    </LinearLayout>
+</RelativeLayout>

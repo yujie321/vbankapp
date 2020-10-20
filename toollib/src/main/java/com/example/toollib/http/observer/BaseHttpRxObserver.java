@@ -2,6 +2,8 @@ package com.example.toollib.http.observer;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.view.Gravity;
+import android.view.Window;
 
 import com.example.toollib.http.HttpResult;
 import com.example.toollib.http.exception.ApiException;
@@ -9,7 +11,6 @@ import com.example.toollib.http.exception.HttpError;
 import com.example.toollib.http.version.MessageEvent;
 import com.example.toollib.http.version.Version;
 import com.example.toollib.http.version.VersionEnums;
-import com.example.toollib.util.DensityUtils;
 import com.example.toollib.util.LoginInterceptor;
 import com.example.toollib.util.ToastUtil;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
@@ -50,9 +51,14 @@ public abstract class BaseHttpRxObserver<T> implements Observer<HttpResult<T>>, 
     @Override
     public void onSubscribe(Disposable d) {
         if (mContext != null) {
-            tipLoading = new QMUITipDialog.Builder(mContext.get()).setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
+            tipLoading = new QMUITipDialog.Builder(mContext.get())
+                    .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
                     .setTipWord(loadingTip != null ? loadingTip.get() : "")
                     .create();
+            Window window = tipLoading.getWindow();
+            if (window != null){
+                window.setGravity(Gravity.CENTER);
+            }
             tipLoading.setOnDismissListener(this);
             tipLoading.show();
         }
@@ -110,7 +116,7 @@ public abstract class BaseHttpRxObserver<T> implements Observer<HttpResult<T>>, 
      */
     public void onError(ApiException apiException) {
         boolean flag = LoginInterceptor.tokenReLogin(apiException);
-        if (!flag){
+        if (!flag) {
             ToastUtil.showShort(apiException.getMsg());
         }
     }

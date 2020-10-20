@@ -40,9 +40,43 @@
         <item name="android:textSize">10sp</item>
     </style>
 
+    <style name="main_add_personal_tv_meg">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="main_add_personal_tv_content">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/blue_bg</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="main_add_personal_edit_content">
+        <item name="android:layout_width">156dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/blue_bg</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:textColor">@color/tool_lib_color_A7A7A7</item>
+        <item name="android:textSize">8sp</item>
+    </style>
+
     <style name="main_vertical_line">
         <item name="android:layout_width">3dp</item>
         <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/tool_lib_white_FFFFFF</item>
+    </style>
+    <style name="main_horizontal_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">3dp</item>
         <item name="android:background">@color/tool_lib_white_FFFFFF</item>
     </style>
 </resources>

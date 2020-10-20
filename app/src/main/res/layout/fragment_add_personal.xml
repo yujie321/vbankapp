@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_personnel_control"
+    android:padding="12dp">
+
+    <ImageView
+        android:id="@+id/ivAddPersonalBack"
+        style="@style/main_back" />
+
+    <RelativeLayout
+        android:id="@+id/relMessage"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@+id/ivAddPersonalBack"
+        android:layout_marginTop="55dp">
+
+        <ImageView
+            android:id="@+id/ivPersonal"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:layout_above="@+id/viewHorizontalLine"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/ic_personal" />
+
+        <TextView
+            android:id="@+id/tvPersonalAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/viewHorizontalLine"
+            android:layout_marginStart="3dp"
+            android:layout_marginBottom="4dp"
+            android:layout_toEndOf="@+id/ivPersonal"
+            android:text="@string/main_new_personnel_steps"
+            android:textColor="@color/tool_lib_color_09cfd2"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/ivEllipse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="24dp"
+            android:layout_toEndOf="@+id/tvPersonalAdd"
+            android:src="@drawable/ic_ellipse" />
+
+        <TextView
+            android:id="@+id/ivSwipeIdCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/ivEllipse"
+            android:text="@string/swipe_id_card"
+            android:textColor="@color/tool_lib_color_FFAE00"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/ivEllipseTwo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="123dp"
+            android:layout_toEndOf="@+id/ivSwipeIdCard"
+            android:src="@drawable/ic_ellipse" />
+
+        <TextView
+            android:id="@+id/ivFaceCapture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/ivEllipseTwo"
+            android:text="@string/face_capture"
+            android:textColor="@color/tool_lib_color_FFAE00"
+            android:textSize="12sp" />
+
+
+        <ImageView
+            android:id="@+id/ivEllipseThree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="123dp"
+            android:layout_toEndOf="@+id/ivFaceCapture"
+            android:src="@drawable/ic_ellipse" />
+
+        <TextView
+            android:id="@+id/ivVerification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/ivEllipseThree"
+            android:text="@string/verification"
+            android:textColor="@color/tool_lib_color_FFAE00"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/ivEllipseFour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="102dp"
+            android:layout_toEndOf="@+id/ivVerification"
+            android:src="@drawable/ic_ellipse" />
+
+        <TextView
+            android:id="@+id/ivSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/ivEllipseFour"
+            android:text="@string/save"
+            android:textColor="@color/tool_lib_color_FFAE00"
+            android:textSize="12sp" />
+
+        <View
+            android:id="@+id/viewHorizontalLine"
+            style="@style/tool_lib_horizontal_line"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relMessage">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tvVideoWindow"
+                style="@style/main_blue_bg"
+                android:paddingStart="17dp"
+                android:paddingEnd="17dp"
+                android:text="@string/main_video_window" />
+
+            <com.vieboo.vbankapp.face.FaceRectView
+                android:id="@+id/faceRectView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tvVideoWindow"
+                android:layout_margin="3.5dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_main7">
+
+            <TextView
+                android:id="@+id/tvEmployeeFile"
+                style="@style/main_blue_bg"
+                android:paddingStart="17dp"
+                android:paddingEnd="17dp"
+                android:text="@string/employee_file" />
+
+            <RelativeLayout
+                android:id="@+id/relPersonnelEmployee"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_below="@+id/tvEmployeeFile"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp">
+
+                <ImageView
+                    android:id="@+id/ivPersonnelHead"
+                    android:layout_width="144dp"
+                    android:layout_height="144dp"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/bg_test" />
+
+                <View
+                    android:id="@+id/viewVerticalLine"
+                    style="@style/main_vertical_line"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="33dp"
+                    android:layout_toEndOf="@+id/ivPersonnelHead" />
+
+                <LinearLayout
+                    android:id="@+id/layName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_toEndOf="@+id/viewVerticalLine"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/main_add_personal_tv_meg"
+                        android:text="@string/main_name" />
+
+                    <TextView
+                        android:id="@+id/tvPersonalName"
+                        style="@style/main_add_personal_tv_content"
+                        tools:text="黄萨萨" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/laySex"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layName"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toEndOf="@+id/viewVerticalLine"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/main_add_personal_tv_meg"
+                        android:text="@string/main_sex" />
+
+                    <TextView
+                        android:id="@+id/tvPersonalSex"
+                        style="@style/main_add_personal_tv_content"
+                        tools:text="男" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/laySex"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toEndOf="@+id/viewVerticalLine"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/main_add_personal_tv_meg"
+                        android:text="@string/main_number" />
+
+                    <TextView
+                        android:id="@+id/tvPersonalNumber"
+                        style="@style/main_add_personal_tv_content"
+                        tools:text="100100" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layDepartment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layNumber"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toEndOf="@+id/viewVerticalLine"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/main_add_personal_tv_meg"
+                        android:text="@string/main_department" />
+
+                    <Spinner
+                        android:id="@+id/spinnerDepartment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/blue_bg"
+                        android:spinnerMode="dropdown" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layPositions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layDepartment"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toEndOf="@+id/viewVerticalLine"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/main_add_personal_tv_meg"
+                        android:text="@string/main_positions" />
+
+                    <Spinner
+                        android:id="@+id/spinnerPositions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/blue_bg" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/relPersonnelEmployee"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:orientation="vertical">
+
+                <View style="@style/main_horizontal_line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/main_add_personal_tv_meg"
+                        android:text="@string/jurisdiction" />
+
+                    <Spinner
+                        android:id="@+id/spinnerJurisdiction"
+                        android:layout_width="156dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/blue_bg" />
+
+                    <TextView
+                        style="@style/main_add_personal_tv_meg"
+                        android:layout_marginStart="5dp"
+                        android:text="@string/nation" />
+
+                    <TextView
+                        android:id="@+id/tvPersonalNation"
+                        style="@style/main_add_personal_tv_content"
+                        tools:text="汉族" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/main_add_personal_tv_meg"
+                        android:text="@string/company" />
+
+                    <EditText
+                        android:id="@+id/editCompany"
+                        style="@style/main_add_personal_edit_content"
+                        android:hint="@string/please_input" />
+
+                    <TextView
+                        style="@style/main_add_personal_tv_meg"
+                        android:layout_marginStart="5dp"
+                        android:text="@string/date_birth" />
+
+                    <TextView
+                        android:id="@+id/tvDateBirth"
+                        style="@style/main_add_personal_tv_content"
+                        tools:text="2020-02-20" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/main_add_personal_tv_meg"
+                        android:text="@string/phone" />
+
+                    <EditText
+                        android:id="@+id/editPhone"
+                        style="@style/main_add_personal_edit_content"
+                        android:hint="@string/please_input" />
+
+                    <TextView
+                        style="@style/main_add_personal_tv_meg"
+                        android:layout_marginStart="5dp"
+                        android:text="@string/id_card_address" />
+
+                    <TextView
+                        android:id="@+id/tvIdCardAddress"
+                        style="@style/main_add_personal_tv_content"
+                        tools:text="北京市海淀区回龙观社区街道1北京市海淀区回龙观社区街道1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/main_add_personal_tv_meg"
+                        android:text="@string/political_outlook" />
+
+                    <EditText
+                        android:id="@+id/editPoliticalOutlook"
+                        style="@style/main_add_personal_edit_content"
+                        android:hint="@string/please_input" />
+
+                    <TextView
+                        style="@style/main_add_personal_tv_meg"
+                        android:layout_marginStart="5dp"
+                        android:text="@string/id_card_number" />
+
+                    <TextView
+                        android:id="@+id/tvIdCardNumber"
+                        style="@style/main_add_personal_tv_content"
+                        tools:text="330102198010216100" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="26dp"
+                    android:gravity="center">
+
+                    <com.qmuiteam.qmui.layout.QMUIButton
+                        android:id="@+id/btnSave"
+                        android:layout_width="127dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/ic_save" />
+
+                    <com.qmuiteam.qmui.layout.QMUIButton
+                        android:id="@+id/btnClose"
+                        android:layout_width="127dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/ic_close" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

@@ -38,9 +38,9 @@ public class RetrofitUtils {
         okHttpBuilder.connectTimeout(ToolLib.getInstance().getConnectTimeOut(), TimeUnit.SECONDS)
                 .writeTimeout(ToolLib.getInstance().getWriteTimeOut(), TimeUnit.SECONDS)
                 .readTimeout(ToolLib.getInstance().getReadTimeOut(), TimeUnit.SECONDS);
-        okHttpBuilder.addInterceptor(new CacheInterceptor());
-        okHttpBuilder.addInterceptor(new ReceivedCookiesInterceptor());
-        okHttpBuilder.addInterceptor(new SaveCookiesInterceptor());
+        //okHttpBuilder.addInterceptor(new CacheInterceptor());
+        //okHttpBuilder.addInterceptor(new ReceivedCookiesInterceptor());
+        //okHttpBuilder.addInterceptor(new SaveCookiesInterceptor());
         okHttpBuilder.addInterceptor(logInterceptor);
         retrofitBuild = new Retrofit.Builder()
                 .client(okHttpBuilder.build())
