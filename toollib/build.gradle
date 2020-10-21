@@ -59,5 +59,6 @@ dependencies {
     api libs["photoView"]
     api libs["eventBus"]
     api libs["BaseRecyclerViewAdapterHelper"]
+    api libs["multidex"]
 
 }

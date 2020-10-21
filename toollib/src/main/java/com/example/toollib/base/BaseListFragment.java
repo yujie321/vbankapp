@@ -136,6 +136,7 @@ public class BaseListFragment<M extends IBaseModule, T extends BaseQuickAdapter>
         //加载完成 可以刷新
         if (baseListAdapter != null) {
             baseListAdapter.getLoadMoreModule().loadMoreEnd();
+            baseListAdapter.getLoadMoreModule().setEnableLoadMore(false);
         }
         refreshLayout.setEnableRefresh(true);
     }

@@ -1,6 +1,9 @@
 package com.vieboo.vbankapp.application;
 
 import android.app.Application;
+import android.content.Context;
+
+import androidx.multidex.MultiDex;
 
 import com.example.toollib.ToolLib;
 import com.qmuiteam.qmui.arch.QMUISwipeBackActivityManager;
@@ -33,5 +36,10 @@ public class VBankAppApplication extends Application {
         TTSPlayer.getInstance().initTts(vBankAppApplication);
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 
 }

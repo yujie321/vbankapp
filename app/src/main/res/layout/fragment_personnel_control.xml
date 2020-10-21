@@ -54,8 +54,6 @@
                 style="@style/main_blue_bg"
                 android:layout_below="@+id/ivAddPersonal"
                 android:layout_marginTop="18dp"
-                android:paddingStart="17dp"
-                android:paddingEnd="17dp"
                 android:text="@string/main_video_window" />
 
             <com.vieboo.vbankapp.face.FaceRectView

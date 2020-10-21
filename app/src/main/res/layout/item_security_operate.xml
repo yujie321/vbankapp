@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="91dp"
+    android:layout_height="wrap_content"
+    android:background="@android:color/black">
+
+    <ImageView
+        android:id="@+id/ivSecurityHead"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:scaleType="fitXY"
+        tools:src="@drawable/bg_test" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        android:layout_below="@+id/ivSecurityHead"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tvSecurityName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="8sp"
+            tools:ignore="SmallSp"
+            tools:text="黄晓敏" />
+
+        <TextView
+            android:id="@+id/tvSecurityDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:textColor="@android:color/white"
+            android:textSize="6sp"
+            tools:ignore="SmallSp"
+            tools:text="2020-08-08 12:00:00" />
+    </LinearLayout>
+
+</RelativeLayout>

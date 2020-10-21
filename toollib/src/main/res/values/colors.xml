@@ -106,5 +106,9 @@
     <color name="tool_lib_color_08147B">#08147B</color>
     <color name="tool_lib_color_A7A7A7">#A7A7A7</color>
     <color name="tool_lib_color_516790">#516790</color>
+    <color name="tool_lib_color_18B2E1">#18B2E1</color>
+    <color name="tool_lib_color_767676">#767676</color>
+    <color name="tool_lib_color_FFB400">#FFB400</color>
+    <color name="tool_lib_color_757575">#757575</color>
 
 </resources>

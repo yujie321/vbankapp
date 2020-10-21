@@ -222,18 +222,22 @@ public class HomeFragment extends BaseListFragment<IHomeModel , NoticeListAdapte
                 break;
             case 1:
                 //设备状态
+                startFragment(DeviceStatusFragment.newInstance());
                 break;
             case 2:
                 //网点运营
+                startFragment(BranchOperateFragment.newInstance());
                 break;
             case 3:
                 //车辆管控
                 break;
             case 4:
                 //安保运营
+                startFragment(SecurityOperateFragment.newInstance());
                 break;
             case 5:
                 //进出管理
+                startFragment(InoutManagerFragment.newInstance());
                 break;
             case 6:
                 //规则制度
