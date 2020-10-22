@@ -1,6 +1,7 @@
 package com.vieboo.vbankapp.model;
 
 import com.example.toollib.data.base.IBaseView;
+import com.sdses.idCard.IdInfo;
 import com.vieboo.vbankapp.data.SpinnerVO;
 
 import java.util.List;
@@ -29,4 +30,7 @@ public interface IAddPersonalView extends IBaseView {
     int getDepartment();
 
 
+    void getIdInfo(IdInfo info);
+
+    void notObtained();
 }

@@ -37,7 +37,7 @@ public interface IApi {
      *
      * @return Observable
      */
-    @GET("/microservice-result/rest/face/passenger")
+    @GET("microservice-pad/rest/static/passenger")
     Observable<HttpResult<PassengerVO>> passenger();
 
     /**

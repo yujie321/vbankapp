@@ -1,11 +1,18 @@
 package com.vieboo.vbankapp.model.impl;
 
+import android.annotation.SuppressLint;
+import android.util.DisplayMetrics;
+
 import com.example.toollib.data.BaseModule;
 import com.example.toollib.data.base.BaseCallback;
 import com.example.toollib.http.HttpResult;
 import com.example.toollib.http.observer.BaseHttpRxObserver;
 import com.example.toollib.http.observer.BaseHttpZipRxObserver;
 import com.example.toollib.http.util.RxUtils;
+import com.example.toollib.util.Log;
+import com.sdses.idCard.IdCardHelper;
+import com.sdses.idCard.IdInfo;
+import com.vieboo.vbankapp.MainActivity;
 import com.vieboo.vbankapp.data.AddPersonalInitVO;
 import com.vieboo.vbankapp.data.AuthVO;
 import com.vieboo.vbankapp.data.DepartmentVO;
@@ -17,8 +24,13 @@ import com.vieboo.vbankapp.model.IAddPersonalView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function3;
 import io.reactivex.schedulers.Schedulers;
 
@@ -60,6 +72,8 @@ public class AddPersonalModel extends BaseModule<IAddPersonalView> implements IA
         });
     }
 
+
+
     private void setDepartment(List<DepartmentVO> departmentVOS) {
         List<SpinnerVO> spinnerVOS = new ArrayList<>();
         for (DepartmentVO departmentVO : departmentVOS) {
@@ -91,6 +105,26 @@ public class AddPersonalModel extends BaseModule<IAddPersonalView> implements IA
             spinnerVOS.add(spinnerVO);
         }
         mViewRef.get().setJurisdiction(spinnerVOS);
+    }
+
+
+    @Override
+    public void initIDCard() {
+        IdCardHelper.getInstance().open();
+        Observable.interval(1500, TimeUnit.MILLISECONDS).observeOn(Schedulers.computation()).subscribe(aLong -> {
+            IdInfo info = IdCardHelper.getInstance().getIdInfo();
+            Observable.create(new ObservableOnSubscribe<Object>() {
+                @Override
+                public void subscribe(ObservableEmitter<Object> emitter) throws Exception {
+                    if (info != null && info.getPhotoBmp() != null) {
+                        mViewRef.get().getIdInfo(info);
+                    } else {
+                        Log.e("mViewRef.get() = " + mViewRef.get());
+                        mViewRef.get().notObtained();
+                    }
+                }
+            }).subscribeOn(AndroidSchedulers.mainThread()).subscribe();
+        });
     }
 
 

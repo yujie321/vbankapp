@@ -2,6 +2,7 @@ package com.vieboo.vbankapp.data.db;
 
 
 import com.vieboo.vbankapp.DaoSession;
+import com.vieboo.vbankapp.PersonImageBeanDao;
 import com.vieboo.vbankapp.UserInfoDao;
 
 /**
@@ -39,5 +40,8 @@ public class DBHelper {
         return daoSession.getUserInfoDao();
     }
 
+    public PersonImageBeanDao getPersonImageBeanDao(){
+        return daoSession.getPersonImageBeanDao();
+    }
 
 }

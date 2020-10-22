@@ -1,2 +1,2 @@
-include ':app', ':toollib', ':ttslibrary'
+include ':app', ':toollib', ':ttslibrary', ':idlibrary'
 rootProject.name='VBankApp'

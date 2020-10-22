@@ -68,6 +68,7 @@ dependencies {
     annotationProcessor libs["butterknife-compiler"]
     implementation libs["autosize"]
     implementation project(':toollib')
+    implementation project(':idlibrary')
     implementation files('libs/smdt.jar')
     implementation project(':ttslibrary')
     implementation files('libs/arcsoft_face.jar')
