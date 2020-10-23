@@ -111,19 +111,28 @@ public class AddPersonalModel extends BaseModule<IAddPersonalView> implements IA
     @Override
     public void initIDCard() {
         IdCardHelper.getInstance().open();
-        Observable.interval(1500, TimeUnit.MILLISECONDS).observeOn(Schedulers.computation()).subscribe(aLong -> {
-            IdInfo info = IdCardHelper.getInstance().getIdInfo();
-            Observable.create(new ObservableOnSubscribe<Object>() {
-                @Override
-                public void subscribe(ObservableEmitter<Object> emitter) throws Exception {
-                    if (info != null && info.getPhotoBmp() != null) {
-                        mViewRef.get().getIdInfo(info);
-                    } else {
-                        Log.e("mViewRef.get() = " + mViewRef.get());
-                        mViewRef.get().notObtained();
-                    }
+        Observable.interval(1500, TimeUnit.MILLISECONDS).observeOn(Schedulers.computation()).subscribe(new Consumer<Long>() {
+            @Override
+            public void accept(Long aLong) throws Exception {
+                if (mViewRef.get() == null) {
+                    return;
                 }
-            }).subscribeOn(AndroidSchedulers.mainThread()).subscribe();
+                IdInfo info = IdCardHelper.getInstance().getIdInfo();
+                Observable.create(new ObservableOnSubscribe<Object>() {
+                    @Override
+                    public void subscribe(ObservableEmitter<Object> emitter) throws Exception {
+                        if (info != null && info.getPhotoBmp() != null) {
+                            if (mViewRef.get() != null) {
+                                mViewRef.get().getIdInfo(info);
+                            }
+                        } else {
+                            if (mViewRef.get() != null) {
+                                mViewRef.get().notObtained();
+                            }
+                        }
+                    }
+                }).subscribeOn(AndroidSchedulers.mainThread()).subscribe();
+            }
         });
     }
 

@@ -1,6 +1,7 @@
 package com.vieboo.vbankapp.weight;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.text.SpannableString;
@@ -72,6 +73,11 @@ public class IdCardDialog {
         return this;
     }
 
+    public IdCardDialog setIdCardBirth(String birthDay) {
+        tvIdCardBirth.setText(birthDay);
+        return this;
+    }
+
     public IdCardDialog setIdCardAddress(String address) {
         tvIdCardAddress.setText(address);
         return this;
@@ -84,6 +90,11 @@ public class IdCardDialog {
 
     public IdCardDialog setIdCardHead(String idCardHeadUrl) {
         GlideManager.loadImage(mContext, idCardHeadUrl, ivIdCardHead);
+        return this;
+    }
+
+    public IdCardDialog setIdCardHead(Bitmap bitmap) {
+        ivIdCardHead.setImageBitmap(bitmap);
         return this;
     }
 

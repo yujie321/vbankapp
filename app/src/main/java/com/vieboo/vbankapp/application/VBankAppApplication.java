@@ -8,6 +8,7 @@ import androidx.multidex.MultiDex;
 import com.example.toollib.ToolLib;
 import com.qmuiteam.qmui.arch.QMUISwipeBackActivityManager;
 import com.usc.tts.TTSPlayer;
+import com.vieboo.vbankapp.service.FaceServer;
 
 public class VBankAppApplication extends Application {
 
@@ -32,6 +33,8 @@ public class VBankAppApplication extends Application {
                 .setBaseUrl(BASE_URL);
 
         registerActivityLifecycleCallbacks(new LifecycleCallbacks());
+
+        FaceServer.getInstance().initEngine(vBankAppApplication);
 
         TTSPlayer.getInstance().initTts(vBankAppApplication);
     }

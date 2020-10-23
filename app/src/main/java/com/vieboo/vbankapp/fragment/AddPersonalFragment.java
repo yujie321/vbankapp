@@ -2,6 +2,7 @@ package com.vieboo.vbankapp.fragment;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,8 +18,10 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
 import com.arcsoft.face.FaceEngine;
+import com.arcsoft.face.FaceFeature;
 import com.example.toollib.base.BaseFragment;
 import com.example.toollib.util.DensityUtil;
+import com.example.toollib.util.Log;
 import com.sdses.idCard.IdCardHelper;
 import com.sdses.idCard.IdInfo;
 import com.vieboo.vbankapp.R;
@@ -27,31 +30,30 @@ import com.vieboo.vbankapp.data.PersonImageBean;
 import com.vieboo.vbankapp.data.SpinnerVO;
 import com.vieboo.vbankapp.data.db.DBHelper;
 import com.vieboo.vbankapp.face.CameraHelper;
-import com.vieboo.vbankapp.face.FaceHelper;
 import com.vieboo.vbankapp.face.FaceRectView;
 import com.vieboo.vbankapp.face.util.CameraListenerUtil;
-import com.vieboo.vbankapp.face.util.FaceListenerUtil;
 import com.vieboo.vbankapp.face.util.FaceUtil;
+import com.vieboo.vbankapp.face.util.IdCardFaceListenerUtil;
+import com.vieboo.vbankapp.face.util.IdCardFaceView;
 import com.vieboo.vbankapp.model.IAddPersonalModel;
 import com.vieboo.vbankapp.model.IAddPersonalView;
 import com.vieboo.vbankapp.model.impl.AddPersonalModel;
 import com.vieboo.vbankapp.utils.Constants;
+import com.vieboo.vbankapp.utils.FaceAlgoUtils;
 import com.vieboo.vbankapp.utils.PermissionUtil;
 import com.vieboo.vbankapp.weight.IdCardDialog;
 
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.disposables.CompositeDisposable;
 
 import static com.vieboo.vbankapp.utils.Constants.ACTION_REQUEST_PERMISSIONS;
 
 /**
  * 人员新增
  */
-public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> implements IAddPersonalView, ViewTreeObserver.OnGlobalLayoutListener {
+public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> implements IAddPersonalView, IdCardFaceView,ViewTreeObserver.OnGlobalLayoutListener {
 
     @BindView(R.id.texture_preview)
     TextureView texturePreview;
@@ -63,6 +65,16 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
     TextView tvPersonalName;
     @BindView(R.id.tvPersonalSex)
     TextView tvPersonalSex;
+    @BindView(R.id.tvPersonalNation)
+    TextView tvPersonalNation;
+    @BindView(R.id.tvDateBirth)
+    TextView tvDateBirth;
+    @BindView(R.id.tvIdCardAddress)
+    TextView tvIdCardAddress;
+    @BindView(R.id.tvIdCardNumber)
+    TextView tvIdCardNumber;
+
+
     @BindView(R.id.spinnerDepartment)
     Spinner spinnerDepartment;
     @BindView(R.id.spinnerPositions)
@@ -90,7 +102,7 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
     private CameraHelper cameraHelper;
 
     private CameraListenerUtil cameraListenerUtil;
-    private FaceListenerUtil faceListenerUtil;
+    private IdCardFaceListenerUtil faceListenerUtil;
 
     /**
      * 所需的所有权限信息
@@ -101,6 +113,10 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
     };
 
     private int dropDownVerticalOffset = DensityUtil.dp2px(32f);
+
+    private volatile byte[] idCardFeature;
+    private volatile long idTime;
+    private IdInfo idInfo;
 
     public static AddPersonalFragment newInstance() {
         Bundle args = new Bundle();
@@ -161,6 +177,7 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
                 break;
             case R.id.btnSave:
                 //保存
+                addPersontoDB();
                 break;
             case R.id.btnClose:
                 showToast("取消");
@@ -168,19 +185,23 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
         }
     }
 
+    private void addPersontoDB() {
+        //DBHelper.getInstance().getUserInfoDao();
+    }
+
     /**
      * 身份证
      */
-    private void showIdCardDialog() {
+    private void showIdCardDialog(IdInfo idInfo) {
         IdCardDialog instance = IdCardDialog.getInstance();
         instance.initView(getActivity())
-                .setIdCardName("黄光广")
-                .setIdCardSex("男")
-                .setIdCardNation("汉")
-                .setIdCardBirth("1978", "3", "10")
-                .setIdCardAddress("北京市海定区姑姑咯咯社区明前街道")
-                .setIdCardNumber("350102100000001200")
-                .setIdCardHead("https://dss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3521319392,1160740190&fm=26&gp=0.jpg")
+                .setIdCardName(idInfo.getName())
+                .setIdCardSex(idInfo.getSex())
+                .setIdCardNation(idInfo.getNational())
+                .setIdCardBirth(idInfo.getBirthday())
+                .setIdCardAddress(idInfo.getAddress())
+                .setIdCardNumber(idInfo.getIdCardNum())
+                .setIdCardHead(idInfo.getPhotoBmp())
                 .showDialog();
         new Handler().postDelayed(instance::dismiss, 3000);
     }
@@ -211,56 +232,44 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
         if (idInfo == null) {
             return;
         }
+        this.idInfo = idInfo;
+        showIdCardDialog(idInfo);
+        refreshIDCard(idInfo);
+        Bitmap bitmap = idInfo.getPhotoBmp();
+        if (bitmap != null) {
+            Log.d("bm1: " + bitmap.getByteCount());
 
-//        if (tvIdCard_Name != null) {
-//            tvIdCard_Name.setText(idInfo.getName());
-//        }
-//        if (tvIdCard_Gender != null) {
-//            tvIdCard_Gender.setText(idInfo.getSex());
-//        }
-//        if (tvIdCard_National != null) {
-//            tvIdCard_National.setText(idInfo.getNational());
-//        }
-//        if (tvIdCard_BirthDay != null) {
-//            tvIdCard_BirthDay.setText(idInfo.getBirthday());
-//        }
-//
-//        if (tvIdCard_Address != null) {
-//            tvIdCard_Address.setText(idInfo.getAddress());
-//        }
-//        if (tvIdCard_Num != null) {
-//            tvIdCard_Num.setText(idInfo.getIdCardNum());
-//        }
-//        idCard = new IDCard(idInfo.getName(), idInfo.getIdCardNum(), idInfo.getAddress(), idInfo.getSex());
-//
-//
-//        Bitmap bm1 = idInfo.getPhotoBmp();
-//
-//        if (imgIDCard != null && bm1 != null) {
-//            Log.i(TAG, "bm1: " + bm1.getByteCount());
-//            imgIDCard.setImageBitmap(bm1);
-//
-//            addSubscription(Observable.create(new ObservableOnSubscribe<Object>() {
-//                @Override
-//                public void subscribe(ObservableEmitter<Object> emitter) throws Exception {
-//                    long m1 = System.currentTimeMillis();
-//                    //用身份证的照片提取特征
-//                    FaceFeature faceFeature = FaceAlgoUtils.getImageFeature(bm1);
-//                    long m2 = System.currentTimeMillis();
-//                    LogUtils.debugInfo((m2 - m1) + " ms---身份证特征耗时--" + Thread.currentThread().getName());
-//
-//                    if (faceFeature != null) {
-//                        idTime = System.currentTimeMillis();
-//                        idCardFeature = faceFeature.getFeatureData();
+            long m1 = System.currentTimeMillis();
+            //用身份证的照片提取特征
+            FaceFeature faceFeature = FaceAlgoUtils.getImageFeature(bitmap);
+            long m2 = System.currentTimeMillis();
+            Log.e((m2 - m1) + " ms---身份证特征耗时--" + Thread.currentThread().getName());
+
+            if (faceFeature != null) {
+                idTime = System.currentTimeMillis();
+                idCardFeature = faceFeature.getFeatureData();
+                faceListenerUtil.setIdCardFeature(idCardFeature);
+//                FaceFeature faceFeature1 = faceListenerUtil.getFaceFeature();
+//                FaceSimilar faceSimilar = faceListenerUtil.compareVideoSimilar(idCardFeature, faceFeature1.getFeatureData());
+//                float maxSimilar = 0f;
+//                if (faceSimilar != null) {
+//                    if (faceSimilar.getScore() >= Constants.FACE_MIN_SIMLAR && faceSimilar.getScore() > maxSimilar) {
+//                        maxSimilar = faceSimilar.getScore();
 //                    }
+//                    Log.i("checkingFace:姓名:"  + "-相似度:" + faceSimilar.getScore());
 //                }
-//            }), new RxSubscriber() {
-//                @Override
-//                public void onSuccess(Object o) {
-//
-//                }
-//            });
-//        }
+            }
+        }
+    }
+
+    private void refreshIDCard(IdInfo idInfo) {
+        tvPersonalName.setText(idInfo.getName());
+        tvPersonalSex.setText(idInfo.getSex());
+        tvPersonalNation.setText(idInfo.getNational());
+        tvDateBirth.setText(idInfo.getBirthday());
+        tvIdCardAddress.setText(idInfo.getAddress());
+        tvIdCardNumber.setText(idInfo.getIdCardNum());
+        ivPersonnelHead.setImageBitmap(idInfo.getPhotoBmp());
     }
 
     @Override
@@ -325,10 +334,11 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
                 .setFaceListener(faceListenerUtil);
     }
 
-    private FaceListenerUtil initFaceListenerUtil() {
-        return faceListenerUtil = new FaceListenerUtil()
-                .setAsyncFaceEngine(asyncFaceEngine)
-                .setDutyPersonFeatureList(getDutyPersonFeatureList());
+    private IdCardFaceListenerUtil initFaceListenerUtil() {
+        faceListenerUtil = new IdCardFaceListenerUtil(this);
+        faceListenerUtil.setAsyncFaceEngine(asyncFaceEngine);
+        faceListenerUtil.setDutyPersonFeatureList(getDutyPersonFeatureList());
+        return faceListenerUtil;
     }
 
     private List<PersonImageBean> getDutyPersonFeatureList(){
@@ -345,10 +355,15 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
         asyncFaceEngine = faceUtil.initAsyncFaceEngine(getActivity());
     }
 
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         IdCardHelper.getInstance().close();
     }
 
+    @Override
+    public void callback() {
+        int refffff = 0;
+    }
 }

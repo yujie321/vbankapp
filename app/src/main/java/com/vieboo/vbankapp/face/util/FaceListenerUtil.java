@@ -73,7 +73,6 @@ public class FaceListenerUtil implements FaceListener {
 
     @Override
     public void onFaceFeatureInfoGet(@Nullable FaceFeature faceFeature, Integer requestId, Integer errorCode) {
-        Log.e("onFaceFeatureInfoGet 执行 -------------------------------------------------------------");
         if (faceFeature != null) {
             Integer liveness = livenessMap.get(requestId);
             //不做活体检测的情况，直接搜索
@@ -165,7 +164,7 @@ public class FaceListenerUtil implements FaceListener {
     }
 
 
-    private void searchFace(final FaceFeature frFace, final Integer requestId) {
+    public void searchFace(final FaceFeature frFace, final Integer requestId) {
         Observable
                 .create(new ObservableOnSubscribe<String>() {
                     @Override
@@ -289,7 +288,7 @@ public class FaceListenerUtil implements FaceListener {
     /**
      * 人脸比对
      */
-    private String checkingFace(FaceFeature faceFeature) {
+    public String checkingFace(FaceFeature faceFeature) {
         if (isProcessing || asyncFaceEngine == null) {
             return "";
         }
@@ -336,7 +335,7 @@ public class FaceListenerUtil implements FaceListener {
      * @param featureDataTwo
      * @return
      */
-    private FaceSimilar compareVideoSimilar(byte[] featureDataOne, byte[] featureDataTwo) {
+    public FaceSimilar compareVideoSimilar(byte[] featureDataOne, byte[] featureDataTwo) {
         FaceSimilar faceSimilar = new FaceSimilar();
         if (asyncFaceEngine != null) {
             FaceFeature faceFeatureOne = new FaceFeature();
@@ -380,5 +379,6 @@ public class FaceListenerUtil implements FaceListener {
         this.dutyPersonFeatureList = dutyPersonFeatureList;
         return this;
     }
+
 
 }

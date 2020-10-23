@@ -12,6 +12,7 @@ import com.vieboo.vbankapp.R;
 import com.vieboo.vbankapp.model.ISplashModel;
 import com.vieboo.vbankapp.model.ISplashView;
 import com.vieboo.vbankapp.model.impl.SplashModel;
+import com.vieboo.vbankapp.service.FaceServer;
 import com.vieboo.vbankapp.utils.Constants;
 import com.vieboo.vbankapp.utils.FaceAlgoUtils;
 
