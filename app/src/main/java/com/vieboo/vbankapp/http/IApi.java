@@ -48,6 +48,12 @@ public interface IApi {
     Observable<HttpResult<List<NoticeListVO>>> getNoticeList();
 
     /**
+     * 阅读通知公告
+     */
+    @GET("/microservice-pad/rest/readNotice")
+    Observable<HttpResult<String>> readNotice();
+
+    /**
      * 查询员工
      */
     @GET("/microservice-pad/rest/findPerson")

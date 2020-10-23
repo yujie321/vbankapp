@@ -6,6 +6,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.module.LoadMoreModule;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
+import com.example.toollib.manager.GlideManager;
 import com.vieboo.vbankapp.R;
 import com.vieboo.vbankapp.data.SecureResultVO;
 
@@ -21,7 +22,7 @@ public class SecurityOperateAdapter extends BaseQuickAdapter<SecureResultVO, Bas
     protected void convert(@NotNull BaseViewHolder viewHolder, SecureResultVO secureResultVO) {
         ImageView ivSecurityHead = viewHolder.getView(R.id.ivSecurityHead);
 
-        //GlideManager.loadImage(getContext(), secureResultVO.getImageUrl(), ivSecurityHead);
+        GlideManager.loadImage(getContext(), secureResultVO.getImageUrl(), ivSecurityHead , R.drawable.bg_test);
 
         TextView tvSecurityName = viewHolder.getView(R.id.tvSecurityName);
         tvSecurityName.setText(secureResultVO.getPersonName());

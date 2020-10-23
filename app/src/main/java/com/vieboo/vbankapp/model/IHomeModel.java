@@ -28,4 +28,10 @@ public interface IHomeModel extends IBaseModule<IHomeView> {
      * 导航菜单
      */
     void getNavigationList();
+
+    /**
+     * 阅读通知公告
+     * @param id id
+     */
+    void requestReadNotice(int id , String pdfUrl);
 }

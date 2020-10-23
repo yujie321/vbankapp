@@ -117,5 +117,17 @@ public class HomeModel extends BaseModule<IHomeView> implements IHomeModel  {
         mViewRef.get().setNavigationList(navigationList);
     }
 
+    @Override
+    public void requestReadNotice(int id , String pdfUrl) {
+        RxUtils.getObservable(ServiceUrl.getUserApi().readNotice())
+                .compose(mViewRef.get().bindLifecycle())
+                .subscribe(new BaseHttpRxObserver<String>() {
+                    @Override
+                    protected void onSuccess(String response) {
+                        mViewRef.get().readNotice(pdfUrl);
+                    }
+                });
+    }
+
 
 }

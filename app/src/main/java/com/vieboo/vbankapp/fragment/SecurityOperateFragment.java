@@ -2,8 +2,8 @@ package com.vieboo.vbankapp.fragment;
 
 import android.os.Bundle;
 
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.toollib.base.BaseListFragment;
 import com.github.mikephil.charting.charts.LineChart;
@@ -14,7 +14,6 @@ import com.vieboo.vbankapp.data.SecureResultVO;
 import com.vieboo.vbankapp.model.ISecurityOperateModel;
 import com.vieboo.vbankapp.model.ISecurityOperateView;
 import com.vieboo.vbankapp.model.impl.SecurityOperateModel;
-import com.vieboo.vbankapp.utils.GridSpacingItemDecoration;
 
 import java.util.List;
 
@@ -47,8 +46,8 @@ public class SecurityOperateFragment extends BaseListFragment<ISecurityOperateMo
     @Override
     public void initView() {
         super.initView();
-        rvBaseList.setLayoutManager(new GridLayoutManager(getActivity(), 6));
-        rvBaseList.addItemDecoration(new GridSpacingItemDecoration(6, 5, false));
+        rvBaseList.setLayoutManager(new StaggeredGridLayoutManager(5, StaggeredGridLayoutManager.VERTICAL));
+        //rvBaseList.addItemDecoration(new GridSpacingItemDecoration(5, 5, false));
     }
 
     @Override

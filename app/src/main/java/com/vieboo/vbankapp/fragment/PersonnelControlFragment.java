@@ -3,8 +3,8 @@ package com.vieboo.vbankapp.fragment;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.toollib.base.BaseFragment;
 import com.vieboo.vbankapp.R;
@@ -16,7 +16,6 @@ import com.vieboo.vbankapp.face.FaceRectView;
 import com.vieboo.vbankapp.model.IPersonnelControlModel;
 import com.vieboo.vbankapp.model.IPersonnelControlView;
 import com.vieboo.vbankapp.model.impl.PersonnelControlModel;
-import com.vieboo.vbankapp.utils.GridSpacingItemDecoration;
 
 import java.util.List;
 
@@ -54,16 +53,13 @@ public class PersonnelControlFragment extends BaseFragment<IPersonnelControlMode
 
     @Override
     public void initView() {
-        int spacing = 5;
-        //columns
-        int spanCount = 6;
         //员工风采
-        rvStaffStyle.setLayoutManager(new GridLayoutManager(getActivity(), 6));
-        rvStaffStyle.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, false));
+        rvStaffStyle.setLayoutManager(new StaggeredGridLayoutManager(5, StaggeredGridLayoutManager.VERTICAL));
+        //rvStaffStyle.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, false));
         iModule.getStaffStyle();
         //打卡记录
-        rvPunchRecord.setLayoutManager(new GridLayoutManager(getActivity(), 6));
-        rvPunchRecord.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, false));
+        rvPunchRecord.setLayoutManager(new StaggeredGridLayoutManager(5, StaggeredGridLayoutManager.VERTICAL));
+        //rvPunchRecord.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, false));
         iModule.getPunchRecord();
     }
 

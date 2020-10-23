@@ -40,7 +40,7 @@ import butterknife.BindView;
 /**
  * 首页
  */
-public class HomeFragment extends BaseListFragment<IHomeModel , NoticeListAdapter> implements IHomeView {
+public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter> implements IHomeView {
 
 
     @BindView(R.id.tcHomeDate)
@@ -100,6 +100,8 @@ public class HomeFragment extends BaseListFragment<IHomeModel , NoticeListAdapte
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 4);
         rvNavigationList.setLayoutManager(layoutManager);
         iModule.getNavigationList();
+
+        readNotice("");
     }
 
     @Override
@@ -172,7 +174,17 @@ public class HomeFragment extends BaseListFragment<IHomeModel , NoticeListAdapte
     @Override
     public NoticeListAdapter getBaseListAdapter() {
         noticeListAdapter = new NoticeListAdapter();
+        noticeListAdapter.setINoticeList(iNoticeList);
         return noticeListAdapter;
+    }
+
+    private NoticeListAdapter.INoticeList iNoticeList = (id, pdfUrl) -> iModule.requestReadNotice(id , pdfUrl);
+
+    @Override
+    public void readNotice(String pdfUrl) {
+        //显示pdf
+//        startFragment(PDFFragment.newInstance(pdfUrl));
+        startFragment(PDFFragment.newInstance("http://192.168.1.227:41001/pdf/%E6%B3%A8%E5%86%8C%E7%85%A7%E7%89%87%E8%A7%84%E8%8C%83%E8%AF%B4%E6%98%8E.pdf"));
     }
 
     @Override

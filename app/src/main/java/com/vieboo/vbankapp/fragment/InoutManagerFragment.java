@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.toollib.base.BaseListFragment;
 import com.github.mikephil.charting.charts.LineChart;
@@ -46,18 +47,21 @@ public class InoutManagerFragment extends BaseListFragment<IInoutManagerModel, I
     @Override
     public void initView() {
         super.initView();
-        rvBaseList.setLayoutManager(new GridLayoutManager(getActivity(), 6));
-        rvBaseList.addItemDecoration(new GridSpacingItemDecoration(6, 5, false));
+        rvBaseList.setLayoutManager(new StaggeredGridLayoutManager(5, StaggeredGridLayoutManager.VERTICAL));
+        //rvBaseList.addItemDecoration(new GridSpacingItemDecoration(6, 5, false));
 
         //实时进出记录
-        rvAccessRecord.setLayoutManager(new GridLayoutManager(getActivity(), 7));
-        rvAccessRecord.addItemDecoration(new GridSpacingItemDecoration(7, 5, false));
+        rvAccessRecord.setLayoutManager(new StaggeredGridLayoutManager(5, StaggeredGridLayoutManager.VERTICAL));
+       //rvAccessRecord.addItemDecoration(new GridSpacingItemDecoration(7, 5, false));
         iModule.requestAccessPersonInOut();
     }
 
     @Override
     public void setAccessPersonInOut(List<PersonInOutVO> personInOutVOS) {
         //实时进出记录
+        InoutManagerAdapter inoutAccessPersonAdapter = new InoutManagerAdapter();
+        inoutAccessPersonAdapter.setList(personInOutVOS);
+        rvAccessRecord.setAdapter(inoutAccessPersonAdapter);
     }
 
     @Override
@@ -75,11 +79,13 @@ public class InoutManagerFragment extends BaseListFragment<IInoutManagerModel, I
     @Override
     public void refreshPersonInOut(List<PersonInOutVO> personInOutVOS) {
         //历史进出记录
+        inoutManagerAdapter.setList(personInOutVOS);
     }
 
     @Override
     public void loadMorePersonInOut(List<PersonInOutVO> personInOutVOS) {
         //历史进出记录
+        inoutManagerAdapter.addData(personInOutVOS);
     }
 
 

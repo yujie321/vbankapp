@@ -17,6 +17,8 @@ import com.vieboo.vbankapp.data.NoticeListVO;
  */
 public class NoticeListAdapter extends BaseQuickAdapter<NoticeListVO, BaseViewHolder> implements LoadMoreModule {
 
+    private INoticeList iNoticeList;
+
     public NoticeListAdapter() {
         super(R.layout.item_notice_list, null);
     }
@@ -27,17 +29,27 @@ public class NoticeListAdapter extends BaseQuickAdapter<NoticeListVO, BaseViewHo
         TextView tvFilename = helper.getView(R.id.tvFilename);
         ImageView ivIsRead = helper.getView(R.id.ivIsRead);
 
-        int adapterPosition = helper.getAdapterPosition();
+        int adapterPosition = helper.getAdapterPosition() + 1;
         tvSerialNum.setText(String.valueOf(adapterPosition));
 
         tvFilename.setText(item.getTitle());
 
         int noticeStatus = item.getNoticeStatus();
-        if (noticeStatus == 0){
+        if (noticeStatus == 0) {
             //未读
             ivIsRead.setImageResource(R.drawable.ic_unread);
-        }else {
+            iNoticeList.clickRead(item.getId() , item.getContent());
+        } else {
             ivIsRead.setImageResource(R.drawable.ic_read);
         }
     }
+
+    public void setINoticeList(INoticeList iNoticeList) {
+        this.iNoticeList = iNoticeList;
+    }
+
+    public interface INoticeList {
+        void clickRead(int id , String pdfUrl);
+    }
+
 }

@@ -19,6 +19,17 @@ public class SecureResultVO {
     @SerializedName(value = "cameraname")
     private String cameraName;
 
+    private String imageUrl;
+
+
+    public String getImageUrl() {
+        return imageUrl == null ? "" : imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl == null ? "" : imageUrl;
+    }
+
     public String getPersonId() {
         return personId == null ? "" : personId;
     }

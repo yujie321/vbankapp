@@ -40,4 +40,9 @@ public interface IHomeView extends IBaseListView {
      */
     void setNavigationList(List<Navigation> navigationList);
 
+    /**
+     * 显示pdf
+     * @param pdfUrl 地址
+     */
+    void readNotice(String pdfUrl);
 }

@@ -1,9 +1,12 @@
 package com.vieboo.vbankapp.data;
 
+import com.google.gson.annotations.SerializedName;
+
 public class PunchRecordVO {
 
     private String id;
     private String imageUrl;
+    @SerializedName("name")
     private String Name;
     private String number;
     private String positionName;
