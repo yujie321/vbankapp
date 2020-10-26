@@ -9,4 +9,5 @@ public interface IDeviceStatusModel extends IBaseModule<IDeviceStatusView> {
      */
     void requestVQD();
 
+    void getDeviceStatus();
 }

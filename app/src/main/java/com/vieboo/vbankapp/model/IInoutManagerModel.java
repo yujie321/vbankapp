@@ -14,4 +14,5 @@ public interface IInoutManagerModel extends IBaseModule<IInoutManagerView> {
      */
     void requestAccessPersonInOut();
 
+    void getTodayPersonInoutStatic();
 }

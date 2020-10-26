@@ -86,6 +86,7 @@
     <string name="main_vip">VIP&#8197;到访</string>
     <string name="main_daily_security_operation_trend_chart">当日安保运营趋势图</string>
     <string name="main_security_operation_route">安保运营路线</string>
+    <string name="main_security_operation_records">历史运营记录</string>
     <string name="main_trend_chart_daily_records">当日进出记录趋势图</string>
     <string name="main_real_time_access_record">实时进出记录</string>
     <string name="main_historical_access_records">历史进出记录</string>

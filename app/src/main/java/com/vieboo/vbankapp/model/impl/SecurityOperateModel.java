@@ -5,14 +5,15 @@ import com.example.toollib.enums.StaticExplain;
 import com.example.toollib.http.exception.ApiException;
 import com.example.toollib.http.observer.BaseHttpRxObserver;
 import com.example.toollib.http.util.RxUtils;
+import com.vieboo.vbankapp.data.SecureRecordVo;
 import com.vieboo.vbankapp.data.SecureResultVO;
 import com.vieboo.vbankapp.data.SecureVO;
-import com.vieboo.vbankapp.data.VQDResultVO;
 import com.vieboo.vbankapp.http.ServiceUrl;
 import com.vieboo.vbankapp.model.ISecurityOperateModel;
 import com.vieboo.vbankapp.model.ISecurityOperateView;
 
 import java.util.List;
+import java.util.ListIterator;
 
 public class SecurityOperateModel extends BaseModule<ISecurityOperateView> implements ISecurityOperateModel {
 
@@ -47,6 +48,22 @@ public class SecurityOperateModel extends BaseModule<ISecurityOperateView> imple
                         super.onError(apiException);
                         mViewRef.get().finishRefresh();
                         mViewRef.get().loadError();
+                    }
+                });
+    }
+
+    @Override
+    public void getTodaySecureStatic() {
+        RxUtils.getObservable(ServiceUrl.getUserApi().todaySecureStatic())
+                .compose(mViewRef.get().bindLifecycle())
+                .subscribe(new BaseHttpRxObserver<List<SecureRecordVo>>() {
+                    @Override
+                    protected void onSuccess(List<SecureRecordVo> secureRecordVoList) {
+                        mViewRef.get().setSecureStatic(secureRecordVoList);
+                    }
+                    @Override
+                    public void onError(ApiException apiException) {
+                        super.onError(apiException);
                     }
                 });
     }

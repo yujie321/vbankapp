@@ -9,9 +9,9 @@ import com.vieboo.vbankapp.data.PassengerVO;
 import com.vieboo.vbankapp.data.PositionsVO;
 import com.vieboo.vbankapp.data.PunchRecordVO;
 import com.vieboo.vbankapp.data.RecordVO;
+import com.vieboo.vbankapp.data.SecureRecordVo;
 import com.vieboo.vbankapp.data.SecureVO;
 import com.vieboo.vbankapp.data.StaticTodaySummeryVo;
-import com.vieboo.vbankapp.data.VQDResultVO;
 import com.vieboo.vbankapp.data.VQDSystemRecordVo;
 
 import java.util.List;
@@ -110,9 +110,36 @@ public interface IApi {
     Observable<HttpResult<SecureVO>> findSecure(@Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
 
     /**
+     * 获取当日安保运营统计
+     */
+    @GET("/microservice-pad/rest/secure/todayperiodstatic")
+    Observable<HttpResult<List<SecureRecordVo>>> todaySecureStatic();
+
+    //进出管理统计
+    /**
      * 查询多个人员进出登记信息
      */
     @GET("/microservice-pad/rest/personinout")
     Observable<HttpResult<InOutVO>> findPersonInOut(@Query("beginTime") String beginTime, @Query("endTime") String endTime,
                                                     @Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
+
+
+    /**
+     * 当日进出记录趋势图
+     */
+    @GET("microservice-pad/rest/personinout/todayperiodstatic")
+    Observable<HttpResult<List<SecureRecordVo>>> todayPersonInoutStatic();
+
+    //网点运营统计
+    /**
+     * 获取近七日客流趋势
+     */
+    @GET("microservice-pad/rest/passenger/last7dayperiodstatic")
+    Observable<HttpResult<List<SecureRecordVo>>> last7dayPeriodStatic();
+
+    /**
+     * 获取当日客流统计
+     */
+    @GET("microservice-pad/rest/passenger/last7dayperiodstatic")
+    Observable<HttpResult<List<SecureRecordVo>>> todayPassengerStatic();
 }

@@ -101,7 +101,7 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
         rvNavigationList.setLayoutManager(layoutManager);
         iModule.getNavigationList();
 
-        readNotice("");
+        //readNotice("");
     }
 
     @Override

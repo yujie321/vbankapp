@@ -9,8 +9,8 @@ import androidx.annotation.Nullable;
 
 import com.example.toollib.base.BaseFragment;
 import com.example.toollib.data.IBaseModule;
-import com.just.agentwebX5.AgentWebX5;
-import com.just.agentwebX5.DefaultWebClient;
+//import com.just.agentwebX5.AgentWebX5;
+//import com.just.agentwebX5.DefaultWebClient;
 import com.vieboo.vbankapp.R;
 
 public class PDFFragment extends BaseFragment {

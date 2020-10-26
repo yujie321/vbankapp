@@ -12,10 +12,12 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.vieboo.vbankapp.R;
 import com.vieboo.vbankapp.adapter.InoutManagerAdapter;
 import com.vieboo.vbankapp.data.PersonInOutVO;
+import com.vieboo.vbankapp.data.SecureRecordVo;
 import com.vieboo.vbankapp.model.IInoutManagerModel;
 import com.vieboo.vbankapp.model.IInoutManagerView;
 import com.vieboo.vbankapp.model.impl.InoutManagerModel;
 import com.vieboo.vbankapp.utils.GridSpacingItemDecoration;
+import com.vieboo.vbankapp.utils.LineChartUtil;
 
 import java.util.List;
 
@@ -54,6 +56,15 @@ public class InoutManagerFragment extends BaseListFragment<IInoutManagerModel, I
         rvAccessRecord.setLayoutManager(new StaggeredGridLayoutManager(5, StaggeredGridLayoutManager.VERTICAL));
        //rvAccessRecord.addItemDecoration(new GridSpacingItemDecoration(7, 5, false));
         iModule.requestAccessPersonInOut();
+
+        //获取当日进出记录趋势图
+        LineChartUtil.initLineChart(lineChart);
+        iModule.getTodayPersonInoutStatic();
+    }
+
+    @Override
+    public void setTodayPersoninoutStatic(List<SecureRecordVo> secureRecordVoList) {
+        LineChartUtil.setLineChartData(getActivity(), lineChart, secureRecordVoList);
     }
 
     @Override

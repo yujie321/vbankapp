@@ -1,5 +1,6 @@
 package com.vieboo.vbankapp.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -8,6 +9,14 @@ import com.example.toollib.base.BaseFragment;
 import com.example.toollib.data.IBaseModule;
 import com.github.mikephil.charting.charts.LineChart;
 import com.vieboo.vbankapp.R;
+import com.vieboo.vbankapp.data.SecureRecordVo;
+import com.vieboo.vbankapp.model.IBranchOperateModel;
+import com.vieboo.vbankapp.model.IBranchOperateView;
+import com.vieboo.vbankapp.model.impl.BranchOperateModel;
+import com.vieboo.vbankapp.utils.DoubleLineChartUtil;
+import com.vieboo.vbankapp.utils.LineChartUtil;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -15,7 +24,7 @@ import butterknife.OnClick;
 /**
  * 网点运营
  */
-public class BranchOperateFragment extends BaseFragment {
+public class BranchOperateFragment extends BaseFragment<IBranchOperateModel> implements IBranchOperateView {
 
 
     @BindView(R.id.tvBranchPersonNum)
@@ -51,7 +60,20 @@ public class BranchOperateFragment extends BaseFragment {
 
     @Override
     public void initView() {
+        LineChartUtil.initLineChart(lineChart);
+        DoubleLineChartUtil.initDoubleLineChart(lineChart2);
+        iModule.getLast7dayPeriodStatic();
+        iModule.getTodayPassengerStatic();
+    }
 
+    @Override
+    public void setLast7dayPeriodStatic(List<SecureRecordVo> secureRecordVoList) {
+        LineChartUtil.setLineChartData(getActivity(), lineChart, secureRecordVoList);
+    }
+
+    @Override
+    public void setTodayPassengerStatic(List<SecureRecordVo> secureRecordVoList) {
+        DoubleLineChartUtil.setTodayPassengerStatic(getActivity(), lineChart2, secureRecordVoList);
     }
 
     @OnClick(R.id.ivBack)
@@ -60,8 +82,8 @@ public class BranchOperateFragment extends BaseFragment {
     }
 
     @Override
-    protected IBaseModule initModule() {
-        return null;
+    protected IBranchOperateModel initModule() {
+        return new BranchOperateModel() ;
     }
 
     @Override
@@ -78,5 +100,6 @@ public class BranchOperateFragment extends BaseFragment {
     protected boolean translucentFull() {
         return true;
     }
+
 
 }

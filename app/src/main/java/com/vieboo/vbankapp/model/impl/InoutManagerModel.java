@@ -9,6 +9,7 @@ import com.example.toollib.http.util.RxUtils;
 import com.example.toollib.util.DateUtil;
 import com.vieboo.vbankapp.data.InOutVO;
 import com.vieboo.vbankapp.data.PersonInOutVO;
+import com.vieboo.vbankapp.data.SecureRecordVo;
 import com.vieboo.vbankapp.data.SecureResultVO;
 import com.vieboo.vbankapp.data.SecureVO;
 import com.vieboo.vbankapp.http.ServiceUrl;
@@ -74,5 +75,21 @@ public class InoutManagerModel extends BaseModule<IInoutManagerView> implements 
                     }
                 });
 
+    }
+
+    @Override
+    public void getTodayPersonInoutStatic() {
+        RxUtils.getObservable(ServiceUrl.getUserApi().todayPersonInoutStatic())
+                .compose(mViewRef.get().bindLifecycle())
+                .subscribe(new BaseHttpRxObserver<List<SecureRecordVo>>() {
+                    @Override
+                    protected void onSuccess(List<SecureRecordVo> secureRecordVoList) {
+                        mViewRef.get().setTodayPersoninoutStatic(secureRecordVoList);
+                    }
+                    @Override
+                    public void onError(ApiException apiException) {
+                        super.onError(apiException);
+                    }
+                });
     }
 }

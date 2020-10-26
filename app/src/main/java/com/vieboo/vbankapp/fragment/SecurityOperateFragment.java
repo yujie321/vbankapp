@@ -10,10 +10,12 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.vieboo.vbankapp.R;
 import com.vieboo.vbankapp.adapter.SecurityOperateAdapter;
+import com.vieboo.vbankapp.data.SecureRecordVo;
 import com.vieboo.vbankapp.data.SecureResultVO;
 import com.vieboo.vbankapp.model.ISecurityOperateModel;
 import com.vieboo.vbankapp.model.ISecurityOperateView;
 import com.vieboo.vbankapp.model.impl.SecurityOperateModel;
+import com.vieboo.vbankapp.utils.LineChartUtil;
 
 import java.util.List;
 
@@ -48,6 +50,13 @@ public class SecurityOperateFragment extends BaseListFragment<ISecurityOperateMo
         super.initView();
         rvBaseList.setLayoutManager(new StaggeredGridLayoutManager(5, StaggeredGridLayoutManager.VERTICAL));
         //rvBaseList.addItemDecoration(new GridSpacingItemDecoration(5, 5, false));
+        LineChartUtil.initLineChart(lineChart);
+        iModule.getTodaySecureStatic();
+    }
+
+    @Override
+    public void setSecureStatic(List<SecureRecordVo> secureRecordVoList) {
+        LineChartUtil.setLineChartData(getActivity(), lineChart, secureRecordVoList);
     }
 
     @Override
@@ -71,6 +80,8 @@ public class SecurityOperateFragment extends BaseListFragment<ISecurityOperateMo
     public void loadMoreSecure(List<SecureResultVO> secureResultVOS) {
         securityOperateAdapter.addData(secureResultVOS);
     }
+
+
 
     @Override
     protected SecurityOperateModel initModule() {

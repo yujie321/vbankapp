@@ -12,6 +12,7 @@ import com.vieboo.vbankapp.data.VQDResultVO;
 import com.vieboo.vbankapp.model.IDeviceStatusModel;
 import com.vieboo.vbankapp.model.IDeviceStatusView;
 import com.vieboo.vbankapp.model.impl.DeviceStatusModel;
+import com.vieboo.vbankapp.utils.HorizontalBarChartUtil;
 
 import java.util.List;
 
@@ -49,6 +50,13 @@ public class DeviceStatusFragment extends BaseListFragment<IDeviceStatusModel, D
     public void onBaseRefresh(RefreshLayout refreshLayout) {
         //刷新
         iModule.requestVQD();
+        HorizontalBarChartUtil.initHorizontalBarChart(horizontalBarChart);
+        iModule.getDeviceStatus();
+    }
+
+    @Override
+    public void setDeviceStatus() {
+        HorizontalBarChartUtil.setHorizontalBarChartData(getActivity(), horizontalBarChart);
     }
 
     @Override
@@ -66,6 +74,8 @@ public class DeviceStatusFragment extends BaseListFragment<IDeviceStatusModel, D
     public void loadMoreVQD(List<VQDResultVO> vqdResultVOS) {
         deviceStatusAdapter.addData(vqdResultVOS);
     }
+
+
 
     @Override
     public DeviceStatusAdapter getBaseListAdapter() {

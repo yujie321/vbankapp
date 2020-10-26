@@ -11,4 +11,5 @@ public interface IDeviceStatusView extends IBaseListView {
 
     void loadMoreVQD(List<VQDResultVO> vqdResultVOS);
 
+    void setDeviceStatus();
 }

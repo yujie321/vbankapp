@@ -49,4 +49,9 @@ public class DeviceStatusModel extends BaseModule<IDeviceStatusView> implements 
                 });
 
     }
+
+    @Override
+    public void getDeviceStatus() {
+        mViewRef.get().setDeviceStatus();
+    }
 }

@@ -6,4 +6,5 @@ public interface ISecurityOperateModel extends IBaseModule<ISecurityOperateView>
 
     void requestSecure();
 
+    void getTodaySecureStatic();
 }
