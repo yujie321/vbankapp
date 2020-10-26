@@ -51,7 +51,7 @@ public interface IApi {
      * 阅读通知公告
      */
     @GET("/microservice-pad/rest/readNotice")
-    Observable<HttpResult<String>> readNotice();
+    Observable<HttpResult<String>> readNotice(@Query("id") int id);
 
     /**
      * 查询员工

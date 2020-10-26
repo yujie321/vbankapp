@@ -33,5 +33,5 @@ public interface IHomeModel extends IBaseModule<IHomeView> {
      * 阅读通知公告
      * @param id id
      */
-    void requestReadNotice(int id , String pdfUrl);
+    void requestReadNotice(int id ,int position, String pdfUrl);
 }

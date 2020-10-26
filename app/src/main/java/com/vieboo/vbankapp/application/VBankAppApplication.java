@@ -6,6 +6,8 @@ import android.content.Context;
 import androidx.multidex.MultiDex;
 
 import com.example.toollib.ToolLib;
+import com.liulishuo.filedownloader.FileDownloader;
+import com.liulishuo.filedownloader.connection.FileDownloadUrlConnection;
 import com.qmuiteam.qmui.arch.QMUISwipeBackActivityManager;
 import com.usc.tts.TTSPlayer;
 import com.vieboo.vbankapp.service.FaceServer;
@@ -37,12 +39,23 @@ public class VBankAppApplication extends Application {
         FaceServer.getInstance().initEngine(vBankAppApplication);
 
         TTSPlayer.getInstance().initTts(vBankAppApplication);
+
+        initDownLoad();
     }
 
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
+    }
+
+    private void initDownLoad(){
+        FileDownloader.setupOnApplicationOnCreate(vBankAppApplication)
+                .connectionCreator(new FileDownloadUrlConnection
+                        .Creator(new FileDownloadUrlConnection.Configuration()
+                        .connectTimeout(60)
+                        .readTimeout(60)))
+                .commit();
     }
 
 }

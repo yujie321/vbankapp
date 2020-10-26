@@ -44,5 +44,5 @@ public interface IHomeView extends IBaseListView {
      * 显示pdf
      * @param pdfUrl 地址
      */
-    void readNotice(String pdfUrl);
+    void readNotice(int position,String pdfUrl);
 }

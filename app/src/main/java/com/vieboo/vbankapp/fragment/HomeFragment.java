@@ -6,6 +6,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextClock;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.example.toollib.base.BaseListFragment;
 import com.example.toollib.util.AmountUtil;
@@ -100,8 +102,6 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 4);
         rvNavigationList.setLayoutManager(layoutManager);
         iModule.getNavigationList();
-
-        //readNotice("");
     }
 
     @Override
@@ -174,17 +174,21 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
     @Override
     public NoticeListAdapter getBaseListAdapter() {
         noticeListAdapter = new NoticeListAdapter();
-        noticeListAdapter.setINoticeList(iNoticeList);
         return noticeListAdapter;
     }
 
-    private NoticeListAdapter.INoticeList iNoticeList = (id, pdfUrl) -> iModule.requestReadNotice(id , pdfUrl);
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        NoticeListVO noticeListVO = (NoticeListVO) view.findViewById(R.id.ivIsRead).getTag();
+        iModule.requestReadNotice(noticeListVO.getId(), position, noticeListVO.getContent());
+    }
 
     @Override
-    public void readNotice(String pdfUrl) {
-        //显示pdf
-//        startFragment(PDFFragment.newInstance(pdfUrl));
-        startFragment(PDFFragment.newInstance("http://192.168.1.227:41001/pdf/%E6%B3%A8%E5%86%8C%E7%85%A7%E7%89%87%E8%A7%84%E8%8C%83%E8%AF%B4%E6%98%8E.pdf"));
+    public void readNotice(int position, String pdfUrl) {
+        List<NoticeListVO> data = noticeListAdapter.getData();
+        data.get(position).setNoticeStatus(1);
+        noticeListAdapter.notifyDataSetChanged();
+        startFragment(PDFFragment.newInstance(pdfUrl));
     }
 
     @Override
