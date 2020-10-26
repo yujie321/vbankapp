@@ -31,7 +31,7 @@ public class Constants {
     //设备授权码
     //public static final String ACTIVE_KEY = "85T2-112T-DYR2-V7FJ";
     //1:N比对相似度
-    public static final float FACE_MIN_SIMLAR = 0.6f;
+    public static final float FACE_MIN_SIMLAR = 0.1f;
 
     //人证比对相似度
     public static final float FACE_TO_ID_SIMILARITY = 0.4f;

@@ -39,12 +39,14 @@ public class UserInfo {
     private String politicsStatus;
     //身份证号
     private String idCard;
+    //特征值数据
+    private byte[] padFeature;
 
-    @Generated(hash = 997284292)
-    public UserInfo(String id, String imageUrl, String name, Integer sex,
-            String number, Integer departmentId, Integer positionId, Integer auth,
-            String nation, String company, Date birthday, String phone,
-            String address, String politicsStatus, String idCard) {
+    @Generated(hash = 1904065460)
+    public UserInfo(String id, String imageUrl, String name, Integer sex, String number,
+            Integer departmentId, Integer positionId, Integer auth, String nation,
+            String company, Date birthday, String phone, String address,
+            String politicsStatus, String idCard, byte[] padFeature) {
         this.id = id;
         this.imageUrl = imageUrl;
         this.name = name;
@@ -60,6 +62,7 @@ public class UserInfo {
         this.address = address;
         this.politicsStatus = politicsStatus;
         this.idCard = idCard;
+        this.padFeature = padFeature;
     }
 
     @Generated(hash = 1279772520)
@@ -184,5 +187,13 @@ public class UserInfo {
 
     public void setIdCard(String idCard) {
         this.idCard = idCard;
+    }
+
+    public byte[] getPadFeature() {
+        return padFeature;
+    }
+
+    public void setPadFeature(byte[] padFeature) {
+        this.padFeature = padFeature;
     }
 }

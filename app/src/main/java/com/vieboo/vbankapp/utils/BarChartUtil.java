@@ -32,8 +32,8 @@ public class BarChartUtil {
         List<Integer> xAxisValue = getXAxisValue();
         ArrayList<BarEntry> entries1 = new ArrayList<>();
         ArrayList<BarEntry> entries2 = new ArrayList<>();
-        List<Float> yAxisValue1 = getYAxisValue1(staticTodaySummeryVo);
-        List<Float> yAxisValue2 = getYAxisValue2(staticTodaySummeryVo);
+        List<Integer> yAxisValue1 = getYAxisValue1(staticTodaySummeryVo);
+        List<Integer> yAxisValue2 = getYAxisValue2(staticTodaySummeryVo);
         for (int i = 0, n = yAxisValue1.size(); i < n; ++i) {
             entries1.add(new BarEntry(xAxisValue.get(i), yAxisValue1.get(i)));
             entries2.add(new BarEntry(xAxisValue.get(i), yAxisValue2.get(i)));
@@ -123,48 +123,48 @@ public class BarChartUtil {
         return xAxisValue;
     }
 
-    private static List<Float> getYAxisValue1(StaticTodaySummeryVo staticTodaySummeryVo) {
-        List<Float> yAxisValue1 = new ArrayList<>();
+    private static List<Integer> getYAxisValue1(StaticTodaySummeryVo staticTodaySummeryVo) {
+        List<Integer> yAxisValue1 = new ArrayList<>();
         //设备在线情况
-        //yAxisValue1.add((float) staticTodaySummeryVo.getDeviceStatic().getNormalNum());
-        yAxisValue1.add(20f);
+        yAxisValue1.add( staticTodaySummeryVo.getDeviceStatic().getNormalNum());
+        //yAxisValue1.add(20f);
         //人员打卡情况
-        //yAxisValue1.add((float) staticTodaySummeryVo.getDutyStatic().getNormalNum());
-        yAxisValue1.add(30f);
+        yAxisValue1.add( staticTodaySummeryVo.getDutyStatic().getNormalNum());
+        //yAxisValue1.add(30f);
         //通知公告阅读情况
-        //yAxisValue1.add((float) staticTodaySummeryVo.getNoticeStatic().getNormalNum());
-        yAxisValue1.add(50f);
+        yAxisValue1.add( staticTodaySummeryVo.getNoticeStatic().getNormalNum());
+        //yAxisValue1.add(50f);
         //规章制度阅读情况
-        //yAxisValue1.add((float) staticTodaySummeryVo.getRuleStatic().getNormalNum());
-        yAxisValue1.add(20f);
+        yAxisValue1.add( staticTodaySummeryVo.getRuleStatic().getNormalNum());
+        //yAxisValue1.add(20f);
         //进出情况
-        //yAxisValue1.add((float) staticTodaySummeryVo.getInoutStatic().getNormalNum());
-        yAxisValue1.add(30f);
+        yAxisValue1.add( staticTodaySummeryVo.getInoutStatic().getNormalNum());
+        //yAxisValue1.add(30f);
         //呼叫接听情况
-        //yAxisValue1.add((float) staticTodaySummeryVo.getCallStatic().getNormalNum());
-        yAxisValue1.add(70f);
+        yAxisValue1.add( staticTodaySummeryVo.getCallStatic().getNormalNum());
+        //yAxisValue1.add(70f);
         return yAxisValue1;
     }
-    private static List<Float> getYAxisValue2(StaticTodaySummeryVo staticTodaySummeryVo) {
-        List<Float> yAxisValue2 = new ArrayList<>();
+    private static List<Integer> getYAxisValue2(StaticTodaySummeryVo staticTodaySummeryVo) {
+        List<Integer> yAxisValue2 = new ArrayList<>();
         //设备在线情况
-        //yAxisValue2.add((float) staticTodaySummeryVo.getDeviceStatic().getAbnormalNum());
-        yAxisValue2.add(10f);
+        yAxisValue2.add( staticTodaySummeryVo.getDeviceStatic().getAbnormalNum());
+        //yAxisValue2.add(10f);
         //人员打卡情况
-        //yAxisValue2.add((float) staticTodaySummeryVo.getDutyStatic().getAbnormalNum());
-        yAxisValue2.add(12f);
+        yAxisValue2.add( staticTodaySummeryVo.getDutyStatic().getAbnormalNum());
+        //yAxisValue2.add(12f);
         //通知公告阅读情况
-        //yAxisValue2.add((float) staticTodaySummeryVo.getNoticeStatic().getAbnormalNum());
-        yAxisValue2.add(13f);
+        yAxisValue2.add( staticTodaySummeryVo.getNoticeStatic().getAbnormalNum());
+        //yAxisValue2.add(13f);
         //规章制度阅读情况
-        //yAxisValue2.add((float) staticTodaySummeryVo.getRuleStatic().getAbnormalNum());
-        yAxisValue2.add(18f);
+        yAxisValue2.add( staticTodaySummeryVo.getRuleStatic().getAbnormalNum());
+        //yAxisValue2.add(18f);
         //进出情况
-        //yAxisValue2.add((float) staticTodaySummeryVo.getInoutStatic().getAbnormalNum());
-        yAxisValue2.add(14f);
+        yAxisValue2.add( staticTodaySummeryVo.getInoutStatic().getAbnormalNum());
+        //yAxisValue2.add(14f);
         //呼叫接听情况
-        //yAxisValue2.add((float) staticTodaySummeryVo.getCallStatic().getAbnormalNum());
-        yAxisValue2.add(19f);
+        yAxisValue2.add( staticTodaySummeryVo.getCallStatic().getAbnormalNum());
+        //yAxisValue2.add(19f);
         return yAxisValue2;
     }
 

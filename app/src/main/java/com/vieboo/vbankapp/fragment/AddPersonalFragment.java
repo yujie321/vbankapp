@@ -1,6 +1,7 @@
 package com.vieboo.vbankapp.fragment;
 
 import android.Manifest;
+import android.content.PeriodicSync;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Point;
@@ -24,10 +25,12 @@ import com.example.toollib.util.DensityUtil;
 import com.example.toollib.util.Log;
 import com.sdses.idCard.IdCardHelper;
 import com.sdses.idCard.IdInfo;
+import com.vieboo.vbankapp.PersonImageBeanDao;
 import com.vieboo.vbankapp.R;
 import com.vieboo.vbankapp.adapter.SpinnerAdapter;
 import com.vieboo.vbankapp.data.PersonImageBean;
 import com.vieboo.vbankapp.data.SpinnerVO;
+import com.vieboo.vbankapp.data.UserInfo;
 import com.vieboo.vbankapp.data.db.DBHelper;
 import com.vieboo.vbankapp.face.CameraHelper;
 import com.vieboo.vbankapp.face.FaceRectView;
@@ -186,7 +189,18 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
     }
 
     private void addPersontoDB() {
-        //DBHelper.getInstance().getUserInfoDao();
+        UserInfo userInfo = new UserInfo();
+        userInfo.setImageUrl("");
+        userInfo.setName(idInfo.getName());
+        userInfo.setSex(1);
+        userInfo.setNation(idInfo.getNational());
+        userInfo.setAddress(idInfo.getAddress());
+        userInfo.setIdCard(idInfo.getIdCardNum());
+        userInfo.setPadFeature(idCardFeature);
+        DBHelper.getInstance().getUserInfoDao().save(userInfo);
+
+        List<UserInfo> userInfoList = DBHelper.getInstance().getUserInfoDao().queryBuilder().list();
+        return;
     }
 
     /**
@@ -234,7 +248,7 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
         }
         this.idInfo = idInfo;
         showIdCardDialog(idInfo);
-        refreshIDCard(idInfo);
+
         Bitmap bitmap = idInfo.getPhotoBmp();
         if (bitmap != null) {
             Log.d("bm1: " + bitmap.getByteCount());
@@ -249,27 +263,23 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
                 idTime = System.currentTimeMillis();
                 idCardFeature = faceFeature.getFeatureData();
                 faceListenerUtil.setIdCardFeature(idCardFeature);
-//                FaceFeature faceFeature1 = faceListenerUtil.getFaceFeature();
-//                FaceSimilar faceSimilar = faceListenerUtil.compareVideoSimilar(idCardFeature, faceFeature1.getFeatureData());
-//                float maxSimilar = 0f;
-//                if (faceSimilar != null) {
-//                    if (faceSimilar.getScore() >= Constants.FACE_MIN_SIMLAR && faceSimilar.getScore() > maxSimilar) {
-//                        maxSimilar = faceSimilar.getScore();
-//                    }
-//                    Log.i("checkingFace:姓名:"  + "-相似度:" + faceSimilar.getScore());
-//                }
             }
         }
     }
 
-    private void refreshIDCard(IdInfo idInfo) {
-        tvPersonalName.setText(idInfo.getName());
-        tvPersonalSex.setText(idInfo.getSex());
-        tvPersonalNation.setText(idInfo.getNational());
-        tvDateBirth.setText(idInfo.getBirthday());
-        tvIdCardAddress.setText(idInfo.getAddress());
-        tvIdCardNumber.setText(idInfo.getIdCardNum());
-        ivPersonnelHead.setImageBitmap(idInfo.getPhotoBmp());
+    private void refreshIDCard(IdInfo idInfo, Bitmap bitmap) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                tvPersonalName.setText(idInfo.getName());
+                tvPersonalSex.setText(idInfo.getSex());
+                tvPersonalNation.setText(idInfo.getNational());
+                tvDateBirth.setText(idInfo.getBirthday());
+                tvIdCardAddress.setText(idInfo.getAddress());
+                tvIdCardNumber.setText(idInfo.getIdCardNum());
+                ivPersonnelHead.setImageBitmap(bitmap);
+            }
+        });
     }
 
     @Override
@@ -337,11 +347,10 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
     private IdCardFaceListenerUtil initFaceListenerUtil() {
         faceListenerUtil = new IdCardFaceListenerUtil(this);
         faceListenerUtil.setAsyncFaceEngine(asyncFaceEngine);
-        faceListenerUtil.setDutyPersonFeatureList(getDutyPersonFeatureList());
         return faceListenerUtil;
     }
 
-    private List<PersonImageBean> getDutyPersonFeatureList(){
+    private List<PersonImageBean> getList(){
         return DBHelper.getInstance().getPersonImageBeanDao().queryBuilder().list();
     }
 
@@ -355,15 +364,48 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
         asyncFaceEngine = faceUtil.initAsyncFaceEngine(getActivity());
     }
 
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        IdCardHelper.getInstance().close();
+    private void unInitEngine() {
+        if (ftEngine != null) {
+            synchronized (ftEngine) {
+                int ftUnInitCode = ftEngine.unInit();
+                Log.i("unInitEngine: " + ftUnInitCode);
+            }
+        }
+        if (frEngine != null) {
+            synchronized (frEngine) {
+                int frUnInitCode = frEngine.unInit();
+                Log.i("unInitEngine: " + frUnInitCode);
+            }
+        }
+        if (flEngine != null) {
+            synchronized (flEngine) {
+                int flUnInitCode = flEngine.unInit();
+                Log.i("unInitEngine: " + flUnInitCode);
+            }
+        }
+        if (asyncFaceEngine != null) {
+            synchronized (asyncFaceEngine) {
+                int flUnInitCode = asyncFaceEngine.unInit();
+                Log.i("unInitEngine: " + flUnInitCode);
+            }
+        }
     }
 
     @Override
-    public void callback() {
-        int refffff = 0;
+    public void onDestroy() {
+        if (cameraHelper != null) {
+            cameraHelper.release();
+            cameraHelper = null;
+        }
+        unInitEngine();
+        IdCardHelper.getInstance().close();
+        super.onDestroy();
+    }
+
+    @Override
+    public void callback(Bitmap bitmap) {
+
+        refreshIDCard(idInfo, bitmap);
+        addPersontoDB();
     }
 }

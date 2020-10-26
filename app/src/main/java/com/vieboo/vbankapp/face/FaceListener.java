@@ -3,6 +3,8 @@ package com.vieboo.vbankapp.face;
 
 //import android.support.annotation.Nullable;
 
+import android.graphics.Bitmap;
+
 import androidx.annotation.Nullable;
 
 import com.arcsoft.face.FaceFeature;
@@ -23,11 +25,12 @@ public interface FaceListener {
     /**
      * 请求人脸特征后的回调
      *
+     * @param bitmap
      * @param faceFeature 人脸特征数据
      * @param requestId   请求码
      * @param errorCode   错误码
      */
-    void onFaceFeatureInfoGet(@Nullable FaceFeature faceFeature, Integer requestId, Integer errorCode);
+    void onFaceFeatureInfoGet(Bitmap bitmap, @Nullable FaceFeature faceFeature, Integer requestId, Integer errorCode);
 
     /**
      * 请求活体检测后的回调

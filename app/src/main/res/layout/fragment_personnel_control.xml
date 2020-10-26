@@ -49,12 +49,20 @@
                 android:layout_toEndOf="@+id/ivClockOut"
                 android:src="@drawable/ic_add_personal" />
 
+
+
             <TextView
                 android:id="@+id/tvVideoWindow"
                 style="@style/main_blue_bg"
                 android:layout_below="@+id/ivAddPersonal"
                 android:layout_marginTop="18dp"
                 android:text="@string/main_video_window" />
+
+            <TextureView
+                android:id="@+id/texture_preview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tvVideoWindow" />
 
             <com.vieboo.vbankapp.face.FaceRectView
                 android:id="@+id/faceRectView"

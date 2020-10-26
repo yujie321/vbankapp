@@ -206,7 +206,7 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
     @Override
     public void refreshNoticeListSuccess(List<NoticeListVO> passengerVO) {
         if (noticeListAdapter != null) {
-            noticeListAdapter.setNewData(passengerVO);
+            noticeListAdapter.setList(passengerVO);
         }
     }
 

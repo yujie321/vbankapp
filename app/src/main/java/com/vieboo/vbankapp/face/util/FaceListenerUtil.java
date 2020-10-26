@@ -1,5 +1,6 @@
 package com.vieboo.vbankapp.face.util;
 
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 
 import androidx.annotation.Nullable;
@@ -14,6 +15,7 @@ import com.usc.tts.TTSPlayer;
 import com.vieboo.vbankapp.R;
 import com.vieboo.vbankapp.application.VBankAppApplication;
 import com.vieboo.vbankapp.data.PersonImageBean;
+import com.vieboo.vbankapp.data.UserInfo;
 import com.vieboo.vbankapp.face.FaceListener;
 import com.vieboo.vbankapp.face.RequestFeatureStatus;
 import com.vieboo.vbankapp.utils.Constants;
@@ -60,7 +62,7 @@ public class FaceListenerUtil implements FaceListener {
     public static boolean livenessDetect = true;
     private CompositeDisposable delayFaceTaskCompositeDisposable = new CompositeDisposable();
 
-    private List<PersonImageBean> dutyPersonFeatureList;
+    private List<UserInfo> userInfoList;
 
     private boolean isProcessing = false;
     //异步方法的人脸算法引擎
@@ -72,16 +74,16 @@ public class FaceListenerUtil implements FaceListener {
     }
 
     @Override
-    public void onFaceFeatureInfoGet(@Nullable FaceFeature faceFeature, Integer requestId, Integer errorCode) {
+    public void onFaceFeatureInfoGet(Bitmap bitmap, @Nullable FaceFeature faceFeature, Integer requestId, Integer errorCode) {
         if (faceFeature != null) {
             Integer liveness = livenessMap.get(requestId);
             //不做活体检测的情况，直接搜索
             if (!livenessDetect) {
-                searchFace(faceFeature, requestId);
+                searchFace(bitmap,faceFeature, requestId);
             }
             //活体检测通过，搜索特征
             else if (liveness != null && liveness == LivenessInfo.ALIVE) {
-                searchFace(faceFeature, requestId);
+                searchFace(bitmap ,faceFeature, requestId);
             }
             else {
                 //活体检测未出结果，或者非活体，延迟执行该函数
@@ -98,7 +100,7 @@ public class FaceListenerUtil implements FaceListener {
 
                                 @Override
                                 public void onNext(Long aLong) {
-                                    onFaceFeatureInfoGet(faceFeature, requestId, errorCode);
+                                    onFaceFeatureInfoGet(bitmap,faceFeature, requestId, errorCode);
                                 }
 
                                 @Override
@@ -164,13 +166,13 @@ public class FaceListenerUtil implements FaceListener {
     }
 
 
-    public void searchFace(final FaceFeature frFace, final Integer requestId) {
+    public void searchFace(Bitmap bitmap, final FaceFeature frFace, final Integer requestId) {
         Observable
                 .create(new ObservableOnSubscribe<String>() {
                     @Override
                     public void subscribe(ObservableEmitter<String> emitter) {
 //                        Log.i(TAG, "subscribe: fr search start = " + System.currentTimeMillis() + " trackId = " + requestId);
-                        String personId = checkingFace(frFace);
+                        String personId = checkingFace(frFace, bitmap);
 //                        Log.i(TAG, "subscribe: fr search end = " + System.currentTimeMillis() + " trackId = " + requestId);
                         emitter.onNext(personId);
 
@@ -288,25 +290,25 @@ public class FaceListenerUtil implements FaceListener {
     /**
      * 人脸比对
      */
-    public String checkingFace(FaceFeature faceFeature) {
+    public String checkingFace(FaceFeature faceFeature, Bitmap bitmap) {
         if (isProcessing || asyncFaceEngine == null) {
             return "";
         }
         isProcessing = true;
         String personId = "";
-        if (dutyPersonFeatureList != null && dutyPersonFeatureList.size() > 0) {
-            Log.e("开始进行人脸对比，对比库数量:" + dutyPersonFeatureList.size() + "--" + new Date().getTime());
+        if (userInfoList != null && userInfoList.size() > 0) {
+            Log.e("开始进行人脸对比，对比库数量:" + userInfoList.size() + "--" + new Date().getTime());
             float maxSimilar = 0f;
 
-            for (PersonImageBean person : dutyPersonFeatureList) {
-                if (!TextUtils.isEmpty(person.getPadFeature())) {
-                    FaceSimilar faceSimilar = compareVideoSimilar(faceFeature.getFeatureData(), Base64Utils.base64String2ByteFun(person.getPadFeature()));
+            for (UserInfo userInfo : userInfoList) {
+                if (true) {
+                    FaceSimilar faceSimilar = compareVideoSimilar(faceFeature.getFeatureData(), userInfo.getPadFeature());
                     if (faceSimilar != null) {
                         if (faceSimilar.getScore() >= Constants.FACE_MIN_SIMLAR && faceSimilar.getScore() > maxSimilar) {
                             maxSimilar = faceSimilar.getScore();
-                            personId = person.getPersonId();
+                            personId = userInfo.getId();
                         }
-                        Log.e("checkingFace:姓名:" + person.getPersonId() + "-相似度:" + faceSimilar.getScore());
+                        Log.e("checkingFace:姓名:" + userInfo.getId() + "-相似度:" + faceSimilar.getScore());
                     }
                 }
             }
@@ -375,8 +377,8 @@ public class FaceListenerUtil implements FaceListener {
         return this;
     }
 
-    public FaceListenerUtil setDutyPersonFeatureList(List<PersonImageBean> dutyPersonFeatureList) {
-        this.dutyPersonFeatureList = dutyPersonFeatureList;
+    public FaceListenerUtil setUserInfoList(List<UserInfo> userInfoList) {
+        this.userInfoList = userInfoList;
         return this;
     }
 

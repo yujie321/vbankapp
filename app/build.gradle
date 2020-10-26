@@ -54,7 +54,7 @@ android {
 
 greendao {
     //数据库
-    schemaVersion 1
+    schemaVersion 2
     targetGenDir 'src/main/database'
     daoPackage config.applicationId
 }

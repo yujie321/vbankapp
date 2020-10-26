@@ -1,5 +1,7 @@
 package com.vieboo.vbankapp.face.util;
 
+import android.graphics.Bitmap;
+
 import com.arcsoft.face.FaceFeature;
 import com.arcsoft.face.FaceSimilar;
 import com.example.toollib.util.Log;
@@ -19,7 +21,7 @@ public class IdCardFaceListenerUtil extends FaceListenerUtil{
     }
 
     @Override
-    public String checkingFace(FaceFeature faceFeature) {
+    public String checkingFace(FaceFeature faceFeature, Bitmap bitmap) {
         if (isProcessing || idCardFeature == null) {
             return "";
         }
@@ -31,7 +33,7 @@ public class IdCardFaceListenerUtil extends FaceListenerUtil{
         if (faceSimilar != null) {
             if (faceSimilar.getScore() >= Constants.FACE_MIN_SIMLAR && faceSimilar.getScore() > maxSimilar) {
                 maxSimilar = faceSimilar.getScore();
-                idCardFaceView.callback();
+                idCardFaceView.callback(bitmap);
             }
             Log.e("checkingFace:姓名:"  + "-相似度:" + faceSimilar.getScore());
         }

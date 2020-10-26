@@ -1,5 +1,6 @@
 package com.vieboo.vbankapp.face;
 
+import android.graphics.Bitmap;
 import android.hardware.Camera;
 import android.util.Log;
 
@@ -8,6 +9,7 @@ import com.arcsoft.face.FaceEngine;
 import com.arcsoft.face.FaceFeature;
 import com.arcsoft.face.FaceInfo;
 import com.arcsoft.face.LivenessInfo;
+import com.vieboo.vbankapp.utils.FaceImageUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -139,7 +141,7 @@ public class FaceHelper {
             if (frEngine != null && frThreadQueue.remainingCapacity() > 0) {
                 frExecutor.execute(new FaceRecognizeRunnable(nv21, faceInfo, width, height, format, trackId));
             } else {
-                faceListener.onFaceFeatureInfoGet(null, trackId, ERROR_BUSY);
+                faceListener.onFaceFeatureInfoGet(null,null, trackId, ERROR_BUSY);
             }
         }
     }
@@ -266,13 +268,14 @@ public class FaceHelper {
                     }
                     if (frCode == ErrorInfo.MOK) {
 //                        Log.i(TAG, "run: fr costTime = " + (System.currentTimeMillis() - frStartTime) + "ms");
-                        faceListener.onFaceFeatureInfoGet(faceFeature, trackId, frCode);
+                        Bitmap bitmap = FaceImageUtil.getNv21CutBitmap(nv21Data, width, height, faceInfo);
+                        faceListener.onFaceFeatureInfoGet(bitmap,faceFeature, trackId, frCode);
                     } else {
-                        faceListener.onFaceFeatureInfoGet(null, trackId, frCode);
+                        faceListener.onFaceFeatureInfoGet(null,null, trackId, frCode);
                         faceListener.onFail(new Exception("fr failed errorCode is " + frCode));
                     }
                 } else {
-                    faceListener.onFaceFeatureInfoGet(null, trackId, ERROR_FR_ENGINE_IS_NULL);
+                    faceListener.onFaceFeatureInfoGet(null,null, trackId, ERROR_FR_ENGINE_IS_NULL);
                     faceListener.onFail(new Exception("fr failed ,frEngine is null"));
                 }
             }
