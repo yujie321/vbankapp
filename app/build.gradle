@@ -61,10 +61,8 @@ greendao {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-
     implementation 'com.blankj:utilcodex:1.25.9'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
-
     annotationProcessor libs["butterknife-compiler"]
     implementation libs["autosize"]
     implementation project(':toollib')

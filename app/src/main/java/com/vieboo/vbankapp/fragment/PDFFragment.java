@@ -1,21 +1,29 @@
 package com.vieboo.vbankapp.fragment;
 
+import android.annotation.SuppressLint;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-
-import androidx.annotation.Nullable;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.widget.ProgressBar;
 
 import com.example.toollib.base.BaseFragment;
 import com.example.toollib.data.IBaseModule;
-import com.just.agentwebX5.AgentWebX5;
-import com.just.agentwebX5.DefaultWebClient;
 import com.vieboo.vbankapp.R;
+import com.vieboo.vbankapp.download.DownLoadUtil;
+
+import java.io.File;
+
+import butterknife.BindView;
 
 public class PDFFragment extends BaseFragment {
 
-    private static final String PDF_URL = "pdfUrl";
+    private static final String PDF_URL = "pdf_url";
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
+    @BindView(R.id.webView)
+    WebView webView;
 
     public static PDFFragment newInstance(String pdfUrl) {
         Bundle args = new Bundle();
@@ -25,39 +33,46 @@ public class PDFFragment extends BaseFragment {
         return fragment;
     }
 
+
     @Override
     public int getContentView() {
         return R.layout.fragment_pdf;
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        //NestedScrollAgentWebView webView = new NestedScrollAgentWebView(getActivity());
-//        AgentWebX5.with(this)
-//                //传入AgentWeb的父控件。
-//                .setAgentWebParent(view.findViewById(R.id.layPDFFragment),
-//                        new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
-//                //设置进度条颜色与高度，-1为默认值，高度为2，单位为dp。
-//                .useDefaultIndicator(getResources().getColor(R.color.colorAccent))
-//                //严格模式 Android 4.2.2 以下会放弃注入对象 ，使用AgentWebView没影响。
-//                .setSecurityType(AgentWebX5.SecurityType.default_check)
-//                //参数1是错误显示的布局，参数2点击刷新控件ID -1表示点击整个布局都刷新， AgentWeb 3.0.0 加入。
-//                .setOpenOtherPageWays(DefaultWebClient.OpenOtherPageWays.ASK)
-//                .createAgentWeb()//创建AgentWeb。
-//                .ready()//设置 WebSettings。
-//                //WebView载入该url地址的页面并显示。
-//                .go(getPdfUrl());
-    }
-
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     public void initView() {
+        WebSettings settings = webView.getSettings();
+        settings.setJavaScriptEnabled(true);
+        settings.setAllowContentAccess(true);
+        settings.setAllowFileAccessFromFileURLs(true);
+        settings.setAllowUniversalAccessFromFileURLs(true);
 
+        initData();
     }
 
-    public String getPdfUrl() {
-        return getArguments() != null ? getArguments().getString(PDF_URL) : "";
+    private void initData() {
+        DownLoadUtil.downLoad(getActivity(), getPdfUrl(), new DownLoadUtil.OnDownloadListener() {
+            @Override
+            public void onDownloadSuccess(File file) {
+                String path = file.getPath();
+                webView.loadUrl("file:///android_asset/pdfjs/web/viewer.html?file=" + path);
+            }
+
+            @Override
+            public void onDownloading(int progress) {
+                progressBar.setProgress(progress);
+                if (progress >= 100 && getActivity() != null) {
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onDownloadFailed() {
+            }
+        });
     }
+
 
     @Override
     protected IBaseModule initModule() {
@@ -67,6 +82,10 @@ public class PDFFragment extends BaseFragment {
     @Override
     protected String getActivityTitle() {
         return null;
+    }
+
+    public String getPdfUrl() {
+        return getArguments() != null ? getArguments().getString(PDF_URL) : "";
     }
 
     @Override

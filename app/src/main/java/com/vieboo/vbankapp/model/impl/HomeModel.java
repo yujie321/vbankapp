@@ -118,13 +118,13 @@ public class HomeModel extends BaseModule<IHomeView> implements IHomeModel  {
     }
 
     @Override
-    public void requestReadNotice(int id , String pdfUrl) {
-        RxUtils.getObservable(ServiceUrl.getUserApi().readNotice())
+    public void requestReadNotice(int id ,int position, String pdfUrl) {
+        RxUtils.getObservable(ServiceUrl.getUserApi().readNotice(id))
                 .compose(mViewRef.get().bindLifecycle())
-                .subscribe(new BaseHttpRxObserver<String>() {
+                .subscribe(new BaseHttpRxObserver<String>(mContext.get()) {
                     @Override
                     protected void onSuccess(String response) {
-                        mViewRef.get().readNotice(pdfUrl);
+                        mViewRef.get().readNotice(position,pdfUrl);
                     }
                 });
     }
