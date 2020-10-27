@@ -41,7 +41,7 @@ dependencies {
     api libs["logging-interceptor"]
     api libs["rxlifecycle-components"]
     api libs["rxandroid"]
-    api libs["rxjava"]
+    api libs["rxbinding"]
     api libs["rxjava2-adapter"]
     api libs["greendao"]
     api libs["greendao-generator"]

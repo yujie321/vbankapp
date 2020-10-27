@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_item_regulations"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="18dp"
+        android:src="@drawable/ic_pdf" />
+
+    <TextView
+        android:id="@+id/tvRegulationsTitle"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="12dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/tool_lib_color_FF9000"
+        android:textSize="10sp"
+        tools:ignore="SmallSp"
+        tools:text="关于人行柜台安全管理的执行办法汇总" />
+</LinearLayout>

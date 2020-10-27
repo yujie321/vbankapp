@@ -257,6 +257,7 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
                 break;
             case 6:
                 //规则制度
+                startFragment(RegulationsFragment.newInstance());
                 break;
             case 7:
                 //呼叫管理

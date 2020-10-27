@@ -90,4 +90,6 @@
     <string name="main_trend_chart_daily_records">当日进出记录趋势图</string>
     <string name="main_real_time_access_record">实时进出记录</string>
     <string name="main_historical_access_records">历史进出记录</string>
+    <string name="main_search">搜索</string>
+    <string name="main_regulations_list">规则制度列表</string>
 </resources>

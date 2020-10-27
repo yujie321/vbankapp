@@ -9,6 +9,7 @@ import com.vieboo.vbankapp.data.PassengerVO;
 import com.vieboo.vbankapp.data.PositionsVO;
 import com.vieboo.vbankapp.data.PunchRecordVO;
 import com.vieboo.vbankapp.data.RecordVO;
+import com.vieboo.vbankapp.data.RegulationsVO;
 import com.vieboo.vbankapp.data.SecureRecordVo;
 import com.vieboo.vbankapp.data.SecureVO;
 import com.vieboo.vbankapp.data.StaticTodaySummeryVo;
@@ -116,6 +117,7 @@ public interface IApi {
     Observable<HttpResult<List<SecureRecordVo>>> todaySecureStatic();
 
     //进出管理统计
+
     /**
      * 查询多个人员进出登记信息
      */
@@ -131,6 +133,7 @@ public interface IApi {
     Observable<HttpResult<List<SecureRecordVo>>> todayPersonInoutStatic();
 
     //网点运营统计
+
     /**
      * 获取近七日客流趋势
      */
@@ -142,4 +145,11 @@ public interface IApi {
      */
     @GET("microservice-pad/rest/passenger/last7dayperiodstatic")
     Observable<HttpResult<List<SecureRecordVo>>> todayPassengerStatic();
+
+    /**
+     * 查询规章制度
+     */
+    @GET("microservice-pad/rest/findRegulations")
+    Observable<HttpResult<List<RegulationsVO>>> findRegulations(@Query("name") String name, @Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
+
 }
