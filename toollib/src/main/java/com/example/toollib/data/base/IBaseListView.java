@@ -32,4 +32,9 @@ public interface IBaseListView extends IBaseView {
      * @return int
      */
     int getPage();
+
+    /**
+     * 页码
+     */
+    void setPage(int page);
 }

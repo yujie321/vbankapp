@@ -154,6 +154,10 @@ public class BaseListFragment<M extends IBaseModule, T extends BaseQuickAdapter>
         return page;
     }
 
+    public void setPage(int page) {
+        this.page = page;
+    }
+
     /**
      * 默认空布局
      * @return layout
