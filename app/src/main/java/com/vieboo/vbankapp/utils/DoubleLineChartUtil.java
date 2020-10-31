@@ -11,6 +11,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.vieboo.vbankapp.data.SecureRecordVo;
 
@@ -22,6 +23,15 @@ public class DoubleLineChartUtil {
 
         // no description text
         lineChart.getDescription().setEnabled(false);
+
+        XAxis x = lineChart.getXAxis();
+        x.setPosition(XAxis.XAxisPosition.BOTTOM);
+        x.setDrawAxisLine(true);
+        x.setDrawGridLines(false);
+        x.setDrawGridLines(false);
+        x.setDrawLabels(true);
+        x.setGranularity(1f);
+        x.setCenterAxisLabels(true);
 
         // enable touch gestures
         lineChart.setTouchEnabled(true);
@@ -72,6 +82,14 @@ public class DoubleLineChartUtil {
     }
 
     public static void setTodayPassengerStatic(FragmentActivity activity, LineChart lineChart, List<SecureRecordVo> secureRecordVoList) {
+        ArrayList<String> xdata = new ArrayList<>();
+        for (int j = 0; j < 20; j++){
+            xdata.add(""+(j+1));
+        }
+        lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xdata));
+        lineChart.getXAxis().setLabelCount(45);
+        lineChart.getXAxis().setTextColor(Color.WHITE);
+
         ArrayList<Entry> values1 = new ArrayList<>();
 
         for (int i = 0; i < 20; i++) {

@@ -35,7 +35,6 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.vieboo.vbankapp.face.util.CameraListenerUtil.extractErrorRetryMap;
-import static com.vieboo.vbankapp.face.util.CameraListenerUtil.faceHelper;
 import static com.vieboo.vbankapp.face.util.CameraListenerUtil.getFeatureDelayedDisposables;
 import static com.vieboo.vbankapp.face.util.CameraListenerUtil.livenessErrorRetryMap;
 import static com.vieboo.vbankapp.face.util.CameraListenerUtil.livenessMap;
@@ -126,7 +125,7 @@ public class FaceListenerUtil implements FaceListener {
                 } else {
                     msg = "ExtractCode:" + errorCode;
                 }
-                faceHelper.setName(requestId, VBankAppApplication.getInstance().getString(R.string.recognize_failed_notice, msg));
+                //faceHelper.setName(requestId, VBankAppApplication.getInstance().getString(R.string.recognize_failed_notice, msg));
                 // 在尝试最大次数后，特征提取仍然失败，则认为识别未通过
                 requestFeatureStatusMap.put(requestId, RequestFeatureStatus.FAILED);
                 retryRecognizeDelayed(requestId);
@@ -143,7 +142,7 @@ public class FaceListenerUtil implements FaceListener {
             livenessMap.put(requestId, liveness);
             // 非活体，重试
             if (liveness == LivenessInfo.NOT_ALIVE) {
-                faceHelper.setName(requestId, VBankAppApplication.getInstance().getString(R.string.recognize_failed_notice, "NOT_ALIVE"));
+                //faceHelper.setName(requestId, VBankAppApplication.getInstance().getString(R.string.recognize_failed_notice, "NOT_ALIVE"));
                 // 延迟 FAIL_RETRY_INTERVAL 后，将该人脸状态置为UNKNOWN，帧回调处理时会重新进行活体检测
                 retryLivenessDetectDelayed(requestId);
             }
@@ -157,7 +156,7 @@ public class FaceListenerUtil implements FaceListener {
                 } else {
                     msg = "ProcessCode:" + errorCode;
                 }
-                faceHelper.setName(requestId, VBankAppApplication.getInstance().getString(R.string.recognize_failed_notice, msg));
+                //faceHelper.setName(requestId, VBankAppApplication.getInstance().getString(R.string.recognize_failed_notice, msg));
                 retryLivenessDetectDelayed(requestId);
             } else {
                 livenessMap.put(requestId, LivenessInfo.UNKNOWN);
@@ -190,17 +189,17 @@ public class FaceListenerUtil implements FaceListener {
                     public void onNext(String compareResult) {
                         if (TextUtils.isEmpty(compareResult)) {
                             requestFeatureStatusMap.put(requestId, RequestFeatureStatus.FAILED);
-                            faceHelper.setName(requestId, "VISITOR " + requestId);
+                            //faceHelper.setName(requestId, "VISITOR " + requestId);
                             return;
                         }
                         requestFeatureStatusMap.put(requestId, RequestFeatureStatus.SUCCEED);
-                        faceHelper.setName(requestId, VBankAppApplication.getInstance().getString(R.string.recognize_success_notice, compareResult));
+                        //faceHelper.setName(requestId, VBankAppApplication.getInstance().getString(R.string.recognize_success_notice, compareResult));
                         checkingSuccess(compareResult);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        faceHelper.setName(requestId, VBankAppApplication.getInstance().getString(R.string.recognize_failed_notice, "NOT_REGISTERED"));
+                        //faceHelper.setName(requestId, VBankAppApplication.getInstance().getString(R.string.recognize_failed_notice, "NOT_REGISTERED"));
                         retryRecognizeDelayed(requestId);
                     }
 
@@ -241,7 +240,7 @@ public class FaceListenerUtil implements FaceListener {
                     @Override
                     public void onComplete() {
                         // 将该人脸特征提取状态置为FAILED，帧回调处理时会重新进行活体检测
-                        faceHelper.setName(requestId, Integer.toString(requestId));
+                        //faceHelper.setName(requestId, Integer.toString(requestId));
                         requestFeatureStatusMap.put(requestId, RequestFeatureStatus.TO_RETRY);
                         delayFaceTaskCompositeDisposable.remove(disposable);
                     }
@@ -278,7 +277,7 @@ public class FaceListenerUtil implements FaceListener {
                     public void onComplete() {
                         // 将该人脸状态置为UNKNOWN，帧回调处理时会重新进行活体检测
                         if (livenessDetect) {
-                            faceHelper.setName(requestId, Integer.toString(requestId));
+                            //faceHelper.setName(requestId, Integer.toString(requestId));
                         }
                         livenessMap.put(requestId, LivenessInfo.UNKNOWN);
                         delayFaceTaskCompositeDisposable.remove(disposable);
@@ -306,7 +305,7 @@ public class FaceListenerUtil implements FaceListener {
                     if (faceSimilar != null) {
                         if (faceSimilar.getScore() >= Constants.FACE_MIN_SIMLAR && faceSimilar.getScore() > maxSimilar) {
                             maxSimilar = faceSimilar.getScore();
-                            personId = userInfo.getId();
+                            personId = userInfo.getPersonId();
                         }
                         Log.e("checkingFace:姓名:" + userInfo.getId() + "-相似度:" + faceSimilar.getScore());
                     }
@@ -315,7 +314,7 @@ public class FaceListenerUtil implements FaceListener {
             Log.e("完成进行人脸对比" + "--" + new Date().getTime());
 
             if (TextUtils.isEmpty(personId)) {
-                TTSPlayer.getInstance().playText("您不是库管员");
+                //TTSPlayer.getInstance().playText("您不是库管员");
             }
         }
         isProcessing = false;

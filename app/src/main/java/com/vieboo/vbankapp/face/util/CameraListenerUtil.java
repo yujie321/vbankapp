@@ -42,7 +42,7 @@ public class CameraListenerUtil implements CameraListener {
 
     private FaceListener faceListener;
     private DrawHelper drawHelper;
-    public static FaceHelper faceHelper;
+    public FaceHelper faceHelper;
     private TextureView texturePreview;
     private Camera.Size previewSize;
 
@@ -203,7 +203,7 @@ public class CameraListenerUtil implements CameraListener {
      * 删除已经离开的人脸
      * @param facePreviewInfoList 人脸和trackId列表
      */
-    private void clearLeftFace(List<FacePreviewInfo> facePreviewInfoList) {
+    public void clearLeftFace(List<FacePreviewInfo> facePreviewInfoList) {
         if (facePreviewInfoList == null || facePreviewInfoList.size() == 0) {
             requestFeatureStatusMap.clear();
             livenessMap.clear();

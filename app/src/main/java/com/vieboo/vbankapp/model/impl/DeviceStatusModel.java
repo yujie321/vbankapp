@@ -22,6 +22,9 @@ public class DeviceStatusModel extends BaseModule<IDeviceStatusView> implements 
                 .subscribe(new BaseHttpRxObserver<VQDSystemRecordVo>() {
                     @Override
                     protected void onSuccess(VQDSystemRecordVo vqdSystemRecordVo) {
+                        if (vqdSystemRecordVo == null) {
+                            vqdSystemRecordVo = new VQDSystemRecordVo();
+                        }
                         List<VQDResultVO> vqdResultVOS = vqdSystemRecordVo.getData();
                         if (mViewRef.get().getPage() == StaticExplain.PAGE_NUMBER.getCode()) {
                             //刷新

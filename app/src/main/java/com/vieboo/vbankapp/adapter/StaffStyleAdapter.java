@@ -24,7 +24,7 @@ public class StaffStyleAdapter extends BaseQuickAdapter<PunchRecordVO, BaseViewH
         TextView tvPersonalName = baseViewHolder.getView(R.id.tvPersonalName);
         TextView tvPersonalPosition = baseViewHolder.getView(R.id.tvPersonalPosition);
 
-        GlideManager.loadImage(getContext(), punchRecordVO.getImageUrl(), ivPersonalHead);
+        GlideManager.loadImage(getContext(), punchRecordVO.getImageUrl(), ivPersonalHead, R.drawable.bg_test);
         tvPersonalName.setText(punchRecordVO.getName());
 
         String text = punchRecordVO.getPositionName() + "\n" + punchRecordVO.getNumber();

@@ -59,10 +59,10 @@ public class FaceUtil {
 
     public FaceEngine initEngineImageLiven(Context mContext) {
         FaceEngine  frEngineImage = new FaceEngine();
-        frInitCode = frEngineImage.init(mContext, DetectMode.ASF_DETECT_MODE_IMAGE, DetectFaceOrientPriority.ASF_OP_0_ONLY,
+        flInitCode = frEngineImage.init(mContext, DetectMode.ASF_DETECT_MODE_IMAGE, DetectFaceOrientPriority.ASF_OP_0_ONLY,
                 16, MAX_DETECT_NUM, FaceEngine.ASF_LIVENESS);
-        if (frInitCode != ErrorInfo.MOK) {
-            String error = "人脸识别算法初始化异步，异常码：" + frInitCode;
+        if (flInitCode != ErrorInfo.MOK) {
+            String error = "人脸识别算法初始化异步，异常码：" + flInitCode;
             ToastUtils.showShort(error);
             return null;
         }

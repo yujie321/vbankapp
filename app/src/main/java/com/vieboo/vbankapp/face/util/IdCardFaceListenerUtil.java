@@ -31,7 +31,7 @@ public class IdCardFaceListenerUtil extends FaceListenerUtil{
         float maxSimilar = 0f;
         FaceSimilar faceSimilar = compareVideoSimilar(faceFeature.getFeatureData(), idCardFeature);
         if (faceSimilar != null) {
-            if (faceSimilar.getScore() >= Constants.FACE_MIN_SIMLAR && faceSimilar.getScore() > maxSimilar) {
+            if (faceSimilar.getScore() >= Constants.FACE_TO_ID_SIMILARITY && faceSimilar.getScore() > maxSimilar) {
                 maxSimilar = faceSimilar.getScore();
                 idCardFaceView.callback(bitmap);
             }

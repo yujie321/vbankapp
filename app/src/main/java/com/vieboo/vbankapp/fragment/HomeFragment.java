@@ -2,6 +2,8 @@ package com.vieboo.vbankapp.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
@@ -76,6 +78,8 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
             "设备", "人员", "通知公告", "规章制度", "进出记录", "呼叫记录"
     };
 
+    private Handler handler = null;
+    private Runnable runnable = null;
     static HomeFragment newInstance() {
         Bundle args = new Bundle();
         HomeFragment fragment = new HomeFragment();
@@ -283,6 +287,43 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
     @Override
     protected boolean translucentFull() {
         return true;
+    }
+
+    @Override
+    public void onDestroy() {
+        handler.removeCallbacks(runnable);
+        super.onDestroy();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        handler.removeCallbacks(runnable);
+        super.onStop();
+    }
+
+    @Override
+    public void onResume() {
+        //启动刷新线程
+        handler = new Handler(Looper.getMainLooper());
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                iModule.getTodaySummary();
+                //今日客流信息
+                iModule.getPassenger();
+                //押运信息
+                iModule.getEscortInfo();
+                iModule.requestNoticeList();
+                handler.postDelayed(this, 200000);
+            }
+        };
+        handler.postDelayed(runnable, 200000);
+        super.onResume();
     }
 
 }

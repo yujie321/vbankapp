@@ -1,16 +1,24 @@
 package com.vieboo.vbankapp.data;
 
+import com.google.gson.Gson;
+
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 
 import java.util.Date;
-import org.greenrobot.greendao.annotation.Generated;
+
+import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 @Entity
 public class UserInfo {
 
-    @Id
-    private String id;
+    @Id(autoincrement = true)
+    private Long id;
+    //人员ID
+    private String personId;
     //图片地址
     private String imageUrl;
     //姓名
@@ -42,12 +50,14 @@ public class UserInfo {
     //特征值数据
     private byte[] padFeature;
 
-    @Generated(hash = 1904065460)
-    public UserInfo(String id, String imageUrl, String name, Integer sex, String number,
-            Integer departmentId, Integer positionId, Integer auth, String nation,
-            String company, Date birthday, String phone, String address,
-            String politicsStatus, String idCard, byte[] padFeature) {
+    @Generated(hash = 1293304891)
+    public UserInfo(Long id, String personId, String imageUrl, String name,
+            Integer sex, String number, Integer departmentId, Integer positionId,
+            Integer auth, String nation, String company, Date birthday,
+            String phone, String address, String politicsStatus, String idCard,
+            byte[] padFeature) {
         this.id = id;
+        this.personId = personId;
         this.imageUrl = imageUrl;
         this.name = name;
         this.sex = sex;
@@ -64,136 +74,117 @@ public class UserInfo {
         this.idCard = idCard;
         this.padFeature = padFeature;
     }
-
     @Generated(hash = 1279772520)
     public UserInfo() {
     }
-
-    public String getId() {
-        return id;
+    public Long getId() {
+        return this.id;
     }
-
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
-
-    public String getImageUrl() {
-        return imageUrl;
+    public String getPersonId() {
+        return this.personId;
     }
-
+    public void setPersonId(String personId) {
+        this.personId = personId;
+    }
+    public String getImageUrl() {
+        return this.imageUrl;
+    }
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-
     public String getName() {
-        return name;
+        return this.name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
     public Integer getSex() {
-        return sex;
+        return this.sex;
     }
-
     public void setSex(Integer sex) {
         this.sex = sex;
     }
-
     public String getNumber() {
-        return number;
+        return this.number;
     }
-
     public void setNumber(String number) {
         this.number = number;
     }
-
     public Integer getDepartmentId() {
-        return departmentId;
+        return this.departmentId;
     }
-
     public void setDepartmentId(Integer departmentId) {
         this.departmentId = departmentId;
     }
-
     public Integer getPositionId() {
-        return positionId;
+        return this.positionId;
     }
-
     public void setPositionId(Integer positionId) {
         this.positionId = positionId;
     }
-
     public Integer getAuth() {
-        return auth;
+        return this.auth;
     }
-
     public void setAuth(Integer auth) {
         this.auth = auth;
     }
-
     public String getNation() {
-        return nation;
+        return this.nation;
     }
-
     public void setNation(String nation) {
         this.nation = nation;
     }
-
     public String getCompany() {
-        return company;
+        return this.company;
     }
-
     public void setCompany(String company) {
         this.company = company;
     }
-
     public Date getBirthday() {
-        return birthday;
+        return this.birthday;
     }
-
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
-
     public String getPhone() {
-        return phone;
+        return this.phone;
     }
-
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
     public String getAddress() {
-        return address;
+        return this.address;
     }
-
     public void setAddress(String address) {
         this.address = address;
     }
-
     public String getPoliticsStatus() {
-        return politicsStatus;
+        return this.politicsStatus;
     }
-
     public void setPoliticsStatus(String politicsStatus) {
         this.politicsStatus = politicsStatus;
     }
-
     public String getIdCard() {
-        return idCard;
+        return this.idCard;
     }
-
     public void setIdCard(String idCard) {
         this.idCard = idCard;
     }
-
     public byte[] getPadFeature() {
-        return padFeature;
+        return this.padFeature;
     }
-
     public void setPadFeature(byte[] padFeature) {
         this.padFeature = padFeature;
+    }
+
+
+
+    public RequestBody convert2RequestBody() {
+        String json = new Gson().toJson(this);
+//        Log.e("LogInterceptor", "params-------->" + json);
+        return FormBody.create(MediaType.parse("application/json; charset=utf-8"), json);
     }
 }

@@ -5,6 +5,7 @@ import com.vieboo.vbankapp.data.AuthVO;
 import com.vieboo.vbankapp.data.DepartmentVO;
 import com.vieboo.vbankapp.data.InOutVO;
 import com.vieboo.vbankapp.data.NoticeListVO;
+import com.vieboo.vbankapp.data.PassengerSummeryVo;
 import com.vieboo.vbankapp.data.PassengerVO;
 import com.vieboo.vbankapp.data.PositionsVO;
 import com.vieboo.vbankapp.data.PunchRecordVO;
@@ -18,7 +19,10 @@ import com.vieboo.vbankapp.data.VQDSystemRecordVo;
 import java.util.List;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface IApi {
@@ -133,6 +137,12 @@ public interface IApi {
     Observable<HttpResult<List<SecureRecordVo>>> todayPersonInoutStatic();
 
     //网点运营统计
+    /**
+     * 获取当日客流和VIP到访人数
+     */
+    @GET("/microservice-pad/rest/passenger/todaysummery")
+    Observable<HttpResult<PassengerSummeryVo>> todayPassengerSummery();
+
 
     /**
      * 获取近七日客流趋势
@@ -143,7 +153,7 @@ public interface IApi {
     /**
      * 获取当日客流统计
      */
-    @GET("microservice-pad/rest/passenger/last7dayperiodstatic")
+    @GET("microservice-pad/rest/passenger/todayperiodstatic")
     Observable<HttpResult<List<SecureRecordVo>>> todayPassengerStatic();
 
     /**
@@ -151,5 +161,18 @@ public interface IApi {
      */
     @GET("microservice-pad/rest/findRegulations")
     Observable<HttpResult<List<RegulationsVO>>> findRegulations(@Query("name") String name, @Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
+
+    //人员管控
+    /**
+     * 添加人员
+     */
+    @POST("/microservice-pad/rest/addPerson")
+    Observable<HttpResult<String>> addPerson(@Body RequestBody body);
+
+    /**
+     * 上传人员图片
+     */
+    @POST("/microservice-pad/rest/file/upload")
+    Observable<HttpResult<String>> upload(@Body RequestBody body);
 
 }

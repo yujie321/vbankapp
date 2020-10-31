@@ -1,10 +1,10 @@
 package com.vieboo.vbankapp.fragment;
 
 import android.Manifest;
-import android.content.PeriodicSync;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
@@ -21,23 +21,31 @@ import androidx.core.app.ActivityCompat;
 import com.arcsoft.face.FaceEngine;
 import com.arcsoft.face.FaceFeature;
 import com.example.toollib.base.BaseFragment;
+import com.example.toollib.enums.StaticExplain;
+import com.example.toollib.http.HttpResult;
+import com.example.toollib.http.exception.HttpError;
+import com.example.toollib.http.function.BaseHttpConsumer;
+import com.example.toollib.http.observer.BaseHttpRxObserver;
+import com.example.toollib.http.util.RxUtils;
 import com.example.toollib.util.DensityUtil;
 import com.example.toollib.util.Log;
 import com.sdses.idCard.IdCardHelper;
 import com.sdses.idCard.IdInfo;
-import com.vieboo.vbankapp.PersonImageBeanDao;
 import com.vieboo.vbankapp.R;
 import com.vieboo.vbankapp.adapter.SpinnerAdapter;
 import com.vieboo.vbankapp.data.PersonImageBean;
 import com.vieboo.vbankapp.data.SpinnerVO;
 import com.vieboo.vbankapp.data.UserInfo;
 import com.vieboo.vbankapp.data.db.DBHelper;
+import com.vieboo.vbankapp.download.DownLoadUtil;
 import com.vieboo.vbankapp.face.CameraHelper;
 import com.vieboo.vbankapp.face.FaceRectView;
 import com.vieboo.vbankapp.face.util.CameraListenerUtil;
 import com.vieboo.vbankapp.face.util.FaceUtil;
 import com.vieboo.vbankapp.face.util.IdCardFaceListenerUtil;
 import com.vieboo.vbankapp.face.util.IdCardFaceView;
+import com.vieboo.vbankapp.face.util.ImageUtil;
+import com.vieboo.vbankapp.http.ServiceUrl;
 import com.vieboo.vbankapp.model.IAddPersonalModel;
 import com.vieboo.vbankapp.model.IAddPersonalView;
 import com.vieboo.vbankapp.model.impl.AddPersonalModel;
@@ -46,10 +54,21 @@ import com.vieboo.vbankapp.utils.FaceAlgoUtils;
 import com.vieboo.vbankapp.utils.PermissionUtil;
 import com.vieboo.vbankapp.weight.IdCardDialog;
 
+import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 import static com.vieboo.vbankapp.utils.Constants.ACTION_REQUEST_PERMISSIONS;
 
@@ -144,6 +163,7 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
         //身份证识别
         iModule.initIDCard();
 
+        Log.e("线程 = " + Thread.currentThread().getName());
     }
 
     @Override
@@ -197,10 +217,40 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
         userInfo.setAddress(idInfo.getAddress());
         userInfo.setIdCard(idInfo.getIdCardNum());
         userInfo.setPadFeature(idCardFeature);
-        DBHelper.getInstance().getUserInfoDao().save(userInfo);
 
-        List<UserInfo> userInfoList = DBHelper.getInstance().getUserInfoDao().queryBuilder().list();
-        return;
+        byte[] currentImgData = ImageUtil.Bitmap2Bytes(idInfo.getPhotoBmp());
+        File fileFromBytes = ImageUtil.getFileFromBytes(currentImgData, DownLoadUtil.mSinglePath + "test.jpg");
+
+        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+        builder.addFormDataPart("file", fileFromBytes.getName(),
+                    RequestBody.create(MediaType.parse("multipart/form-data"), fileFromBytes));
+
+        builder.addFormDataPart("kind", "person");
+        Observable<HttpResult<String>> httpResultObservable1 = ServiceUrl.getUserApi().upload(builder.build());
+        RxUtils.getObservable(httpResultObservable1)
+                .compose(this.bindToLifecycle())
+                .doOnNext(new BaseHttpConsumer<String>() {
+                    @Override
+                    public void httpConsumerAccept(HttpResult<String> httpResult) {
+                        userInfo.setImageUrl(httpResult.getData());
+                    }
+                }).concatMap(new Function<HttpResult<String>, ObservableSource<HttpResult<String>>>() {
+                    @Override
+                    public ObservableSource<HttpResult<String>> apply(HttpResult<String> httpResult) {
+                        if (Integer.parseInt(httpResult.getCode()) != HttpError.HTTP_SUCCESS.getCode()) {
+                            return null;
+                        }
+                        return RxUtils.getObservable(ServiceUrl.getUserApi().addPerson(userInfo.convert2RequestBody()));
+                    }
+
+                }).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseHttpRxObserver<String>(getActivity()) {
+                    @Override
+                    protected void onSuccess(String personId) {
+                        userInfo.setPersonId(personId);
+                        DBHelper.getInstance().getUserInfoDao().save(userInfo);
+                    }
+                });
     }
 
     /**
@@ -265,6 +315,13 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
                 faceListenerUtil.setIdCardFeature(idCardFeature);
             }
         }
+    }
+
+    @Override
+    public void callback(Bitmap bitmap) {
+
+        refreshIDCard(idInfo, bitmap);
+        //addPersontoDB();
     }
 
     private void refreshIDCard(IdInfo idInfo, Bitmap bitmap) {
@@ -399,13 +456,8 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
         }
         unInitEngine();
         IdCardHelper.getInstance().close();
+        cameraListenerUtil.clearLeftFace(null );
         super.onDestroy();
     }
 
-    @Override
-    public void callback(Bitmap bitmap) {
-
-        refreshIDCard(idInfo, bitmap);
-        addPersontoDB();
-    }
 }

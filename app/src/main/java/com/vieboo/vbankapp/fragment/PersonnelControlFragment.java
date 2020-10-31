@@ -283,12 +283,23 @@ public class PersonnelControlFragment extends BaseFragment<IPersonnelControlMode
     }
 
     @Override
-    public void onDestroy() {
+    public void onStop() {
         if (cameraHelper != null) {
             cameraHelper.release();
             cameraHelper = null;
         }
         unInitEngine();
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        if (cameraHelper != null) {
+            cameraHelper.release();
+            cameraHelper = null;
+        }
+//        unInitEngine();
+        cameraListenerUtil.clearLeftFace(null );
         super.onDestroy();
     }
 }

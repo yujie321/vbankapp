@@ -9,6 +9,7 @@ import com.example.toollib.base.BaseFragment;
 import com.example.toollib.data.IBaseModule;
 import com.github.mikephil.charting.charts.LineChart;
 import com.vieboo.vbankapp.R;
+import com.vieboo.vbankapp.data.PassengerSummeryVo;
 import com.vieboo.vbankapp.data.SecureRecordVo;
 import com.vieboo.vbankapp.model.IBranchOperateModel;
 import com.vieboo.vbankapp.model.IBranchOperateView;
@@ -33,6 +34,8 @@ public class BranchOperateFragment extends BaseFragment<IBranchOperateModel> imp
     TextView tvBranchVIP;
     @BindView(R.id.tvManyVisitsPerson)
     TextView tvManyVisitsPerson;
+    @BindView(R.id.tvFrontPassenger)
+    TextView tvFrontPassenger;
     @BindView(R.id.tvMonthPassenger)
     TextView tvMonthPassenger;
     @BindView(R.id.tvMonthAllPassenger)
@@ -62,6 +65,7 @@ public class BranchOperateFragment extends BaseFragment<IBranchOperateModel> imp
     public void initView() {
         LineChartUtil.initLineChart(lineChart);
         DoubleLineChartUtil.initDoubleLineChart(lineChart2);
+        iModule.getTodayPassengerSummery();
         iModule.getLast7dayPeriodStatic();
         iModule.getTodayPassengerStatic();
     }
@@ -74,6 +78,17 @@ public class BranchOperateFragment extends BaseFragment<IBranchOperateModel> imp
     @Override
     public void setTodayPassengerStatic(List<SecureRecordVo> secureRecordVoList) {
         DoubleLineChartUtil.setTodayPassengerStatic(getActivity(), lineChart2, secureRecordVoList);
+    }
+
+    @Override
+    public void setTodayPassengerSummery(PassengerSummeryVo passengerSummeryVo) {
+        tvBranchPersonNum.setText(String.valueOf(passengerSummeryVo.getPassengernum()));
+        tvBranchVIP.setText(String.valueOf(passengerSummeryVo.getVipnum()));
+        tvManyVisitsPerson.setText(String.valueOf(passengerSummeryVo.getMultivisitsnum()));
+        tvFrontPassenger.setText(String.valueOf(passengerSummeryVo.getLastdaypassengernum()));
+        tvMonthPassenger.setText(String.valueOf(passengerSummeryVo.getLastmonthtodaynum()));
+        tvMonthAllPassenger.setText(String.valueOf(passengerSummeryVo.getLastmonthavgnum()));
+        tvFrontSeasonPassenger.setText(String.valueOf(passengerSummeryVo.getLast90dayavgnum()));
     }
 
     @OnClick(R.id.ivBack)

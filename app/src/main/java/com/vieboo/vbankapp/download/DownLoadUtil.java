@@ -20,7 +20,7 @@ public class DownLoadUtil {
 
     private static String mSaveFolder = FileDownloadUtils.getDefaultSaveRootPath() + File.separator;
 
-    private static String mSinglePath = mSaveFolder + "VBankApp";
+    public static String mSinglePath = mSaveFolder + "VBankApp";
 
     public static void downLoad(final Context mContext, String updateUrl, final OnDownloadListener onDownloadListener) {
         deleteFiles(new File(mSaveFolder));

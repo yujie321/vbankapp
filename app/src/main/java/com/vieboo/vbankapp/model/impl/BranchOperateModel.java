@@ -4,6 +4,7 @@ import com.example.toollib.data.BaseModule;
 import com.example.toollib.http.exception.ApiException;
 import com.example.toollib.http.observer.BaseHttpRxObserver;
 import com.example.toollib.http.util.RxUtils;
+import com.vieboo.vbankapp.data.PassengerSummeryVo;
 import com.vieboo.vbankapp.data.SecureRecordVo;
 import com.vieboo.vbankapp.http.ServiceUrl;
 import com.vieboo.vbankapp.model.IBranchOperateModel;
@@ -36,6 +37,22 @@ public class BranchOperateModel extends BaseModule<IBranchOperateView> implement
                     @Override
                     protected void onSuccess(List<SecureRecordVo> secureRecordVoList) {
                         mViewRef.get().setTodayPassengerStatic(secureRecordVoList);
+                    }
+                    @Override
+                    public void onError(ApiException apiException) {
+                        super.onError(apiException);
+                    }
+                });
+    }
+
+    @Override
+    public void getTodayPassengerSummery() {
+        RxUtils.getObservable(ServiceUrl.getUserApi().todayPassengerSummery())
+                .compose(mViewRef.get().bindLifecycle())
+                .subscribe(new BaseHttpRxObserver<PassengerSummeryVo>() {
+                    @Override
+                    protected void onSuccess(PassengerSummeryVo passengerSummeryVo) {
+                        mViewRef.get().setTodayPassengerSummery(passengerSummeryVo);
                     }
                     @Override
                     public void onError(ApiException apiException) {
