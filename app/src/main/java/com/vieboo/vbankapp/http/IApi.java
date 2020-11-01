@@ -3,6 +3,7 @@ package com.vieboo.vbankapp.http;
 import com.example.toollib.http.HttpResult;
 import com.vieboo.vbankapp.data.AuthVO;
 import com.vieboo.vbankapp.data.DepartmentVO;
+import com.vieboo.vbankapp.data.DeviceStatusVo;
 import com.vieboo.vbankapp.data.InOutVO;
 import com.vieboo.vbankapp.data.NoticeListVO;
 import com.vieboo.vbankapp.data.PassengerSummeryVo;
@@ -102,11 +103,18 @@ public interface IApi {
     @GET("/microservice-pad/rest/findAuth")
     Observable<HttpResult<List<AuthVO>>> findAuth();
 
+    //设备状态查询
     /**
-     * 查询员工
+     * 查询VQD记录
      */
     @GET("/microservice-pad/rest/vqd")
     Observable<HttpResult<VQDSystemRecordVo>> findVQD(@Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
+
+    /**
+     * 查询设备在线状态
+     */
+    @GET("/microservice-pad/rest/vqd/static")
+    Observable<HttpResult<DeviceStatusVo>> getVqdStatic();
 
     /**
      * 查询记录

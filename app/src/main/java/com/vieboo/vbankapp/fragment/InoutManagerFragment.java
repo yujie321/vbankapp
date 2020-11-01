@@ -2,7 +2,6 @@ package com.vieboo.vbankapp.fragment;
 
 import android.os.Bundle;
 
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -16,7 +15,6 @@ import com.vieboo.vbankapp.data.SecureRecordVo;
 import com.vieboo.vbankapp.model.IInoutManagerModel;
 import com.vieboo.vbankapp.model.IInoutManagerView;
 import com.vieboo.vbankapp.model.impl.InoutManagerModel;
-import com.vieboo.vbankapp.utils.GridSpacingItemDecoration;
 import com.vieboo.vbankapp.utils.LineChartUtil;
 
 import java.util.List;
@@ -33,6 +31,10 @@ public class InoutManagerFragment extends BaseListFragment<IInoutManagerModel, I
     @BindView(R.id.rvBaseList)
     RecyclerView rvBaseList;
     private InoutManagerAdapter inoutManagerAdapter;
+
+    protected static String[] mLabels = new String[]{
+            "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"
+    };
 
     public static InoutManagerFragment newInstance() {
         Bundle args = new Bundle();
@@ -58,7 +60,7 @@ public class InoutManagerFragment extends BaseListFragment<IInoutManagerModel, I
         iModule.requestAccessPersonInOut();
 
         //获取当日进出记录趋势图
-        LineChartUtil.initLineChart(lineChart);
+        LineChartUtil.initLineChart(lineChart, mLabels);
         iModule.getTodayPersonInoutStatic();
     }
 

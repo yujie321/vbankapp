@@ -12,6 +12,9 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.LargeValueFormatter;
+import com.vieboo.vbankapp.R;
+import com.vieboo.vbankapp.data.DeviceStatusVo;
 
 import java.util.ArrayList;
 
@@ -52,10 +55,11 @@ public class HorizontalBarChartUtil {
         yl.setAxisMinimum(0f); // this replaces setStartAtZero(true)
 //        yl.setInverted(true);
         yl.setTextColor(Color.WHITE);
+        yl.setEnabled(false);
 
         YAxis yr = horizontalBarChart.getAxisRight();
         yr.setDrawAxisLine(true);
-        yr.setDrawGridLines(false);
+        yr.setDrawGridLines(true);
         yr.setAxisMinimum(0f); // this replaces setStartAtZero(true)
 //        yr.setInverted(true);
         yr.setTextColor(Color.WHITE);
@@ -64,15 +68,15 @@ public class HorizontalBarChartUtil {
         horizontalBarChart.animateY(2500);
 
         Legend l = horizontalBarChart.getLegend();
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
         l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
         l.setDrawInside(false);
         l.setFormSize(8f);
         l.setXEntrySpace(4f);
     }
 
-    public static void setHorizontalBarChartData(FragmentActivity activity, HorizontalBarChart horizontalBarChart) {
+    public static void setHorizontalBarChartData(FragmentActivity activity, HorizontalBarChart horizontalBarChart, DeviceStatusVo deviceStatusVo) {
         float groupSpace = 0.20f;
         float barSpace = 0.00f; // x4 DataSet
         float barWidth = 0.20f; // x4 DataSet
@@ -100,10 +104,10 @@ public class HorizontalBarChartUtil {
                 }
                 break;
                 case 1: {
-                    yVals1.add(new BarEntry(i, 10));
-                    yVals2.add(new BarEntry(i, 20));
-                    yVals3.add(new BarEntry(i, 30));
-                    yVals4.add(new BarEntry(i, 40));
+                    yVals1.add(new BarEntry(i, deviceStatusVo.getOnlinenum()));
+                    yVals2.add(new BarEntry(i, deviceStatusVo.getOfflinenum()));
+                    yVals3.add(new BarEntry(i, deviceStatusVo.getNormalnum()));
+                    yVals4.add(new BarEntry(i, deviceStatusVo.getAbnormalnum()));
                 }
                 break;
                 case 2: {
@@ -133,16 +137,19 @@ public class HorizontalBarChartUtil {
         } else {
             // create 4 DataSets
             set1 = new BarDataSet(yVals1, "在线");
-            set1.setColor(Color.rgb(0, 153, 255));
+            set1.setColor(activity.getResources().getColor(R.color.tool_lib_color_03ABD6));
+            set1.setValueTextColor(activity.getResources().getColor(R.color.tool_lib_color_00C6FF));
             set2 = new BarDataSet(yVals2, "离线");
-            set2.setColor(Color.rgb(255, 153, 102));
+            set2.setColor(activity.getResources().getColor(R.color.tool_lib_color_BCBCBC));
+            set2.setValueTextColor(activity.getResources().getColor(R.color.tool_lib_color_00C6FF));
             set3 = new BarDataSet(yVals3, "正常");
-            set3.setColor(Color.rgb(0, 153, 255));
+            set3.setColor(activity.getResources().getColor(R.color.tool_lib_color_0EC274));
+            set3.setValueTextColor(activity.getResources().getColor(R.color.tool_lib_color_00C6FF));
             set4 = new BarDataSet(yVals4, "故障");
-            set4.setColor(Color.rgb(255, 153, 102));
+            set4.setColor(activity.getResources().getColor(R.color.tool_lib_color_E09C08));
+            set4.setValueTextColor(activity.getResources().getColor(R.color.tool_lib_color_00C6FF));
 
             BarData data = new BarData(set1, set2, set3, set4); //,set4
-            //data.setValueFormatter(new LargeValueFormatter());
             horizontalBarChart.setData(data);
         }
 

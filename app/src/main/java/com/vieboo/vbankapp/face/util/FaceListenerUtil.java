@@ -42,7 +42,10 @@ import static com.vieboo.vbankapp.face.util.CameraListenerUtil.requestFeatureSta
 
 public class FaceListenerUtil implements FaceListener {
 
-
+    public FaceListenerView faceListenerView;
+    public FaceListenerUtil(FaceListenerView faceListenerView) {
+        this.faceListenerView = faceListenerView;
+    }
     /**
      * 当FR成功，活体未成功时，FR等待活体的时间
      */
@@ -306,6 +309,7 @@ public class FaceListenerUtil implements FaceListener {
                         if (faceSimilar.getScore() >= Constants.FACE_MIN_SIMLAR && faceSimilar.getScore() > maxSimilar) {
                             maxSimilar = faceSimilar.getScore();
                             personId = userInfo.getPersonId();
+                            faceListenerView.callback(bitmap, personId);
                         }
                         Log.e("checkingFace:姓名:" + userInfo.getId() + "-相似度:" + faceSimilar.getScore());
                     }

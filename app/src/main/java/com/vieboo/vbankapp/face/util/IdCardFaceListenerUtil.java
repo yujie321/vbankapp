@@ -15,9 +15,8 @@ public class IdCardFaceListenerUtil extends FaceListenerUtil{
     private volatile byte[] idCardFeature;
     private boolean isProcessing = false;
 
-    private IdCardFaceView idCardFaceView;
-    public IdCardFaceListenerUtil(IdCardFaceView idCardFaceView) {
-        this.idCardFaceView = idCardFaceView;
+    public IdCardFaceListenerUtil(FaceListenerView faceListenerView) {
+        super(faceListenerView);
     }
 
     @Override
@@ -33,7 +32,7 @@ public class IdCardFaceListenerUtil extends FaceListenerUtil{
         if (faceSimilar != null) {
             if (faceSimilar.getScore() >= Constants.FACE_TO_ID_SIMILARITY && faceSimilar.getScore() > maxSimilar) {
                 maxSimilar = faceSimilar.getScore();
-                idCardFaceView.callback(bitmap);
+                faceListenerView.callback(bitmap, personId);
             }
             Log.e("checkingFace:姓名:"  + "-相似度:" + faceSimilar.getScore());
         }

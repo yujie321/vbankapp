@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.TimeUtils;
 import com.example.toollib.base.BaseFragment;
 import com.example.toollib.data.IBaseModule;
 import com.github.mikephil.charting.charts.LineChart;
@@ -17,6 +18,8 @@ import com.vieboo.vbankapp.model.impl.BranchOperateModel;
 import com.vieboo.vbankapp.utils.DoubleLineChartUtil;
 import com.vieboo.vbankapp.utils.LineChartUtil;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -42,12 +45,18 @@ public class BranchOperateFragment extends BaseFragment<IBranchOperateModel> imp
     TextView tvMonthAllPassenger;
     @BindView(R.id.tvFrontSeasonPassenger)
     TextView tvFrontSeasonPassenger;
+    @BindView(R.id.tvBranchDate)
+    TextView tvBranchDate;
     @BindView(R.id.relBranch)
     LinearLayout relBranch;
     @BindView(R.id.lineChart2)
     LineChart lineChart2;
     @BindView(R.id.lineChart)
     LineChart lineChart;
+
+    protected static String[] mLabels = new String[]{
+            "周一", "周二", "周三", "周四", "周五", "周六", "周日"
+    };
 
     public static BranchOperateFragment newInstance() {
         Bundle args = new Bundle();
@@ -63,7 +72,7 @@ public class BranchOperateFragment extends BaseFragment<IBranchOperateModel> imp
 
     @Override
     public void initView() {
-        LineChartUtil.initLineChart(lineChart);
+        LineChartUtil.initLineChart(lineChart, mLabels);
         DoubleLineChartUtil.initDoubleLineChart(lineChart2);
         iModule.getTodayPassengerSummery();
         iModule.getLast7dayPeriodStatic();
@@ -89,6 +98,8 @@ public class BranchOperateFragment extends BaseFragment<IBranchOperateModel> imp
         tvMonthPassenger.setText(String.valueOf(passengerSummeryVo.getLastmonthtodaynum()));
         tvMonthAllPassenger.setText(String.valueOf(passengerSummeryVo.getLastmonthavgnum()));
         tvFrontSeasonPassenger.setText(String.valueOf(passengerSummeryVo.getLast90dayavgnum()));
+        String currenttime = TimeUtils.date2String(new Date(System.currentTimeMillis()), new SimpleDateFormat("yyyy-MM-dd"));
+        tvBranchDate.setText(currenttime);
     }
 
     @OnClick(R.id.ivBack)

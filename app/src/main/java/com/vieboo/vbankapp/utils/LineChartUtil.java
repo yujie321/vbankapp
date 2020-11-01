@@ -21,7 +21,7 @@ import java.util.List;
 
 public class LineChartUtil {
 
-    public static void initLineChart(LineChart lineChart) {
+    public static void initLineChart(LineChart lineChart, String[] mLabels) {
 
         // no description text
         lineChart.getDescription().setEnabled(false);

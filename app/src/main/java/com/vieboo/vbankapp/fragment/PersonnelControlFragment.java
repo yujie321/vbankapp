@@ -2,6 +2,7 @@ package com.vieboo.vbankapp.fragment;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -20,7 +21,6 @@ import com.example.toollib.util.Log;
 import com.vieboo.vbankapp.R;
 import com.vieboo.vbankapp.adapter.PunchRecordAdapter;
 import com.vieboo.vbankapp.adapter.StaffStyleAdapter;
-import com.vieboo.vbankapp.data.PersonImageBean;
 import com.vieboo.vbankapp.data.PunchRecordVO;
 import com.vieboo.vbankapp.data.RecordVO;
 import com.vieboo.vbankapp.data.UserInfo;
@@ -29,8 +29,8 @@ import com.vieboo.vbankapp.face.CameraHelper;
 import com.vieboo.vbankapp.face.FaceRectView;
 import com.vieboo.vbankapp.face.util.CameraListenerUtil;
 import com.vieboo.vbankapp.face.util.FaceListenerUtil;
+import com.vieboo.vbankapp.face.util.FaceListenerView;
 import com.vieboo.vbankapp.face.util.FaceUtil;
-import com.vieboo.vbankapp.face.util.IdCardFaceListenerUtil;
 import com.vieboo.vbankapp.model.IPersonnelControlModel;
 import com.vieboo.vbankapp.model.IPersonnelControlView;
 import com.vieboo.vbankapp.model.impl.PersonnelControlModel;
@@ -47,7 +47,7 @@ import static com.vieboo.vbankapp.utils.Constants.ACTION_REQUEST_PERMISSIONS;
 /**
  * 人员管控
  */
-public class PersonnelControlFragment extends BaseFragment<IPersonnelControlModel> implements IPersonnelControlView , ViewTreeObserver.OnGlobalLayoutListener{
+public class PersonnelControlFragment extends BaseFragment<IPersonnelControlModel> implements IPersonnelControlView , FaceListenerView, ViewTreeObserver.OnGlobalLayoutListener{
     @BindView(R.id.texture_preview)
     TextureView texturePreview;
     @BindView(R.id.faceRectView)
@@ -235,7 +235,7 @@ public class PersonnelControlFragment extends BaseFragment<IPersonnelControlMode
     }
 
     private FaceListenerUtil initFaceListenerUtil() {
-        faceListenerUtil = new FaceListenerUtil();
+        faceListenerUtil = new FaceListenerUtil(this);
         faceListenerUtil.setAsyncFaceEngine(asyncFaceEngine);
         faceListenerUtil.setUserInfoList(getUserInfoLIst());
         return faceListenerUtil;
@@ -301,5 +301,10 @@ public class PersonnelControlFragment extends BaseFragment<IPersonnelControlMode
 //        unInitEngine();
         cameraListenerUtil.clearLeftFace(null );
         super.onDestroy();
+    }
+
+    @Override
+    public void callback(Bitmap bitmap, String personId) {
+
     }
 }

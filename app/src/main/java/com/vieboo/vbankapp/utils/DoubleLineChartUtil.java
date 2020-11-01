@@ -47,9 +47,6 @@ public class DoubleLineChartUtil {
         // if disabled, scaling can be done on x- and y-axis separately
         lineChart.setPinchZoom(true);
 
-        // set an alternative background color
-        lineChart.setBackgroundColor(Color.LTGRAY);
-
         lineChart.animateX(1500);
 
         // get the legend (only possible after setting data)
@@ -117,7 +114,7 @@ public class DoubleLineChartUtil {
         } else {
             // create a dataset and give it a type
             set1 = new LineDataSet(values1, "普通客户");
-
+            set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
             set1.setAxisDependency(YAxis.AxisDependency.LEFT);
             set1.setColor(ColorTemplate.getHoloBlue());
             set1.setCircleColor(Color.WHITE);
@@ -134,6 +131,7 @@ public class DoubleLineChartUtil {
 
             // create a dataset and give it a type
             set2 = new LineDataSet(values2, "VIP客户");
+            set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
             set2.setAxisDependency(YAxis.AxisDependency.RIGHT);
             set2.setColor(Color.RED);
             set2.setCircleColor(Color.WHITE);

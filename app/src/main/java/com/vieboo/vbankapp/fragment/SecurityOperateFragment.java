@@ -33,6 +33,10 @@ public class SecurityOperateFragment extends BaseListFragment<ISecurityOperateMo
     LineChart lineChart;
     private SecurityOperateAdapter securityOperateAdapter;
 
+    protected static String[] mLabels = new String[]{
+            "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"
+    };
+
     public static SecurityOperateFragment newInstance() {
         Bundle args = new Bundle();
         SecurityOperateFragment fragment = new SecurityOperateFragment();
@@ -50,7 +54,7 @@ public class SecurityOperateFragment extends BaseListFragment<ISecurityOperateMo
         super.initView();
         rvBaseList.setLayoutManager(new StaggeredGridLayoutManager(5, StaggeredGridLayoutManager.VERTICAL));
         //rvBaseList.addItemDecoration(new GridSpacingItemDecoration(5, 5, false));
-        LineChartUtil.initLineChart(lineChart);
+        LineChartUtil.initLineChart(lineChart, mLabels);
         iModule.getTodaySecureStatic();
     }
 

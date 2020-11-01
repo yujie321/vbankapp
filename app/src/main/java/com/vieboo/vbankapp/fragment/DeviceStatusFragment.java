@@ -8,6 +8,7 @@ import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.vieboo.vbankapp.R;
 import com.vieboo.vbankapp.adapter.DeviceStatusAdapter;
+import com.vieboo.vbankapp.data.DeviceStatusVo;
 import com.vieboo.vbankapp.data.VQDResultVO;
 import com.vieboo.vbankapp.model.IDeviceStatusModel;
 import com.vieboo.vbankapp.model.IDeviceStatusView;
@@ -55,8 +56,8 @@ public class DeviceStatusFragment extends BaseListFragment<IDeviceStatusModel, D
     }
 
     @Override
-    public void setDeviceStatus() {
-        HorizontalBarChartUtil.setHorizontalBarChartData(getActivity(), horizontalBarChart);
+    public void setDeviceStatus(DeviceStatusVo deviceStatusVo) {
+        HorizontalBarChartUtil.setHorizontalBarChartData(getActivity(), horizontalBarChart, deviceStatusVo);
     }
 
     @Override

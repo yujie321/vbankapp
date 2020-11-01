@@ -1,6 +1,7 @@
 package com.vieboo.vbankapp.model;
 
 import com.example.toollib.data.base.IBaseListView;
+import com.vieboo.vbankapp.data.DeviceStatusVo;
 import com.vieboo.vbankapp.data.VQDResultVO;
 
 import java.util.List;
@@ -11,5 +12,5 @@ public interface IDeviceStatusView extends IBaseListView {
 
     void loadMoreVQD(List<VQDResultVO> vqdResultVOS);
 
-    void setDeviceStatus();
+    void setDeviceStatus(DeviceStatusVo deviceStatusVo);
 }

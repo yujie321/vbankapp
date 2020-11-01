@@ -5,6 +5,7 @@ import com.example.toollib.enums.StaticExplain;
 import com.example.toollib.http.exception.ApiException;
 import com.example.toollib.http.observer.BaseHttpRxObserver;
 import com.example.toollib.http.util.RxUtils;
+import com.vieboo.vbankapp.data.DeviceStatusVo;
 import com.vieboo.vbankapp.data.VQDResultVO;
 import com.vieboo.vbankapp.data.VQDSystemRecordVo;
 import com.vieboo.vbankapp.http.ServiceUrl;
@@ -55,6 +56,14 @@ public class DeviceStatusModel extends BaseModule<IDeviceStatusView> implements 
 
     @Override
     public void getDeviceStatus() {
-        mViewRef.get().setDeviceStatus();
+        RxUtils.getObservable(ServiceUrl.getUserApi().getVqdStatic())
+                .compose(mViewRef.get().bindLifecycle())
+                .subscribe(new BaseHttpRxObserver<DeviceStatusVo>() {
+                    @Override
+                    protected void onSuccess(DeviceStatusVo deviceStatusVo) {
+                        mViewRef.get().setDeviceStatus(deviceStatusVo);
+                    }
+                });
+
     }
 }

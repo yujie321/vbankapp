@@ -113,5 +113,10 @@
     <color name="tool_lib_color_cc0101">#cc0101</color>
     <color name="tool_lib_color_959595">#959595</color>
     <color name="tool_lib_color_FF9000">#FF9000</color>
+    <color name="tool_lib_color_03ABD6">#03ABD6</color>
+    <color name="tool_lib_color_BCBCBC">#BCBCBC</color>
+    <color name="tool_lib_color_0EC274">#0EC274</color>
+    <color name="tool_lib_color_E09C08">#E09C08</color>
+    <color name="tool_lib_color_00C6FF">#00C6FF</color>
 
 </resources>

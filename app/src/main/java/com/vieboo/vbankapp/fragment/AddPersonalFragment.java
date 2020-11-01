@@ -41,6 +41,7 @@ import com.vieboo.vbankapp.download.DownLoadUtil;
 import com.vieboo.vbankapp.face.CameraHelper;
 import com.vieboo.vbankapp.face.FaceRectView;
 import com.vieboo.vbankapp.face.util.CameraListenerUtil;
+import com.vieboo.vbankapp.face.util.FaceListenerView;
 import com.vieboo.vbankapp.face.util.FaceUtil;
 import com.vieboo.vbankapp.face.util.IdCardFaceListenerUtil;
 import com.vieboo.vbankapp.face.util.IdCardFaceView;
@@ -75,7 +76,7 @@ import static com.vieboo.vbankapp.utils.Constants.ACTION_REQUEST_PERMISSIONS;
 /**
  * 人员新增
  */
-public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> implements IAddPersonalView, IdCardFaceView,ViewTreeObserver.OnGlobalLayoutListener {
+public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> implements IAddPersonalView, FaceListenerView,ViewTreeObserver.OnGlobalLayoutListener {
 
     @BindView(R.id.texture_preview)
     TextureView texturePreview;
@@ -318,10 +319,9 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
     }
 
     @Override
-    public void callback(Bitmap bitmap) {
+    public void callback(Bitmap bitmap, String personId) {
 
         refreshIDCard(idInfo, bitmap);
-        //addPersontoDB();
     }
 
     private void refreshIDCard(IdInfo idInfo, Bitmap bitmap) {
