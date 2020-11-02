@@ -68,13 +68,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/tvHomeName"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="18dp"
+            android:layout_toStartOf="@+id/ivHomeSetting"
+            android:layout_marginEnd="12dp"
             android:gravity="center"
             android:textColor="@color/tool_lib_color_E3E3E3"
             android:textSize="16sp"
             android:textStyle="bold"
             tools:text="2020年10月1日 星期一" />
+
+
+        <ImageView
+            android:id="@+id/ivHomeSetting"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="18dp"
+            android:src="@drawable/ic_setting" />
+
     </RelativeLayout>
 
     <LinearLayout

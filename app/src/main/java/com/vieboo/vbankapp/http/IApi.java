@@ -22,7 +22,6 @@ import java.util.List;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -78,13 +77,13 @@ public interface IApi {
      * 上班打卡
      */
     @POST("/microservice-pad/rest/clockIn")
-    Observable<HttpResult<String>> clockIn(@Field("personHead") String personHead, @Field("id") String id);
+    Observable<HttpResult<String>> clockIn(@Query("personHead") String personHead, @Query("id") String id);
 
     /**
      * 下班打卡
      */
     @POST("/microservice-pad/rest/clockOut")
-    Observable<HttpResult<String>> clockOut(@Field("personHead") String personHead, @Field("id") String id);
+    Observable<HttpResult<String>> clockOut(@Query("personHead") String personHead, @Query("id") String id);
 
     /**
      * 部门查询

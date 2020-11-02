@@ -1,5 +1,6 @@
 package com.vieboo.vbankapp.model.impl;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 
 import com.example.toollib.data.BaseModule;
@@ -33,11 +34,13 @@ public class PersonnelControlModel extends BaseModule<IPersonnelControlView> imp
 
     @Override
     public void getStaffStyle() {
-        RxUtils.getObservable(ServiceUrl.getUserApi().findPerson("employee",1 , 10000))
+        RxUtils.getObservable(ServiceUrl.getUserApi().findPerson("employee", 1, 10000))
                 .compose(mViewRef.get().bindLifecycle())
                 .subscribe(new BaseHttpRxObserver<List<PunchRecordVO>>() {
                     @Override
                     protected void onSuccess(List<PunchRecordVO> passengerVO) {
+
+
                         mViewRef.get().setStaffStyle(passengerVO);
                     }
                 });
@@ -63,10 +66,9 @@ public class PersonnelControlModel extends BaseModule<IPersonnelControlView> imp
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
         builder.addFormDataPart("file", fileFromBytes.getName(),
                 RequestBody.create(MediaType.parse("multipart/form-data"), fileFromBytes));
-
         builder.addFormDataPart("kind", "person");
-        Observable<HttpResult<String>> httpResultObservable1 = ServiceUrl.getUserApi().upload(builder.build());
-        RxUtils.getObservable(httpResultObservable1)
+
+        RxUtils.getObservable(ServiceUrl.getUserApi().upload(builder.build()))
                 .compose(mViewRef.get().bindLifecycle())
                 .doOnNext(new BaseHttpConsumer<String>() {
                     @Override
@@ -82,7 +84,6 @@ public class PersonnelControlModel extends BaseModule<IPersonnelControlView> imp
                 Observable<HttpResult<String>> httpResultObservable = ServiceUrl.getUserApi().clockIn(httpResult.getData(), personId);
                 return RxUtils.getObservable(httpResultObservable);
             }
-
         }).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseHttpRxObserver<String>(mContext.get()) {
                     @Override

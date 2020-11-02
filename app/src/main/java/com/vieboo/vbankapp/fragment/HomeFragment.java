@@ -40,6 +40,7 @@ import com.vieboo.vbankapp.utils.PieChartUtil;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * 首页
@@ -80,6 +81,7 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
 
     private Handler handler = null;
     private Runnable runnable = null;
+
     static HomeFragment newInstance() {
         Bundle args = new Bundle();
         HomeFragment fragment = new HomeFragment();
@@ -232,6 +234,11 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
         navigationAdapter.addData(navigationList);
         navigationAdapter.setOnItemClickListener(onItemClickListener);
         rvNavigationList.setAdapter(navigationAdapter);
+    }
+
+    @OnClick(R.id.ivHomeSetting)
+    public void onClick() {
+        //设置
     }
 
     private OnItemClickListener onItemClickListener = (adapter, view, position) -> {
