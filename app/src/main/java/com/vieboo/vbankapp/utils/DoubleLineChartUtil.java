@@ -13,13 +13,14 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.vieboo.vbankapp.data.ChartXY;
 import com.vieboo.vbankapp.data.SecureRecordVo;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DoubleLineChartUtil {
-    public static void initDoubleLineChart(LineChart lineChart) {
+    public static void initDoubleLineChart(LineChart lineChart, String[] mLabels) {
 
         // no description text
         lineChart.getDescription().setEnabled(false);
@@ -28,10 +29,9 @@ public class DoubleLineChartUtil {
         x.setPosition(XAxis.XAxisPosition.BOTTOM);
         x.setDrawAxisLine(true);
         x.setDrawGridLines(false);
-        x.setDrawGridLines(false);
         x.setDrawLabels(true);
         x.setGranularity(1f);
-        x.setCenterAxisLabels(true);
+
 
         // enable touch gestures
         lineChart.setTouchEnabled(true);
@@ -43,6 +43,7 @@ public class DoubleLineChartUtil {
         lineChart.setScaleEnabled(true);
         lineChart.setDrawGridBackground(false);
         lineChart.setHighlightPerDragEnabled(true);
+        lineChart.setVisibleXRangeMaximum(11);
 
         // if disabled, scaling can be done on x- and y-axis separately
         lineChart.setPinchZoom(true);
@@ -63,11 +64,14 @@ public class DoubleLineChartUtil {
 //        l.setYOffset(11f);
 
         XAxis xAxis = lineChart.getXAxis();
-
         xAxis.setTextSize(11f);
         xAxis.setTextColor(Color.WHITE);
         xAxis.setDrawGridLines(false);
         xAxis.setDrawAxisLine(false);
+
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(mLabels));
+
+        xAxis.setTextColor(Color.WHITE);
 
         YAxis leftAxis = lineChart.getAxisLeft();
         leftAxis.setTextColor(ColorTemplate.getHoloBlue());
@@ -78,27 +82,17 @@ public class DoubleLineChartUtil {
 
     }
 
-    public static void setTodayPassengerStatic(FragmentActivity activity, LineChart lineChart, List<SecureRecordVo> secureRecordVoList) {
-        ArrayList<String> xdata = new ArrayList<>();
-        for (int j = 0; j < 20; j++){
-            xdata.add(""+(j+1));
-        }
-        lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xdata));
-        lineChart.getXAxis().setLabelCount(45);
-        lineChart.getXAxis().setTextColor(Color.WHITE);
-
+    public static void setTodayPassengerStatic(FragmentActivity activity, LineChart lineChart, List<ChartXY> mChartXYList, List<ChartXY> chartXYList) {
         ArrayList<Entry> values1 = new ArrayList<>();
 
-        for (int i = 0; i < 20; i++) {
-            float val = (float) (Math.random() * 30) + 50;
-            values1.add(new Entry(i, val));
+        for (int i = 0; i < mChartXYList.size(); i++) {
+            values1.add(new Entry(i, mChartXYList.get(i).getChartY()));
         }
 
         ArrayList<Entry> values2 = new ArrayList<>();
 
-        for (int i = 0; i < 20; i++) {
-            float val = (float) (Math.random() * 30) + 50;
-            values2.add(new Entry(i, val));
+        for (int i = 0; i < chartXYList.size(); i++) {
+            values2.add(new Entry(i, chartXYList.get(i).getChartY()));
         }
 
         LineDataSet set1, set2;
@@ -131,7 +125,7 @@ public class DoubleLineChartUtil {
 
             // create a dataset and give it a type
             set2 = new LineDataSet(values2, "VIP客户");
-            set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+            set2.setMode(LineDataSet.Mode.CUBIC_BEZIER);
             set2.setAxisDependency(YAxis.AxisDependency.RIGHT);
             set2.setColor(Color.RED);
             set2.setCircleColor(Color.WHITE);

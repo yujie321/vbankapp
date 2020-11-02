@@ -81,6 +81,11 @@ public class SplashFragment extends BaseFragment<ISplashModel> implements ISplas
     }
 
     @Override
+    public void startActiveDeviceFragment() {
+        startFragmentAndDestroyCurrent(ActiveDeviceFragment.newInstance());
+    }
+
+    @Override
     protected String getActivityTitle() {
         return null;
     }

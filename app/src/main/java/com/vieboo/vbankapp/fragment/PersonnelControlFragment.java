@@ -165,7 +165,6 @@ public class PersonnelControlFragment extends BaseFragment<IPersonnelControlMode
 
     @Override
     public void callback(FaceFeature faceFeature, Bitmap bitmap, String personId) {
-        Log.e("callback---------------" + Thread.currentThread().getName());
         iModule.clockIn(bitmap, personId);
     }
 
@@ -295,6 +294,7 @@ public class PersonnelControlFragment extends BaseFragment<IPersonnelControlMode
             cameraHelper.release();
             cameraHelper = null;
         }
+        cameraListenerUtil.clearLeftFace(null );
         unInitEngine();
         super.onStop();
     }

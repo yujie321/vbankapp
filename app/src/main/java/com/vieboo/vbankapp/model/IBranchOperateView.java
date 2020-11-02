@@ -12,4 +12,6 @@ public interface IBranchOperateView extends IBaseView {
     void setTodayPassengerStatic(List<SecureRecordVo> secureRecordVoList);
 
     void setTodayPassengerSummery(PassengerSummeryVo passengerSummeryVo);
+
+    void setTodayVipPassengerStatic(List<SecureRecordVo> secureRecordVoList);
 }

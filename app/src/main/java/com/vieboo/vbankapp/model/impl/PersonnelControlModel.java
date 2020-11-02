@@ -88,7 +88,8 @@ public class PersonnelControlModel extends BaseModule<IPersonnelControlView> imp
                 .subscribe(new BaseHttpRxObserver<String>(mContext.get()) {
                     @Override
                     protected void onSuccess(String personId) {
-                        Log.e("httpResult --- " + personId);
+                        mViewRef.get().showToast("打卡成功");
+                        getPunchRecord();
                     }
                 });
     }

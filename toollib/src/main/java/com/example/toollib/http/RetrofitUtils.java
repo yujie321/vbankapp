@@ -2,10 +2,13 @@ package com.example.toollib.http;
 
 import com.example.toollib.ToolLib;
 import com.example.toollib.http.converter.MyConverterFactory;
+import com.example.toollib.http.interceptor.BaseUrlInterceptor;
 import com.example.toollib.http.interceptor.CacheInterceptor;
 import com.example.toollib.http.interceptor.ReceivedCookiesInterceptor;
 import com.example.toollib.http.interceptor.SaveCookiesInterceptor;
 import com.example.toollib.util.Log;
+import com.example.toollib.util.spf.SPUtils;
+import com.example.toollib.util.spf.SpfConst;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.util.concurrent.TimeUnit;
@@ -41,6 +44,7 @@ public class RetrofitUtils {
         //okHttpBuilder.addInterceptor(new CacheInterceptor());
         //okHttpBuilder.addInterceptor(new ReceivedCookiesInterceptor());
         //okHttpBuilder.addInterceptor(new SaveCookiesInterceptor());
+        okHttpBuilder.addInterceptor(new BaseUrlInterceptor());
         okHttpBuilder.addInterceptor(logInterceptor);
         retrofitBuild = new Retrofit.Builder()
                 .client(okHttpBuilder.build())

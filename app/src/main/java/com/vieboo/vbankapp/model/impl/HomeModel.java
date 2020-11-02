@@ -1,5 +1,6 @@
 package com.vieboo.vbankapp.model.impl;
 
+import com.blankj.utilcode.util.NetworkUtils;
 import com.example.toollib.data.BaseModule;
 import com.example.toollib.enums.StaticExplain;
 import com.example.toollib.http.exception.ApiException;
@@ -8,6 +9,7 @@ import com.example.toollib.http.util.RxUtils;
 import com.vieboo.vbankapp.R;
 import com.vieboo.vbankapp.data.Navigation;
 import com.vieboo.vbankapp.data.NoticeListVO;
+import com.vieboo.vbankapp.data.PadInfoVo;
 import com.vieboo.vbankapp.data.PassengerVO;
 import com.vieboo.vbankapp.data.StaticTodaySummeryVo;
 import com.vieboo.vbankapp.http.ServiceUrl;
@@ -129,5 +131,16 @@ public class HomeModel extends BaseModule<IHomeView> implements IHomeModel  {
                 });
     }
 
-
+    @Override
+    public void getPadInfo() {
+        String ip = NetworkUtils.getIPAddress(true);
+        RxUtils.getObservable(ServiceUrl.getUserApi().getPadInfo(ip))
+                .compose(mViewRef.get().bindLifecycle())
+                .subscribe(new BaseHttpRxObserver<PadInfoVo>(mContext.get()) {
+                    @Override
+                    protected void onSuccess(PadInfoVo padInfoVo) {
+                        mViewRef.get().setPadInfo(padInfoVo);
+                    }
+                });
+    }
 }

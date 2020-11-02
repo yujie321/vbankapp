@@ -3,6 +3,7 @@ package com.vieboo.vbankapp.model;
 import com.example.toollib.data.base.IBaseListView;
 import com.vieboo.vbankapp.data.Navigation;
 import com.vieboo.vbankapp.data.NoticeListVO;
+import com.vieboo.vbankapp.data.PadInfoVo;
 import com.vieboo.vbankapp.data.PassengerVO;
 import com.vieboo.vbankapp.data.StaticTodaySummeryVo;
 
@@ -45,4 +46,6 @@ public interface IHomeView extends IBaseListView {
      * @param pdfUrl 地址
      */
     void readNotice(int position,String pdfUrl);
+
+    void setPadInfo(PadInfoVo padInfoVo);
 }

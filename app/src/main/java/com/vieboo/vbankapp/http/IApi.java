@@ -6,6 +6,7 @@ import com.vieboo.vbankapp.data.DepartmentVO;
 import com.vieboo.vbankapp.data.DeviceStatusVo;
 import com.vieboo.vbankapp.data.InOutVO;
 import com.vieboo.vbankapp.data.NoticeListVO;
+import com.vieboo.vbankapp.data.PadInfoVo;
 import com.vieboo.vbankapp.data.PassengerSummeryVo;
 import com.vieboo.vbankapp.data.PassengerVO;
 import com.vieboo.vbankapp.data.PositionsVO;
@@ -159,10 +160,16 @@ public interface IApi {
     Observable<HttpResult<List<SecureRecordVo>>> last7dayPeriodStatic();
 
     /**
-     * 获取当日客流统计
+     * 获取普通客户当日客流
      */
     @GET("microservice-pad/rest/passenger/todayperiodstatic")
     Observable<HttpResult<List<SecureRecordVo>>> todayPassengerStatic();
+
+    /**
+     * 获取VIP客户当日客流
+     */
+    @GET("microservice-pad/rest/passenger/todayperiodstatic/vip")
+    Observable<HttpResult<List<SecureRecordVo>>> todayVipPassengerStatic();
 
     /**
      * 查询规章制度
@@ -182,5 +189,11 @@ public interface IApi {
      */
     @POST("/microservice-pad/rest/file/upload")
     Observable<HttpResult<String>> upload(@Body RequestBody body);
+
+    /**
+     * 获取pad信息
+     */
+    @GET("/microservice-pad/rest/padinfo/config")
+    Observable<HttpResult<PadInfoVo>> getPadInfo(@Query("ip") String ip);
 
 }

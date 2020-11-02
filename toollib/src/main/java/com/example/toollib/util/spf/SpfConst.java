@@ -24,4 +24,6 @@ public class SpfConst {
      * 是否首次进入app
      */
     public static final String FIRST_ENTRY = "first_entry";
+
+    public static final String BASE_URL = "base_url";
 }

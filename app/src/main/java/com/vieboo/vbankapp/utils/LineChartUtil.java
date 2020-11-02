@@ -14,7 +14,7 @@ import com.github.mikephil.charting.formatter.IFillFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.vieboo.vbankapp.data.SecureRecordVo;
+import com.vieboo.vbankapp.data.ChartXY;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,20 +52,20 @@ public class LineChartUtil {
         // don't forget to refresh the drawing
         lineChart.invalidate();
     }
-    public static void setLineChartData(FragmentActivity activity, LineChart lineChart, List<SecureRecordVo> secureRecordVoList) {
+    public static void setLineChartData(FragmentActivity activity, LineChart lineChart, List<ChartXY> chartXYList) {
         ArrayList<String> xdata = new ArrayList<>();
-        for (int j = 0; j < 45; j++){
-            xdata.add(""+(j+1));
+        for (int j = 0; j < 7; j++){
+            xdata.add(""+(j));
         }
         lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xdata));
-        lineChart.getXAxis().setLabelCount(45);
+        lineChart.getXAxis().setLabelCount(7);
         lineChart.getXAxis().setTextColor(Color.WHITE);
+        lineChart.setVisibleXRangeMaximum(7);
 
         ArrayList<Entry> values = new ArrayList<>();
 
-        for (int i = 0; i < 45; i++) {
-            float val = (float) (Math.random() * (100 + 1)) + 20;
-            values.add(new Entry(i, val));
+        for (int i = 0; i < chartXYList.size(); i++) {
+            values.add(new Entry(i, chartXYList.get(i).getChartY()));
         }
 
         LineDataSet set1;
