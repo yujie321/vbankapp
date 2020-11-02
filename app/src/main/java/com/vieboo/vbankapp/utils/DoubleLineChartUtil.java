@@ -80,6 +80,9 @@ public class DoubleLineChartUtil {
         leftAxis.setDrawGridLines(true);
         leftAxis.setGranularityEnabled(true);
 
+        YAxis rightAxis = lineChart.getAxisRight();
+        rightAxis.setEnabled(false);
+
     }
 
     public static void setTodayPassengerStatic(FragmentActivity activity, LineChart lineChart, List<ChartXY> mChartXYList, List<ChartXY> chartXYList) {
@@ -126,7 +129,7 @@ public class DoubleLineChartUtil {
             // create a dataset and give it a type
             set2 = new LineDataSet(values2, "VIP客户");
             set2.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-            set2.setAxisDependency(YAxis.AxisDependency.RIGHT);
+            set2.setAxisDependency(YAxis.AxisDependency.LEFT);
             set2.setColor(Color.RED);
             set2.setCircleColor(Color.WHITE);
             set2.setLineWidth(2f);

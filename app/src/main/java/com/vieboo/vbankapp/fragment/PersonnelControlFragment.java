@@ -80,6 +80,7 @@ public class PersonnelControlFragment extends BaseFragment<IPersonnelControlMode
     private CameraListenerUtil cameraListenerUtil;
     private FaceListenerUtil faceListenerUtil;
 
+    private int type = -1;   //0:上班      1:下班
     /**
      * 所需的所有权限信息
      */
@@ -130,10 +131,11 @@ public class PersonnelControlFragment extends BaseFragment<IPersonnelControlMode
             case R.id.ivClockIn:
                 //上班打卡
                 //iModule.clockIn(, "personId");
+                type = 0;
                 break;
             case R.id.ivClockOut:
                 //下班打卡
-                iModule.clockOut();
+                type = -1;
                 break;
             case R.id.ivAddPersonal:
                 //新增人员

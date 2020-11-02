@@ -61,7 +61,7 @@ public class PersonnelControlModel extends BaseModule<IPersonnelControlView> imp
     @Override
     public void clockIn(Bitmap bitmap, String personId) {
         byte[] currentImgData = ImageUtil.Bitmap2Bytes(bitmap);
-        File fileFromBytes = ImageUtil.getFileFromBytes(currentImgData, DownLoadUtil.mSinglePath + "face.jpg");
+        File fileFromBytes = ImageUtil.getFileFromBytes(currentImgData, DownLoadUtil.mSinglePath + "clockin.jpg");
 
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
         builder.addFormDataPart("file", fileFromBytes.getName(),
@@ -88,21 +88,44 @@ public class PersonnelControlModel extends BaseModule<IPersonnelControlView> imp
                 .subscribe(new BaseHttpRxObserver<String>(mContext.get()) {
                     @Override
                     protected void onSuccess(String personId) {
-                        mViewRef.get().showToast("打卡成功");
+                        mViewRef.get().showToast("上班打卡成功");
                         getPunchRecord();
                     }
                 });
     }
 
     @Override
-    public void clockOut() {
-        String id = mViewRef.get().getPersonalId();
-        RxUtils.getObservable(ServiceUrl.getUserApi().clockOut("", id))
+    public void clockOut(Bitmap bitmap, String personId) {
+        byte[] currentImgData = ImageUtil.Bitmap2Bytes(bitmap);
+        File fileFromBytes = ImageUtil.getFileFromBytes(currentImgData, DownLoadUtil.mSinglePath + "clockout.jpg");
+
+        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+        builder.addFormDataPart("file", fileFromBytes.getName(),
+                RequestBody.create(MediaType.parse("multipart/form-data"), fileFromBytes));
+        builder.addFormDataPart("kind", "person");
+
+        RxUtils.getObservable(ServiceUrl.getUserApi().upload(builder.build()))
                 .compose(mViewRef.get().bindLifecycle())
-                .subscribe(new BaseHttpRxObserver<String>() {
+                .doOnNext(new BaseHttpConsumer<String>() {
                     @Override
-                    protected void onSuccess(String s) {
-                        mViewRef.get().showToast(mContext.get().getResources().getString(R.string.clock_out_success));
+                    public void httpConsumerAccept(HttpResult<String> httpResult) {
+                        Log.e("httpResult --- " + httpResult.toString());
+                    }
+                }).concatMap(new Function<HttpResult<String>, ObservableSource<HttpResult<String>>>() {
+            @Override
+            public ObservableSource<HttpResult<String>> apply(HttpResult<String> httpResult) {
+                if (Integer.parseInt(httpResult.getCode()) != HttpError.HTTP_SUCCESS.getCode()) {
+                    return null;
+                }
+                Observable<HttpResult<String>> httpResultObservable = ServiceUrl.getUserApi().clockOut(httpResult.getData(), personId);
+                return RxUtils.getObservable(httpResultObservable);
+            }
+        }).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseHttpRxObserver<String>(mContext.get()) {
+                    @Override
+                    protected void onSuccess(String personId) {
+                        mViewRef.get().showToast("下班打卡成功");
+                        getPunchRecord();
                     }
                 });
     }

@@ -18,9 +18,10 @@ public class SecureResultVO {
     //运营镜头名称
     @SerializedName(value = "cameraname")
     private String cameraName;
-
+    @SerializedName(value = "imageurl")
     private String imageUrl;
-
+    @SerializedName(value = "faceurl")
+    private String faceUrl;
 
     public String getImageUrl() {
         return imageUrl == null ? "" : imageUrl;
@@ -28,6 +29,14 @@ public class SecureResultVO {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl == null ? "" : imageUrl;
+    }
+
+    public String getFaceUrl() {
+        return faceUrl;
+    }
+
+    public void setFaceUrl(String faceUrl) {
+        this.faceUrl = faceUrl;
     }
 
     public String getPersonId() {
