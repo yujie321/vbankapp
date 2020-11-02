@@ -22,6 +22,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -63,7 +64,7 @@ public interface IApi {
      * 查询员工
      */
     @GET("/microservice-pad/rest/findPerson")
-    Observable<HttpResult<List<PunchRecordVO>>> findPerson(@Query("pageNum") int pageNum, @Query("size") int size);
+    Observable<HttpResult<List<PunchRecordVO>>> findPerson(@Query("type") String type, @Query("pageNum") int pageNum, @Query("size") int size);
 
 
     /**
@@ -76,14 +77,14 @@ public interface IApi {
     /**
      * 上班打卡
      */
-    @GET("/microservice-pad/rest/clockIn")
-    Observable<HttpResult<String>> clockIn(@Query("id") String id);
+    @POST("/microservice-pad/rest/clockIn")
+    Observable<HttpResult<String>> clockIn(@Field("personHead") String personHead, @Field("id") String id);
 
     /**
      * 下班打卡
      */
-    @GET("/microservice-pad/rest/clockOut")
-    Observable<HttpResult<String>> clockOut(@Query("id") String id);
+    @POST("/microservice-pad/rest/clockOut")
+    Observable<HttpResult<String>> clockOut(@Field("personHead") String personHead, @Field("id") String id);
 
     /**
      * 部门查询

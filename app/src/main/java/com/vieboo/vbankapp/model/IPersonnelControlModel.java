@@ -1,5 +1,7 @@
 package com.vieboo.vbankapp.model;
 
+import android.graphics.Bitmap;
+
 import com.example.toollib.data.IBaseModule;
 
 public interface IPersonnelControlModel extends IBaseModule<IPersonnelControlView> {
@@ -16,8 +18,10 @@ public interface IPersonnelControlModel extends IBaseModule<IPersonnelControlVie
 
     /**
      * 上班打卡
+     * @param bitmap
+     * @param personId
      */
-    void clockIn();
+    void clockIn(Bitmap bitmap, String personId);
 
     /**
      * 下班打卡

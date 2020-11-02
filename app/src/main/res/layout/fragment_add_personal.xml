@@ -441,7 +441,8 @@
                         android:id="@+id/btnSave"
                         android:layout_width="127dp"
                         android:layout_height="40dp"
-                        android:background="@drawable/ic_save" />
+                        android:background="@drawable/ic_save"
+                        android:enabled="false"/>
 
                     <com.qmuiteam.qmui.layout.QMUIButton
                         android:id="@+id/btnClose"

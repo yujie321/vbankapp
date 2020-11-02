@@ -1,22 +1,39 @@
 package com.vieboo.vbankapp.model.impl;
 
+import android.graphics.Bitmap;
+
 import com.example.toollib.data.BaseModule;
+import com.example.toollib.http.HttpResult;
+import com.example.toollib.http.exception.HttpError;
+import com.example.toollib.http.function.BaseHttpConsumer;
 import com.example.toollib.http.observer.BaseHttpRxObserver;
 import com.example.toollib.http.util.RxUtils;
+import com.example.toollib.util.Log;
 import com.vieboo.vbankapp.R;
 import com.vieboo.vbankapp.data.PunchRecordVO;
 import com.vieboo.vbankapp.data.RecordVO;
+import com.vieboo.vbankapp.download.DownLoadUtil;
+import com.vieboo.vbankapp.face.util.ImageUtil;
 import com.vieboo.vbankapp.http.ServiceUrl;
 import com.vieboo.vbankapp.model.IPersonnelControlModel;
 import com.vieboo.vbankapp.model.IPersonnelControlView;
 
+import java.io.File;
 import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class PersonnelControlModel extends BaseModule<IPersonnelControlView> implements IPersonnelControlModel {
 
     @Override
     public void getStaffStyle() {
-        RxUtils.getObservable(ServiceUrl.getUserApi().findPerson(1 , 10000))
+        RxUtils.getObservable(ServiceUrl.getUserApi().findPerson("employee",1 , 10000))
                 .compose(mViewRef.get().bindLifecycle())
                 .subscribe(new BaseHttpRxObserver<List<PunchRecordVO>>() {
                     @Override
@@ -39,14 +56,38 @@ public class PersonnelControlModel extends BaseModule<IPersonnelControlView> imp
     }
 
     @Override
-    public void clockIn() {
-        String id = mViewRef.get().getPersonalId();
-        RxUtils.getObservable(ServiceUrl.getUserApi().clockIn(id))
+    public void clockIn(Bitmap bitmap, String personId) {
+        byte[] currentImgData = ImageUtil.Bitmap2Bytes(bitmap);
+        File fileFromBytes = ImageUtil.getFileFromBytes(currentImgData, DownLoadUtil.mSinglePath + "face.jpg");
+
+        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+        builder.addFormDataPart("file", fileFromBytes.getName(),
+                RequestBody.create(MediaType.parse("multipart/form-data"), fileFromBytes));
+
+        builder.addFormDataPart("kind", "person");
+        Observable<HttpResult<String>> httpResultObservable1 = ServiceUrl.getUserApi().upload(builder.build());
+        RxUtils.getObservable(httpResultObservable1)
                 .compose(mViewRef.get().bindLifecycle())
-                .subscribe(new BaseHttpRxObserver<String>() {
+                .doOnNext(new BaseHttpConsumer<String>() {
                     @Override
-                    protected void onSuccess(String s) {
-                        mViewRef.get().showToast(mContext.get().getResources().getString(R.string.clock_in_success));
+                    public void httpConsumerAccept(HttpResult<String> httpResult) {
+                        Log.e("httpResult --- " + httpResult.toString());
+                    }
+                }).concatMap(new Function<HttpResult<String>, ObservableSource<HttpResult<String>>>() {
+            @Override
+            public ObservableSource<HttpResult<String>> apply(HttpResult<String> httpResult) {
+                if (Integer.parseInt(httpResult.getCode()) != HttpError.HTTP_SUCCESS.getCode()) {
+                    return null;
+                }
+                Observable<HttpResult<String>> httpResultObservable = ServiceUrl.getUserApi().clockIn(httpResult.getData(), personId);
+                return RxUtils.getObservable(httpResultObservable);
+            }
+
+        }).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseHttpRxObserver<String>(mContext.get()) {
+                    @Override
+                    protected void onSuccess(String personId) {
+                        Log.e("httpResult --- " + personId);
                     }
                 });
     }
@@ -54,7 +95,7 @@ public class PersonnelControlModel extends BaseModule<IPersonnelControlView> imp
     @Override
     public void clockOut() {
         String id = mViewRef.get().getPersonalId();
-        RxUtils.getObservable(ServiceUrl.getUserApi().clockOut(id))
+        RxUtils.getObservable(ServiceUrl.getUserApi().clockOut("", id))
                 .compose(mViewRef.get().bindLifecycle())
                 .subscribe(new BaseHttpRxObserver<String>() {
                     @Override

@@ -4,13 +4,13 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Point;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -21,7 +21,6 @@ import androidx.core.app.ActivityCompat;
 import com.arcsoft.face.FaceEngine;
 import com.arcsoft.face.FaceFeature;
 import com.example.toollib.base.BaseFragment;
-import com.example.toollib.enums.StaticExplain;
 import com.example.toollib.http.HttpResult;
 import com.example.toollib.http.exception.HttpError;
 import com.example.toollib.http.function.BaseHttpConsumer;
@@ -29,9 +28,11 @@ import com.example.toollib.http.observer.BaseHttpRxObserver;
 import com.example.toollib.http.util.RxUtils;
 import com.example.toollib.util.DensityUtil;
 import com.example.toollib.util.Log;
+import com.google.gson.Gson;
 import com.sdses.idCard.IdCardHelper;
 import com.sdses.idCard.IdInfo;
 import com.vieboo.vbankapp.R;
+import com.vieboo.vbankapp.UserInfoDao;
 import com.vieboo.vbankapp.adapter.SpinnerAdapter;
 import com.vieboo.vbankapp.data.PersonImageBean;
 import com.vieboo.vbankapp.data.SpinnerVO;
@@ -44,7 +45,6 @@ import com.vieboo.vbankapp.face.util.CameraListenerUtil;
 import com.vieboo.vbankapp.face.util.FaceListenerView;
 import com.vieboo.vbankapp.face.util.FaceUtil;
 import com.vieboo.vbankapp.face.util.IdCardFaceListenerUtil;
-import com.vieboo.vbankapp.face.util.IdCardFaceView;
 import com.vieboo.vbankapp.face.util.ImageUtil;
 import com.vieboo.vbankapp.http.ServiceUrl;
 import com.vieboo.vbankapp.model.IAddPersonalModel;
@@ -55,10 +55,10 @@ import com.vieboo.vbankapp.utils.FaceAlgoUtils;
 import com.vieboo.vbankapp.utils.PermissionUtil;
 import com.vieboo.vbankapp.weight.IdCardDialog;
 
+import org.greenrobot.greendao.Property;
+import org.greenrobot.greendao.query.WhereCondition;
+
 import java.io.File;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -67,6 +67,7 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
+import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -96,6 +97,10 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
     TextView tvIdCardAddress;
     @BindView(R.id.tvIdCardNumber)
     TextView tvIdCardNumber;
+    @BindView(R.id.btnSave)
+    Button btnSave;
+    @BindView(R.id.btnClose)
+    TextView btnClose;
 
 
     @BindView(R.id.spinnerDepartment)
@@ -140,6 +145,8 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
     private volatile byte[] idCardFeature;
     private volatile long idTime;
     private IdInfo idInfo;
+
+    FaceFeature faceFeature;
 
     public static AddPersonalFragment newInstance() {
         Bundle args = new Bundle();
@@ -212,10 +219,15 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
         userInfo.setImageUrl("");
         userInfo.setName(idInfo.getName());
         userInfo.setSex(1);
+        userInfo.setType("employee");
         userInfo.setNation(idInfo.getNational());
         userInfo.setAddress(idInfo.getAddress());
         userInfo.setIdCard(idInfo.getIdCardNum());
         userInfo.setPadFeature(idCardFeature);
+
+        userInfo.setAuth((int) spinnerJurisdiction.getSelectedView().findViewById(R.id.tvSpinnerName).getTag());
+        userInfo.setDepartmentId((int) spinnerDepartment.getSelectedView().findViewById(R.id.tvSpinnerName).getTag());
+        userInfo.setPositionId((int) spinnerPositions.getSelectedView().findViewById(R.id.tvSpinnerName).getTag());
 
         byte[] currentImgData = ImageUtil.Bitmap2Bytes(idInfo.getPhotoBmp());
         File fileFromBytes = ImageUtil.getFileFromBytes(currentImgData, DownLoadUtil.mSinglePath + "test.jpg");
@@ -239,7 +251,7 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
                         if (Integer.parseInt(httpResult.getCode()) != HttpError.HTTP_SUCCESS.getCode()) {
                             return null;
                         }
-                        return RxUtils.getObservable(ServiceUrl.getUserApi().addPerson(userInfo.convert2RequestBody()));
+                        return RxUtils.getObservable(ServiceUrl.getUserApi().addPerson(FormBody.create(MediaType.parse("application/json; charset=utf-8"), new Gson().toJson(userInfo))));
                     }
 
                 }).observeOn(AndroidSchedulers.mainThread())
@@ -247,7 +259,15 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
                     @Override
                     protected void onSuccess(String personId) {
                         userInfo.setPersonId(personId);
-                        DBHelper.getInstance().getUserInfoDao().save(userInfo);
+                        UserInfo unique = DBHelper.getInstance().getUserInfoDao().queryBuilder().where(UserInfoDao.Properties.IdCard.eq(userInfo.getIdCard())).build().unique();
+                        if (unique == null){
+                            DBHelper.getInstance().getUserInfoDao().save(userInfo);
+                        }else {
+                            userInfo.setId(unique.getId());
+                            DBHelper.getInstance().getUserInfoDao().update(userInfo);
+                        }
+
+
                     }
                 });
     }
@@ -317,8 +337,8 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
     }
 
     @Override
-    public void callback(Bitmap bitmap, String personId) {
-
+    public void callback(FaceFeature faceFeature, Bitmap bitmap, String personId) {
+        this.faceFeature = faceFeature;
         refreshIDCard(idInfo, bitmap);
     }
 
@@ -333,6 +353,8 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
                 tvIdCardAddress.setText(idInfo.getAddress());
                 tvIdCardNumber.setText(idInfo.getIdCardNum());
                 ivPersonnelHead.setImageBitmap(bitmap);
+                btnSave.setEnabled(true);
+
             }
         });
     }

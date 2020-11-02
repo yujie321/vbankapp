@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.arcsoft.face.FaceEngine;
+import com.arcsoft.face.FaceFeature;
 import com.example.toollib.base.BaseFragment;
 import com.example.toollib.util.Log;
 import com.vieboo.vbankapp.R;
@@ -128,7 +129,7 @@ public class PersonnelControlFragment extends BaseFragment<IPersonnelControlMode
                 break;
             case R.id.ivClockIn:
                 //上班打卡
-                iModule.clockIn();
+                //iModule.clockIn(, "personId");
                 break;
             case R.id.ivClockOut:
                 //下班打卡
@@ -163,6 +164,12 @@ public class PersonnelControlFragment extends BaseFragment<IPersonnelControlMode
     }
 
     @Override
+    public void callback(FaceFeature faceFeature, Bitmap bitmap, String personId) {
+        Log.e("callback---------------" + Thread.currentThread().getName());
+        iModule.clockIn(bitmap, personId);
+    }
+
+    @Override
     protected String getActivityTitle() {
         return null;
     }
@@ -188,6 +195,7 @@ public class PersonnelControlFragment extends BaseFragment<IPersonnelControlMode
         }
     }
 
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -207,11 +215,11 @@ public class PersonnelControlFragment extends BaseFragment<IPersonnelControlMode
 
     private void initCamera() {
         DisplayMetrics metrics = new DisplayMetrics();
-        if (getActivity() != null){
-            getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        }
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
         initFaceListenerUtil();
         initCameraListenerUtil();
+
         cameraHelper = new CameraHelper.Builder()
                 .previewViewSize(new Point(Constants.CAMERA_PREVIEW_WIDTH, Constants.CAMERA_PREVIEW_HEIGHT))
                 .rotation(getActivity().getWindowManager().getDefaultDisplay().getRotation())
@@ -288,23 +296,17 @@ public class PersonnelControlFragment extends BaseFragment<IPersonnelControlMode
             cameraHelper = null;
         }
         unInitEngine();
-        cameraListenerUtil.clearLeftFace(null);
         super.onStop();
     }
 
-//    @Override
-//    public void onDestroy() {
-//        if (cameraHelper != null) {
-//            cameraHelper.release();
-//            cameraHelper = null;
-//        }
-//        unInitEngine();
-//        cameraListenerUtil.clearLeftFace(null );
-//        super.onDestroy();
-//    }
-
     @Override
-    public void callback(Bitmap bitmap, String personId) {
-
+    public void onDestroy() {
+        if (cameraHelper != null) {
+            cameraHelper.release();
+            cameraHelper = null;
+        }
+//        unInitEngine();
+        cameraListenerUtil.clearLeftFace(null );
+        super.onDestroy();
     }
 }

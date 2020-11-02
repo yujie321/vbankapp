@@ -309,7 +309,7 @@ public class FaceListenerUtil implements FaceListener {
                         if (faceSimilar.getScore() >= Constants.FACE_MIN_SIMLAR && faceSimilar.getScore() > maxSimilar) {
                             maxSimilar = faceSimilar.getScore();
                             personId = userInfo.getPersonId();
-                            faceListenerView.callback(bitmap, personId);
+                            faceListenerView.callback(faceFeature, bitmap, personId);
                         }
                         Log.e("checkingFace:姓名:" + userInfo.getId() + "-相似度:" + faceSimilar.getScore());
                     }

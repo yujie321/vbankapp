@@ -11,7 +11,6 @@ import java.util.Date;
 
 public class IdCardFaceListenerUtil extends FaceListenerUtil{
 
-
     private volatile byte[] idCardFeature;
     private boolean isProcessing = false;
 
@@ -32,7 +31,7 @@ public class IdCardFaceListenerUtil extends FaceListenerUtil{
         if (faceSimilar != null) {
             if (faceSimilar.getScore() >= Constants.FACE_TO_ID_SIMILARITY && faceSimilar.getScore() > maxSimilar) {
                 maxSimilar = faceSimilar.getScore();
-                faceListenerView.callback(bitmap, personId);
+                faceListenerView.callback(faceFeature, bitmap, personId);
             }
             Log.e("checkingFace:姓名:"  + "-相似度:" + faceSimilar.getScore());
         }

@@ -25,6 +25,8 @@ public class UserInfo {
     private String name;
     //性别,0-男1-女
     private Integer sex;
+    //员工类型 Guest：访客,Employee:员工
+    private String type;
     //工号
     private String number;
     //部门id
@@ -49,18 +51,18 @@ public class UserInfo {
     private String idCard;
     //特征值数据
     private byte[] padFeature;
-
-    @Generated(hash = 1293304891)
+    @Generated(hash = 704128678)
     public UserInfo(Long id, String personId, String imageUrl, String name,
-            Integer sex, String number, Integer departmentId, Integer positionId,
-            Integer auth, String nation, String company, Date birthday,
-            String phone, String address, String politicsStatus, String idCard,
-            byte[] padFeature) {
+            Integer sex, String type, String number, Integer departmentId,
+            Integer positionId, Integer auth, String nation, String company,
+            Date birthday, String phone, String address, String politicsStatus,
+            String idCard, byte[] padFeature) {
         this.id = id;
         this.personId = personId;
         this.imageUrl = imageUrl;
         this.name = name;
         this.sex = sex;
+        this.type = type;
         this.number = number;
         this.departmentId = departmentId;
         this.positionId = positionId;
@@ -106,6 +108,12 @@ public class UserInfo {
     }
     public void setSex(Integer sex) {
         this.sex = sex;
+    }
+    public String getType() {
+        return this.type;
+    }
+    public void setType(String type) {
+        this.type = type;
     }
     public String getNumber() {
         return this.number;
@@ -179,12 +187,5 @@ public class UserInfo {
     public void setPadFeature(byte[] padFeature) {
         this.padFeature = padFeature;
     }
-
-
-
-    public RequestBody convert2RequestBody() {
-        String json = new Gson().toJson(this);
-//        Log.e("LogInterceptor", "params-------->" + json);
-        return FormBody.create(MediaType.parse("application/json; charset=utf-8"), json);
-    }
+    
 }
