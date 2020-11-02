@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 
 import okhttp3.MediaType;
@@ -38,6 +39,10 @@ public class ResponseBodyConverter<T> implements Converter<ResponseBody, T> {
     public T convert(ResponseBody value) throws IOException {
         String response = value.string();
         HttpResult httpStatus = gson.fromJson(response, HttpResult.class);
+        Type[] genericInterfaces = adapter.getClass().getGenericInterfaces();
+        for (Type genericInterface : genericInterfaces) {
+            System.out.println(genericInterface);
+        }
         if (Integer.parseInt(httpStatus.getCode()) != HttpError.HTTP_SUCCESS.getCode()) {
             value.close();
             String data;
@@ -60,4 +65,6 @@ public class ResponseBodyConverter<T> implements Converter<ResponseBody, T> {
             value.close();
         }
     }
+
+
 }

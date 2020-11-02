@@ -56,14 +56,6 @@ public class DeviceStatusModel extends BaseModule<IDeviceStatusView> implements 
 
     @Override
     public void getDeviceStatus() {
-        RxUtils.getObservable(ServiceUrl.getUserApi().getVqdStatic())
-                .compose(mViewRef.get().bindLifecycle())
-                .subscribe(new BaseHttpRxObserver<DeviceStatusVo>() {
-                    @Override
-                    protected void onSuccess(DeviceStatusVo deviceStatusVo) {
-                        mViewRef.get().setDeviceStatus(deviceStatusVo);
-                    }
-                });
-
+        mViewRef.get().setDeviceStatus(new DeviceStatusVo());
     }
 }

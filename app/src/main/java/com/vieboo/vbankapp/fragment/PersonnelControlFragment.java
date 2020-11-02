@@ -188,7 +188,6 @@ public class PersonnelControlFragment extends BaseFragment<IPersonnelControlMode
         }
     }
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -208,11 +207,11 @@ public class PersonnelControlFragment extends BaseFragment<IPersonnelControlMode
 
     private void initCamera() {
         DisplayMetrics metrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-
+        if (getActivity() != null){
+            getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        }
         initFaceListenerUtil();
         initCameraListenerUtil();
-
         cameraHelper = new CameraHelper.Builder()
                 .previewViewSize(new Point(Constants.CAMERA_PREVIEW_WIDTH, Constants.CAMERA_PREVIEW_HEIGHT))
                 .rotation(getActivity().getWindowManager().getDefaultDisplay().getRotation())
@@ -289,19 +288,20 @@ public class PersonnelControlFragment extends BaseFragment<IPersonnelControlMode
             cameraHelper = null;
         }
         unInitEngine();
+        cameraListenerUtil.clearLeftFace(null);
         super.onStop();
     }
 
-    @Override
-    public void onDestroy() {
-        if (cameraHelper != null) {
-            cameraHelper.release();
-            cameraHelper = null;
-        }
+//    @Override
+//    public void onDestroy() {
+//        if (cameraHelper != null) {
+//            cameraHelper.release();
+//            cameraHelper = null;
+//        }
 //        unInitEngine();
-        cameraListenerUtil.clearLeftFace(null );
-        super.onDestroy();
-    }
+//        cameraListenerUtil.clearLeftFace(null );
+//        super.onDestroy();
+//    }
 
     @Override
     public void callback(Bitmap bitmap, String personId) {

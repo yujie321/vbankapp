@@ -26,6 +26,7 @@ public class MainActivity extends BaseActivity {
         if (savedInstanceState == null) {
             init(SplashFragment.newInstance());
         }
+
     }
 
     private void init(QMUIFragment qmuiFragment) {
@@ -75,4 +76,5 @@ public class MainActivity extends BaseActivity {
             }
         }
     }
+
 }

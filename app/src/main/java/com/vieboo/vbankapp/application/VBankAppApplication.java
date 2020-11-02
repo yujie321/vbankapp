@@ -49,7 +49,7 @@ public class VBankAppApplication extends Application {
         MultiDex.install(this);
     }
 
-    private void initDownLoad(){
+    private void initDownLoad() {
         FileDownloader.setupOnApplicationOnCreate(vBankAppApplication)
                 .connectionCreator(new FileDownloadUrlConnection
                         .Creator(new FileDownloadUrlConnection.Configuration()

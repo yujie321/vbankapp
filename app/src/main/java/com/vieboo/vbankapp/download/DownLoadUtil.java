@@ -87,14 +87,16 @@ public class DownLoadUtil {
     private static void deleteFiles(File file) {
         if (file.isDirectory()) {
             File[] files = file.listFiles();
-            for (int i = 0; i < files.length; i++) {
-                File f = files[i];
-                deleteFiles(f);
+            if (files != null){
+                for (int i = 0; i < files.length; i++) {
+                    File f = files[i];
+                    deleteFiles(f);
+                }
             }
-            ////如要保留文件夹，只删除文件，注释这行
-            file.delete();
+            //如要保留文件夹，只删除文件，注释这行
+            boolean delete = file.delete();
         } else if (file.exists()) {
-            file.delete();
+            boolean delete = file.delete();
         }
     }
 

@@ -38,9 +38,19 @@
             android:orientation="vertical"
             tools:ignore="NestedWeights">
 
-            <TextView
-                style="@style/main_blue_bg"
-                android:text="@string/main_equipment_status" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20.5dp"
+                android:background="@drawable/bg_notice">
+
+                <ImageView
+                    style="@style/main_title_ic"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    style="@style/main_blue_bg"
+                    android:text="@string/main_equipment_status" />
+            </LinearLayout>
 
             <com.github.mikephil.charting.charts.HorizontalBarChart
                 android:id="@+id/horizontalBarChart"
@@ -57,17 +67,27 @@
             android:background="@drawable/bg_device_state"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/ivDiagnosisRecord"
-                style="@style/main_blue_bg"
-                android:text="@string/diagnosis_record" />
+            <LinearLayout
+                android:id="@+id/layDiagnosisRecord"
+                android:layout_width="match_parent"
+                android:layout_height="20.5dp"
+                android:background="@drawable/bg_notice">
+
+                <ImageView
+                    style="@style/main_title_ic"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    style="@style/main_blue_bg"
+                    android:text="@string/diagnosis_record" />
+            </LinearLayout>
 
             <com.scwang.smartrefresh.layout.SmartRefreshLayout
                 android:id="@+id/refreshBaseList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/layDiagnosisRecordBottom"
-                android:layout_below="@+id/ivDiagnosisRecord"
+                android:layout_below="@+id/layDiagnosisRecord"
                 android:layout_marginBottom="3dp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:srlAccentColor="@android:color/white"

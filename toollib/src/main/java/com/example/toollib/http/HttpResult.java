@@ -15,7 +15,7 @@ public class HttpResult<T> {
     private String code;
 
     @SerializedName("resData")
-    private T data;
+    private T data ;
 
     private Version version;
 

@@ -163,8 +163,6 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
         iModule.initData();
         //身份证识别
         iModule.initIDCard();
-
-        Log.e("线程 = " + Thread.currentThread().getName());
     }
 
     @Override

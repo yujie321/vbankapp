@@ -290,6 +290,7 @@ public class CameraHelper implements Camera.PreviewCallback {
         @Override
         public void onSurfaceTextureAvailable(SurfaceTexture surfaceTexture, int width, int height) {
 //            start();
+            Log.i(TAG, "onSurfaceTextureAvailable: " + width + "  " + height);
             if (mCamera != null) {
                 try {
                     mCamera.setPreviewTexture(surfaceTexture);
