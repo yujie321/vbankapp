@@ -135,7 +135,7 @@ public class PersonnelControlFragment extends BaseFragment<IPersonnelControlMode
                 break;
             case R.id.ivClockOut:
                 //下班打卡
-                type = -1;
+                type = 1;
                 break;
             case R.id.ivAddPersonal:
                 //新增人员
@@ -167,7 +167,11 @@ public class PersonnelControlFragment extends BaseFragment<IPersonnelControlMode
 
     @Override
     public void callback(FaceFeature faceFeature, Bitmap bitmap, String personId) {
-        iModule.clockIn(bitmap, personId);
+        if(type == 0){
+            iModule.clockIn(bitmap, personId);
+        }else if(type == 1){
+            iModule.clockOut(bitmap, personId);
+        }
     }
 
     @Override

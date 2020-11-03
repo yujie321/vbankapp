@@ -1,5 +1,6 @@
 package com.vieboo.vbankapp.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,6 +29,7 @@ import com.vieboo.vbankapp.adapter.NavigationAdapter;
 import com.vieboo.vbankapp.adapter.NoticeListAdapter;
 import com.vieboo.vbankapp.data.Navigation;
 import com.vieboo.vbankapp.data.NoticeListVO;
+import com.vieboo.vbankapp.data.PadInfoVo;
 import com.vieboo.vbankapp.data.PassengerVO;
 import com.vieboo.vbankapp.data.StaticTodaySummeryVo;
 import com.vieboo.vbankapp.model.IHomeModel;
@@ -47,7 +49,8 @@ import butterknife.OnClick;
  */
 public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter> implements IHomeView {
 
-
+    @BindView(R.id.tvHomeTitle)
+    TextView tvHomeTitle;
     @BindView(R.id.tcHomeDate)
     TextClock tcHomeDate;
     @BindView(R.id.tvClockInNum)
@@ -98,6 +101,8 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
     public void initView() {
         super.initView();
         tcHomeDate.setFormat24Hour("yyyy年MM月dd HH:mm   EEEE");
+        //获取pad信息
+        iModule.getPadInfo();
         //当日总览设置
         iModule.getTodaySummary();
         //今日客流信息
@@ -108,6 +113,11 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 4);
         rvNavigationList.setLayoutManager(layoutManager);
         iModule.getNavigationList();
+    }
+
+    @Override
+    public void setPadInfo(PadInfoVo padInfoVo) {
+        tvHomeTitle.setText(padInfoVo.getName());
     }
 
     @Override
@@ -237,8 +247,9 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
     }
 
     @OnClick(R.id.ivHomeSetting)
-    public void onClick() {
+    public void btnSubmit() {
         //设置
+        startFragmentForResult(SettingFragment.newInstance(),-1);
     }
 
     private OnItemClickListener onItemClickListener = (adapter, view, position) -> {
@@ -275,6 +286,21 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
                 break;
         }
     };
+
+    @Override
+    protected void onFragmentResult(int requestCode, int resultCode, Intent data) {
+        super.onFragmentResult(requestCode, resultCode, data);
+        if (requestCode == -1 && resultCode == 1){
+            iModule.getPadInfo();
+            iModule.getTodaySummary();
+            //今日客流信息
+            iModule.getPassenger();
+            //押运信息
+            iModule.getEscortInfo();
+            iModule.requestNoticeList();
+            //initView();
+        }
+    }
 
     @Override
     protected IHomeModel initModule() {
@@ -320,6 +346,7 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
         runnable = new Runnable() {
             @Override
             public void run() {
+                iModule.getPadInfo();
                 iModule.getTodaySummary();
                 //今日客流信息
                 iModule.getPassenger();

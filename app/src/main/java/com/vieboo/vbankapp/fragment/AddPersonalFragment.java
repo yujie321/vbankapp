@@ -147,6 +147,7 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
     private IdInfo idInfo;
 
     FaceFeature faceFeature;
+    Bitmap bitmap;
 
     public static AddPersonalFragment newInstance() {
         Bundle args = new Bundle();
@@ -217,20 +218,19 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
 
     private void addPersontoDB() {
         UserInfo userInfo = new UserInfo();
-        userInfo.setImageUrl("");
         userInfo.setName(idInfo.getName());
         userInfo.setSex(1);
         userInfo.setType("employee");
         userInfo.setNation(idInfo.getNational());
         userInfo.setAddress(idInfo.getAddress());
         userInfo.setIdCard(idInfo.getIdCardNum());
-        userInfo.setPadFeature(idCardFeature);
+        userInfo.setPadFeature(faceFeature.getFeatureData());
 
         userInfo.setAuth((int) spinnerJurisdiction.getSelectedView().findViewById(R.id.tvSpinnerName).getTag());
         userInfo.setDepartmentId((int) spinnerDepartment.getSelectedView().findViewById(R.id.tvSpinnerName).getTag());
         userInfo.setPositionId((int) spinnerPositions.getSelectedView().findViewById(R.id.tvSpinnerName).getTag());
 
-        byte[] currentImgData = ImageUtil.Bitmap2Bytes(idInfo.getPhotoBmp());
+        byte[] currentImgData = ImageUtil.Bitmap2Bytes(this.bitmap);
         File fileFromBytes = ImageUtil.getFileFromBytes(currentImgData, DownLoadUtil.mSinglePath + "test.jpg");
 
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
@@ -338,6 +338,7 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
     @Override
     public void callback(FaceFeature faceFeature, Bitmap bitmap, String personId) {
         this.faceFeature = faceFeature;
+        this.bitmap = bitmap;
         refreshIDCard(idInfo, bitmap);
     }
 

@@ -14,6 +14,7 @@ import com.vieboo.vbankapp.http.ServiceUrl;
 import com.vieboo.vbankapp.model.IRegulationsModel;
 import com.vieboo.vbankapp.model.IRegulationsView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -51,6 +52,9 @@ public class RegulationsModel extends BaseModule<IRegulationsView> implements IR
                 .subscribe(new BaseHttpRxObserver<List<RegulationsVO>>() {
                     @Override
                     protected void onSuccess(List<RegulationsVO> regulationsVOList) {
+                        if(regulationsVOList == null){
+                            regulationsVOList = new ArrayList<RegulationsVO>();
+                        }
                         if (mViewRef.get().getPage() == StaticExplain.PAGE_NUMBER.getCode()) {
                             //刷新
                             mViewRef.get().refreshRegulationsSuccess(regulationsVOList);

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">金库出入管理系统</string>
+    <string name="app_name">农商行智能管理终端</string>
 
 
     <string name="library_not_found">未找到库文件，请检查是否有将.so文件放至工程的 app\\src\\main\\jniLibs 目录下</string>

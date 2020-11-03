@@ -10,6 +10,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.model.GradientColor;
@@ -95,7 +96,7 @@ public class BarChartUtil {
         //设置标签居中
         xAxis.setCenterAxisLabels(true);
         // 设置x轴显示的值的格式
-        xAxis.setValueFormatter(new AxisValueFormatter(xAxisValue));
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(xAxisValue));
 
 
         // 设置y轴，y轴有两条，分别为左和右

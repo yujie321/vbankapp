@@ -274,8 +274,8 @@ public class IdCardHelper {
         } else {
             long tickStart = System.currentTimeMillis();
 
-            int ret;
-            while ((ret = this.usbDeviceConnection.bulkTransfer(this.inEndpoint, buffer, length, timeout)) <= 0 && System.currentTimeMillis() - tickStart < (long) timeout) {
+            int ret = -1;
+            while (inEndpoint != null && (ret = this.usbDeviceConnection.bulkTransfer(this.inEndpoint, buffer, length, timeout)) <= 0 && System.currentTimeMillis() - tickStart < (long) timeout) {
                 try {
                     Thread.sleep(10L);
                 } catch (InterruptedException var9) {

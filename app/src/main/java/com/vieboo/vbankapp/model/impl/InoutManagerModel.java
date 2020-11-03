@@ -16,6 +16,7 @@ import com.vieboo.vbankapp.http.ServiceUrl;
 import com.vieboo.vbankapp.model.IInoutManagerModel;
 import com.vieboo.vbankapp.model.IInoutManagerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class InoutManagerModel extends BaseModule<IInoutManagerView> implements IInoutManagerModel {
@@ -30,6 +31,9 @@ public class InoutManagerModel extends BaseModule<IInoutManagerView> implements 
                 .subscribe(new BaseHttpRxObserver<InOutVO>() {
                     @Override
                     protected void onSuccess(InOutVO response) {
+                        if(response == null){
+                            response = new InOutVO();
+                        }
                         List<PersonInOutVO> personInOutVOS = response.getData();
                         if (mViewRef.get().getPage() == StaticExplain.PAGE_NUMBER.getCode()) {
                             //刷新
@@ -70,6 +74,9 @@ public class InoutManagerModel extends BaseModule<IInoutManagerView> implements 
                 .subscribe(new BaseHttpRxObserver<InOutVO>() {
                     @Override
                     protected void onSuccess(InOutVO response) {
+                        if(response == null){
+                            response = new InOutVO();
+                        }
                         List<PersonInOutVO> personInOutVOS = response.getData();
                         mViewRef.get().setAccessPersonInOut(personInOutVOS);
                     }
@@ -84,6 +91,9 @@ public class InoutManagerModel extends BaseModule<IInoutManagerView> implements 
                 .subscribe(new BaseHttpRxObserver<List<SecureRecordVo>>() {
                     @Override
                     protected void onSuccess(List<SecureRecordVo> secureRecordVoList) {
+                        if(secureRecordVoList == null){
+                            secureRecordVoList = new ArrayList<SecureRecordVo>();
+                        }
                         mViewRef.get().setTodayPersoninoutStatic(secureRecordVoList);
                     }
                     @Override

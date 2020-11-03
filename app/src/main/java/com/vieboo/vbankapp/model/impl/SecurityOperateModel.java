@@ -12,6 +12,7 @@ import com.vieboo.vbankapp.http.ServiceUrl;
 import com.vieboo.vbankapp.model.ISecurityOperateModel;
 import com.vieboo.vbankapp.model.ISecurityOperateView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -25,6 +26,9 @@ public class SecurityOperateModel extends BaseModule<ISecurityOperateView> imple
                 .subscribe(new BaseHttpRxObserver<SecureVO>() {
                     @Override
                     protected void onSuccess(SecureVO secureVO) {
+                        if(secureVO == null){
+                            secureVO = new SecureVO();
+                        }
                         List<SecureResultVO> secureResultVOS = secureVO.getData();
                         if (mViewRef.get().getPage() == StaticExplain.PAGE_NUMBER.getCode()) {
                             //刷新
@@ -59,6 +63,9 @@ public class SecurityOperateModel extends BaseModule<ISecurityOperateView> imple
                 .subscribe(new BaseHttpRxObserver<List<SecureRecordVo>>() {
                     @Override
                     protected void onSuccess(List<SecureRecordVo> secureRecordVoList) {
+                        if(secureRecordVoList == null){
+                            secureRecordVoList = new ArrayList<SecureRecordVo>();
+                        }
                         mViewRef.get().setSecureStatic(secureRecordVoList);
                     }
                     @Override

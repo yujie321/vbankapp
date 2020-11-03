@@ -93,6 +93,9 @@ public class DeviceStatusModel extends BaseModule<IDeviceStatusView> implements 
                 .subscribe(new BaseHttpRxObserver<DeviceStatusVo>() {
                     @Override
                     protected void onSuccess(DeviceStatusVo deviceStatusVo) {
+                        if(deviceStatusVo == null){
+                            deviceStatusVo = new DeviceStatusVo();
+                        }
                         mViewRef.get().setDeviceStatus(deviceStatusVo);
                     }
                 });

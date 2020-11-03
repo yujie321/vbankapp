@@ -54,7 +54,7 @@ android {
 
 greendao {
     //数据库
-    schemaVersion 2
+    schemaVersion 3
     targetGenDir 'src/main/database'
     daoPackage config.applicationId
 }
@@ -63,6 +63,8 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.blankj:utilcodex:1.25.9'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     annotationProcessor libs["butterknife-compiler"]
     implementation libs["autosize"]
     implementation project(':toollib')

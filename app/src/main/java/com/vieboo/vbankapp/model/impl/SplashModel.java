@@ -56,6 +56,7 @@ public class SplashModel extends BaseModule<ISplashView> implements ISplashModel
                     mViewRef.get().startActiveDeviceFragment();
                 } else {
                     mViewRef.get().showToast("设备授权码：" + activeFileInfo.getActiveKey());
+                    mViewRef.get().startHomeFragment();
                 }
             }
         }

@@ -1,6 +1,7 @@
 package com.vieboo.vbankapp.fragment;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -10,10 +11,12 @@ import com.example.toollib.base.BaseFragment;
 import com.example.toollib.data.IBaseModule;
 import com.example.toollib.util.DateUtil;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.vieboo.vbankapp.R;
 import com.vieboo.vbankapp.data.ChartXY;
 import com.vieboo.vbankapp.data.PassengerSummeryVo;
 import com.vieboo.vbankapp.data.SecureRecordVo;
+import com.vieboo.vbankapp.data.TodyPassengerVO;
 import com.vieboo.vbankapp.model.IBranchOperateModel;
 import com.vieboo.vbankapp.model.IBranchOperateView;
 import com.vieboo.vbankapp.model.impl.BranchOperateModel;
@@ -24,7 +27,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -92,75 +97,95 @@ public class BranchOperateFragment extends BaseFragment<IBranchOperateModel> imp
             mVipchartXYList.add(chartXY);
         }
 
-        LineChartUtil.initLineChart(lineChart, m7DayLabels);
-        DoubleLineChartUtil.initDoubleLineChart(lineChart2, mLabels);
+        List<String> datalist = new ArrayList<>();
+        for(int i = 0; i< 7; i++){
+            for(int j = 0; j< 10; j++){
+                if(j!=0){
+                    datalist.add("");
+                }else {
+                    String dateStr = m7DayLabels[i];
+                    datalist.add(dateStr);
+                }
+            }
+        }
+
+        List<String> datalist2 = new ArrayList<>();
+        for(int i = 0; i< 10; i++){
+            for(int j = 0; j< 6; j++){
+                if(j!=0){
+                    datalist2.add("");
+                }else {
+                    String dateStr = mLabels[i];
+                    datalist.add(dateStr);
+                }
+            }
+        }
+
+        LineChartUtil.initLineChart(lineChart, datalist);
+        DoubleLineChartUtil.initDoubleLineChart(lineChart2, datalist2);
         iModule.getTodayPassengerSummery();
         iModule.getLast7dayPeriodStatic();
         iModule.getTodayPassengerStatic();
-        iModule.getTodayVipPassengerStatic();
 
     }
 
     @Override
     public void setLast7dayPeriodStatic(List<SecureRecordVo> secureRecordVoList) {
-//        List<ChartXY> chartXYList = new ArrayList<>();
-//        chartXYList = new ArrayList<>();
-//        for(int i = 0; i< 61; i++){
-//            ChartXY chartXY = new ChartXY();
-//            chartXY.setChartX(i);
-//            chartXY.setChartY(0);
-//            chartXYList.add(chartXY);
-//        }
-//        Calendar cal = Calendar.getInstance();
-//        cal.set(Calendar.HOUR_OF_DAY, 8);
-//        cal.set(Calendar.SECOND, 0);
-//        cal.set(Calendar.MINUTE, 0);
-//        cal.set(Calendar.MILLISECOND, 0);
-//        long zeroTime = cal.getTimeInMillis();
-//        if (secureRecordVoList != null && secureRecordVoList.size() > 0) {
-//            for (SecureRecordVo secureRecordVo : secureRecordVoList) {
-//                long date = DateUtil.dateToCurrentTimeMilli(secureRecordVo.getTime(),"yyyy-MM-dd HH:mm:ss");
-//                Integer integerX = (int)(date - zeroTime)/(10*60*1000);
-//                chartXYList.get(integerX).setChartY(secureRecordVo.getCount());
-//            }
-//        }
-//        LineChartUtil.setLineChartData(getActivity(), lineChart, chartXYList);
+        Map<String, ChartXY> chartXYMap = new HashMap<>();
+        List<ChartXY> chartXYList = new ArrayList<>();
+        Calendar c = Calendar.getInstance();
+        for(int i = 0; i< 7; i++){
+            c.setTime(new Date());
+            c.add(Calendar.DATE, i-6);
+            c.set(Calendar.SECOND, 0);
+            c.set(Calendar.MINUTE, 0);
+            c.set(Calendar.MILLISECOND, 0);
+            Date zeroDate = c.getTime();
+
+            for(int j = 0; j< 10; j++){
+                c.set(Calendar.HOUR_OF_DAY, 8 + j);
+                String dateStr = DateUtil.dateToString(c.getTime(), "yyyy-MM-dd HH:mm:ss");
+                ChartXY chartXY = new ChartXY();
+                chartXY.setChartX(i*10 + j);
+                chartXY.setChartY(0);
+                chartXYList.add(chartXY);
+                chartXYMap.put(dateStr, chartXY);
+            }
+        }
+
+        if (secureRecordVoList != null && secureRecordVoList.size() > 0) {
+            for (SecureRecordVo secureRecordVo : secureRecordVoList) {
+                chartXYMap.get(secureRecordVo.getTime()).setChartY(secureRecordVo.getCount());
+            }
+        }
+        LineChartUtil.setLineChartData(getActivity(), lineChart, chartXYList);
     }
 
     @Override
-    public void setTodayPassengerStatic(List<SecureRecordVo> secureRecordVoList) {
+    public void setTodayPassenger(TodyPassengerVO todyPassengerVO) {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR_OF_DAY, 8);
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.MILLISECOND, 0);
         long zeroTime = cal.getTimeInMillis();
-        if (secureRecordVoList != null && secureRecordVoList.size() > 0) {
-            for (SecureRecordVo secureRecordVo : secureRecordVoList) {
+        if (todyPassengerVO.getTodayPassengerStatic() != null && todyPassengerVO.getTodayPassengerStatic().size() > 0) {
+            for (SecureRecordVo secureRecordVo : todyPassengerVO.getTodayPassengerStatic()) {
                 long date = DateUtil.dateToCurrentTimeMilli(secureRecordVo.getTime(),"yyyy-MM-dd HH:mm:ss");
                 Integer integerX = (int)(date - zeroTime)/(10*60*1000);
                 mChartXYList.get(integerX).setChartY(secureRecordVo.getCount());
             }
         }
-        DoubleLineChartUtil.setTodayPassengerStatic(getActivity(), lineChart2, mChartXYList, mVipchartXYList);
-    }
 
-    @Override
-    public void setTodayVipPassengerStatic(List<SecureRecordVo> secureRecordVoList) {
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, 8);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.MILLISECOND, 0);
-        long zeroTime = cal.getTimeInMillis();
-        if (secureRecordVoList != null && secureRecordVoList.size() > 0) {
-            for (SecureRecordVo secureRecordVo : secureRecordVoList) {
+        if (todyPassengerVO.getTodayVipPassengerStatic() != null && todyPassengerVO.getTodayVipPassengerStatic().size() > 0) {
+            for (SecureRecordVo secureRecordVo : todyPassengerVO.getTodayVipPassengerStatic()) {
                 long date = DateUtil.dateToCurrentTimeMilli(secureRecordVo.getTime(),"yyyy-MM-dd HH:mm:ss");
                 Integer integerX = (int)(date - zeroTime)/(10*60*1000);
                 mVipchartXYList.get(integerX).setChartY(secureRecordVo.getCount());
             }
         }
-        //DoubleLineChartUtil.setTodayPassengerStatic(getActivity(), lineChart2, mChartXYList, mVipchartXYList);
+
+        DoubleLineChartUtil.setTodayPassengerStatic(getActivity(), lineChart2, mChartXYList, mVipchartXYList);
     }
 
     @Override

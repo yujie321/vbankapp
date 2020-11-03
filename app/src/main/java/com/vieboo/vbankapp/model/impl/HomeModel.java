@@ -28,6 +28,9 @@ public class HomeModel extends BaseModule<IHomeView> implements IHomeModel  {
                 .subscribe(new BaseHttpRxObserver<StaticTodaySummeryVo>() {
                     @Override
                     protected void onSuccess(StaticTodaySummeryVo staticTodaySummeryVo) {
+                        if(staticTodaySummeryVo == null) {
+                            staticTodaySummeryVo = new StaticTodaySummeryVo();
+                        }
                         mViewRef.get().setTodaySummary(staticTodaySummeryVo);
                     }
                 });
@@ -40,6 +43,9 @@ public class HomeModel extends BaseModule<IHomeView> implements IHomeModel  {
                 .subscribe(new BaseHttpRxObserver<PassengerVO>() {
                     @Override
                     protected void onSuccess(PassengerVO passengerVO) {
+                        if(passengerVO == null){
+                            passengerVO = new PassengerVO();
+                        }
                         mViewRef.get().setPassenger(passengerVO);
                     }
                 });
@@ -52,6 +58,9 @@ public class HomeModel extends BaseModule<IHomeView> implements IHomeModel  {
                 .subscribe(new BaseHttpRxObserver<List<NoticeListVO>>() {
                     @Override
                     protected void onSuccess(List<NoticeListVO> passengerVO) {
+                        if(passengerVO == null){
+                            passengerVO = new ArrayList<NoticeListVO>();
+                        }
                         if (mViewRef.get().getPage() == StaticExplain.PAGE_NUMBER.getCode()) {
                             //刷新
                             mViewRef.get().refreshNoticeListSuccess(passengerVO);
@@ -139,6 +148,9 @@ public class HomeModel extends BaseModule<IHomeView> implements IHomeModel  {
                 .subscribe(new BaseHttpRxObserver<PadInfoVo>(mContext.get()) {
                     @Override
                     protected void onSuccess(PadInfoVo padInfoVo) {
+                        if(padInfoVo == null){
+                            padInfoVo = new PadInfoVo();
+                        }
                         mViewRef.get().setPadInfo(padInfoVo);
                     }
                 });

@@ -21,7 +21,7 @@ import java.util.List;
 
 public class LineChartUtil {
 
-    public static void initLineChart(LineChart lineChart, String[] mLabels) {
+    public static void initLineChart(LineChart lineChart, List<String> datalist) {
 
         // no description text
         lineChart.getDescription().setEnabled(false);
@@ -33,8 +33,10 @@ public class LineChartUtil {
         x.setDrawGridLines(false);
         x.setDrawLabels(true);
         x.setGranularity(1f);
-        x.setCenterAxisLabels(true);
-
+        //x.setCenterAxisLabels(true);
+        x.setValueFormatter(new IndexAxisValueFormatter(datalist));
+        x.setLabelCount(10);
+        x.setTextColor(Color.WHITE);
 
         YAxis y = lineChart.getAxisLeft();
         y.setLabelCount(6, false);
@@ -53,15 +55,6 @@ public class LineChartUtil {
         lineChart.invalidate();
     }
     public static void setLineChartData(FragmentActivity activity, LineChart lineChart, List<ChartXY> chartXYList) {
-        ArrayList<String> xdata = new ArrayList<>();
-        for (int j = 0; j < 7; j++){
-            xdata.add(""+(j));
-        }
-        lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xdata));
-        lineChart.getXAxis().setLabelCount(7);
-        lineChart.getXAxis().setTextColor(Color.WHITE);
-        lineChart.setVisibleXRangeMaximum(7);
-
         ArrayList<Entry> values = new ArrayList<>();
 
         for (int i = 0; i < chartXYList.size(); i++) {

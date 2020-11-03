@@ -17,10 +17,15 @@ import com.vieboo.vbankapp.data.ChartXY;
 import com.vieboo.vbankapp.data.SecureRecordVo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DoubleLineChartUtil {
-    public static void initDoubleLineChart(LineChart lineChart, String[] mLabels) {
+    protected static String[] mLabels2 = new String[]{
+            "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"
+    };
+
+    public static void initDoubleLineChart(LineChart lineChart, List<String> datalist) {
 
         // no description text
         lineChart.getDescription().setEnabled(false);
@@ -69,8 +74,8 @@ public class DoubleLineChartUtil {
         xAxis.setDrawGridLines(false);
         xAxis.setDrawAxisLine(false);
 
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(mLabels));
-
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(datalist));
+        xAxis.setLabelCount(datalist.size());
         xAxis.setTextColor(Color.WHITE);
 
         YAxis leftAxis = lineChart.getAxisLeft();
@@ -128,16 +133,16 @@ public class DoubleLineChartUtil {
 
             // create a dataset and give it a type
             set2 = new LineDataSet(values2, "VIP客户");
-            set2.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-            set2.setAxisDependency(YAxis.AxisDependency.LEFT);
-            set2.setColor(Color.RED);
-            set2.setCircleColor(Color.WHITE);
-            set2.setLineWidth(2f);
-            set2.setCircleRadius(3f);
-            set2.setFillAlpha(65);
-            set2.setFillColor(Color.RED);
-            set2.setDrawCircleHole(false);
-            set2.setHighLightColor(Color.rgb(244, 117, 117));
+//            set2.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+//            set2.setAxisDependency(YAxis.AxisDependency.LEFT);
+//            set2.setColor(Color.RED);
+//            set2.setCircleColor(Color.WHITE);
+//            set2.setLineWidth(2f);
+//            set2.setCircleRadius(3f);
+//            set2.setFillAlpha(65);
+//            set2.setFillColor(Color.RED);
+//            set2.setDrawCircleHole(false);
+//            set2.setHighLightColor(Color.rgb(244, 117, 117));
             //set2.setFillFormatter(new MyFillFormatter(900f));
 
 

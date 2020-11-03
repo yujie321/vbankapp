@@ -58,7 +58,18 @@ public class SecurityOperateFragment extends BaseListFragment<ISecurityOperateMo
         super.initView();
         rvBaseList.setLayoutManager(new StaggeredGridLayoutManager(5, StaggeredGridLayoutManager.VERTICAL));
         //rvBaseList.addItemDecoration(new GridSpacingItemDecoration(5, 5, false));
-        LineChartUtil.initLineChart(lineChart, mLabels);
+        List<String> datalist = new ArrayList<>();
+        for(int i = 0; i< 10; i++){
+            for(int j = 0; j< 6; j++){
+                if(j!=0){
+                    datalist.add("");
+                }else {
+                    String dateStr = mLabels[i];
+                    datalist.add(dateStr);
+                }
+            }
+        }
+        LineChartUtil.initLineChart(lineChart, datalist);
         iModule.getTodaySecureStatic();
     }
 

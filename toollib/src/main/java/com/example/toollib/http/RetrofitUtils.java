@@ -2,6 +2,7 @@ package com.example.toollib.http;
 
 import com.example.toollib.ToolLib;
 import com.example.toollib.http.converter.MyConverterFactory;
+import com.example.toollib.http.interceptor.BaseUrlInterceptor;
 import com.example.toollib.http.interceptor.CacheInterceptor;
 import com.example.toollib.http.interceptor.ReceivedCookiesInterceptor;
 import com.example.toollib.http.interceptor.SaveCookiesInterceptor;
@@ -41,6 +42,7 @@ public class RetrofitUtils {
         //okHttpBuilder.addInterceptor(new CacheInterceptor());
         //okHttpBuilder.addInterceptor(new ReceivedCookiesInterceptor());
         //okHttpBuilder.addInterceptor(new SaveCookiesInterceptor());
+        okHttpBuilder.addInterceptor(new BaseUrlInterceptor());
         okHttpBuilder.addInterceptor(logInterceptor);
         retrofitBuild = new Retrofit.Builder()
                 .client(okHttpBuilder.build())

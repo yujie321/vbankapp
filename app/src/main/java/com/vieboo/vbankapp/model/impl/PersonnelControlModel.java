@@ -20,6 +20,7 @@ import com.vieboo.vbankapp.model.IPersonnelControlModel;
 import com.vieboo.vbankapp.model.IPersonnelControlView;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -39,8 +40,9 @@ public class PersonnelControlModel extends BaseModule<IPersonnelControlView> imp
                 .subscribe(new BaseHttpRxObserver<List<PunchRecordVO>>() {
                     @Override
                     protected void onSuccess(List<PunchRecordVO> passengerVO) {
-
-
+                        if(passengerVO == null){
+                            passengerVO = new ArrayList<PunchRecordVO>();
+                        }
                         mViewRef.get().setStaffStyle(passengerVO);
                     }
                 });
@@ -53,6 +55,9 @@ public class PersonnelControlModel extends BaseModule<IPersonnelControlView> imp
                 .subscribe(new BaseHttpRxObserver<List<RecordVO>>() {
                     @Override
                     protected void onSuccess(List<RecordVO> recordVOS) {
+                        if(recordVOS ==null){
+                            recordVOS = new ArrayList<RecordVO>();
+                        }
                         mViewRef.get().setPunchRecord(recordVOS);
                     }
                 });

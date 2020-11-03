@@ -64,7 +64,18 @@ public class InoutManagerFragment extends BaseListFragment<IInoutManagerModel, I
         iModule.requestAccessPersonInOut();
 
         //获取当日进出记录趋势图
-        LineChartUtil.initLineChart(lineChart, mLabels);
+        List<String> datalist = new ArrayList<>();
+        for(int i = 0; i< 10; i++){
+            for(int j = 0; j< 6; j++){
+                if(j!=0){
+                    datalist.add("");
+                }else {
+                    String dateStr = mLabels[i];
+                    datalist.add(dateStr);
+                }
+            }
+        }
+        LineChartUtil.initLineChart(lineChart, datalist);
         iModule.getTodayPersonInoutStatic();
     }
 
