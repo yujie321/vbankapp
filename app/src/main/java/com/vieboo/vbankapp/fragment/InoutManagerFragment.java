@@ -6,10 +6,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.toollib.base.BaseListFragment;
+import com.example.toollib.util.DateUtil;
 import com.github.mikephil.charting.charts.LineChart;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.vieboo.vbankapp.R;
 import com.vieboo.vbankapp.adapter.InoutManagerAdapter;
+import com.vieboo.vbankapp.data.ChartXY;
 import com.vieboo.vbankapp.data.PersonInOutVO;
 import com.vieboo.vbankapp.data.SecureRecordVo;
 import com.vieboo.vbankapp.model.IInoutManagerModel;
@@ -17,6 +19,8 @@ import com.vieboo.vbankapp.model.IInoutManagerView;
 import com.vieboo.vbankapp.model.impl.InoutManagerModel;
 import com.vieboo.vbankapp.utils.LineChartUtil;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -66,7 +70,28 @@ public class InoutManagerFragment extends BaseListFragment<IInoutManagerModel, I
 
     @Override
     public void setTodayPersoninoutStatic(List<SecureRecordVo> secureRecordVoList) {
-        LineChartUtil.setLineChartData(getActivity(), lineChart, secureRecordVoList);
+        List<ChartXY> chartXYList = new ArrayList<>();
+        chartXYList = new ArrayList<>();
+        for(int i = 0; i< 61; i++){
+            ChartXY chartXY = new ChartXY();
+            chartXY.setChartX(i);
+            chartXY.setChartY(0);
+            chartXYList.add(chartXY);
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 8);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        long zeroTime = cal.getTimeInMillis();
+        if (secureRecordVoList != null && secureRecordVoList.size() > 0) {
+            for (SecureRecordVo secureRecordVo : secureRecordVoList) {
+                long date = DateUtil.dateToCurrentTimeMilli(secureRecordVo.getTime(),"yyyy-MM-dd HH:mm:ss");
+                Integer integerX = (int)(date - zeroTime)/(10*60*1000);
+                chartXYList.get(integerX).setChartY(secureRecordVo.getCount());
+            }
+        }
+        LineChartUtil.setLineChartData(getActivity(), lineChart, chartXYList);
     }
 
     @Override

@@ -46,17 +46,18 @@ public class SplashModel extends BaseModule<ISplashView> implements ISplashModel
                 //保存激活码到SD卡
                 FaceAlgoUtils.copyLicenseCodeToCard(mContext.get());
                 Log.e("已激活 设备授权码 : " + activeFileInfo.getActiveKey());
+                mViewRef.get().startHomeFragment();
             } else {
                 //未激活,则先从本地SD卡加载，如果没有，则线上激活
                 Log.e("getActiveFileInfo failed, code is : " + code);
                 boolean isExist = FaceAlgoUtils.copyLicenseCodeToActiveFile(mContext.get());
                 if (!isExist) {
                     mViewRef.get().showToast("激活失败 : " + code);
+                    mViewRef.get().startActiveDeviceFragment();
                 } else {
                     mViewRef.get().showToast("设备授权码：" + activeFileInfo.getActiveKey());
                 }
             }
-            mViewRef.get().startHomeFragment();
         }
 
     }

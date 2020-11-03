@@ -46,6 +46,22 @@ public class BranchOperateModel extends BaseModule<IBranchOperateView> implement
     }
 
     @Override
+    public void getTodayVipPassengerStatic() {
+        RxUtils.getObservable(ServiceUrl.getUserApi().todayVipPassengerStatic())
+                .compose(mViewRef.get().bindLifecycle())
+                .subscribe(new BaseHttpRxObserver<List<SecureRecordVo>>() {
+                    @Override
+                    protected void onSuccess(List<SecureRecordVo> secureRecordVoList) {
+                        mViewRef.get().setTodayVipPassengerStatic(secureRecordVoList);
+                    }
+                    @Override
+                    public void onError(ApiException apiException) {
+                        super.onError(apiException);
+                    }
+                });
+    }
+
+    @Override
     public void getTodayPassengerSummery() {
         RxUtils.getObservable(ServiceUrl.getUserApi().todayPassengerSummery())
                 .compose(mViewRef.get().bindLifecycle())

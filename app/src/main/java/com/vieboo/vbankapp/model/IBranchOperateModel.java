@@ -8,4 +8,6 @@ public interface IBranchOperateModel extends IBaseModule<IBranchOperateView> {
     void getTodayPassengerStatic();
 
     void getTodayPassengerSummery();
+
+    void getTodayVipPassengerStatic();
 }

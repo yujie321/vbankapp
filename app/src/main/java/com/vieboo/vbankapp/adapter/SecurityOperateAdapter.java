@@ -22,7 +22,7 @@ public class SecurityOperateAdapter extends BaseQuickAdapter<SecureResultVO, Bas
     protected void convert(@NotNull BaseViewHolder viewHolder, SecureResultVO secureResultVO) {
         ImageView ivSecurityHead = viewHolder.getView(R.id.ivSecurityHead);
 
-        GlideManager.loadImage(getContext(), secureResultVO.getImageUrl(), ivSecurityHead , R.drawable.bg_test);
+        GlideManager.loadImage(getContext(), secureResultVO.getFaceUrl(), ivSecurityHead , R.drawable.bg_test);
 
         TextView tvSecurityName = viewHolder.getView(R.id.tvSecurityName);
         tvSecurityName.setText(secureResultVO.getPersonName());

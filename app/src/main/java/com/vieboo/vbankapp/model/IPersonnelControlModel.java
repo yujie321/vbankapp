@@ -26,5 +26,5 @@ public interface IPersonnelControlModel extends IBaseModule<IPersonnelControlVie
     /**
      * 下班打卡
      */
-    void clockOut();
+    void clockOut(Bitmap bitmap, String personId);
 }

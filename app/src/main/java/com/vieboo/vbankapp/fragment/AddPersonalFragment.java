@@ -202,7 +202,8 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ivAddPersonalBack:
-                popBackStack();
+                startFragmentAndDestroyCurrent(HomeFragment.newInstance());
+                //popBackStack();
                 break;
             case R.id.btnSave:
                 //保存
@@ -266,8 +267,6 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
                             userInfo.setId(unique.getId());
                             DBHelper.getInstance().getUserInfoDao().update(userInfo);
                         }
-
-
                     }
                 });
     }

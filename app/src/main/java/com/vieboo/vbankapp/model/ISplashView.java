@@ -12,4 +12,5 @@ public interface ISplashView extends IBaseView {
 
     void startHomeFragment();
 
+    void startActiveDeviceFragment();
 }

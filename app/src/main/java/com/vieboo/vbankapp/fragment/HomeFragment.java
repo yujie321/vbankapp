@@ -239,7 +239,6 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
     @OnClick(R.id.ivHomeSetting)
     public void onClick() {
         //设置
-
     }
 
     private OnItemClickListener onItemClickListener = (adapter, view, position) -> {
