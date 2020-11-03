@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 
@@ -39,10 +41,6 @@ public class ResponseBodyConverter<T> implements Converter<ResponseBody, T> {
     public T convert(ResponseBody value) throws IOException {
         String response = value.string();
         HttpResult httpStatus = gson.fromJson(response, HttpResult.class);
-        Type[] genericInterfaces = adapter.getClass().getGenericInterfaces();
-        for (Type genericInterface : genericInterfaces) {
-            System.out.println(genericInterface);
-        }
         if (Integer.parseInt(httpStatus.getCode()) != HttpError.HTTP_SUCCESS.getCode()) {
             value.close();
             String data;
@@ -57,6 +55,7 @@ public class ResponseBodyConverter<T> implements Converter<ResponseBody, T> {
         MediaType contentType = value.contentType();
         Charset charset = contentType != null ? contentType.charset(UTF_8) : UTF_8;
         InputStream inputStream = new ByteArrayInputStream(response.getBytes());
+        assert charset != null;
         Reader reader = new InputStreamReader(inputStream, charset);
         JsonReader jsonReader = gson.newJsonReader(reader);
         try {
@@ -65,6 +64,5 @@ public class ResponseBodyConverter<T> implements Converter<ResponseBody, T> {
             value.close();
         }
     }
-
 
 }

@@ -9,21 +9,15 @@ import android.view.Window;
 import com.example.toollib.http.HttpResult;
 import com.example.toollib.http.exception.ApiException;
 import com.example.toollib.http.exception.HttpError;
-import com.example.toollib.http.version.MessageEvent;
-import com.example.toollib.http.version.Version;
-import com.example.toollib.http.version.VersionEnums;
 import com.example.toollib.util.Log;
 import com.example.toollib.util.LoginInterceptor;
 import com.example.toollib.util.ToastUtil;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.lang.ref.WeakReference;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-import kotlin.reflect.KVariance;
 
 /**
  * @author Administrator
@@ -55,7 +49,7 @@ public abstract class BaseHttpRxObserver<T> implements Observer<HttpResult<T>>, 
     public void onSubscribe(Disposable d) {
         if (mContext != null) {
             Log.e("线程 = " + Thread.currentThread().getName());
-            ((Activity)mContext.get()).runOnUiThread(new Runnable() {
+            ((Activity) mContext.get()).runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     tipLoading = new QMUITipDialog.Builder(mContext.get())
@@ -63,7 +57,7 @@ public abstract class BaseHttpRxObserver<T> implements Observer<HttpResult<T>>, 
                             .setTipWord(loadingTip != null ? loadingTip.get() : "")
                             .create();
                     Window window = tipLoading.getWindow();
-                    if (window != null){
+                    if (window != null) {
                         window.setGravity(Gravity.CENTER);
                     }
                     tipLoading.setOnDismissListener(BaseHttpRxObserver.this);
@@ -80,16 +74,8 @@ public abstract class BaseHttpRxObserver<T> implements Observer<HttpResult<T>>, 
         if (tipLoading != null && tipLoading.isShowing()) {
             tipLoading.dismiss();
         }
-//        Version version = httpResult.getVersion();
-//        if (version != null) {
-//            //更新
-//            EventBus.getDefault().post(new MessageEvent(VersionEnums.APP_UPDATE.getCode(), version));
-//        }
         T data = httpResult.getData();
         onSuccess(data);
-//        if (version == null) {
-//            onSuccess(data);
-//        }
     }
 
     @Override

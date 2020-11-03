@@ -43,7 +43,6 @@ public class DeviceStatusModel extends BaseModule<IDeviceStatusView> implements 
                             mViewRef.get().loadMoreComplete();
                         }
                     }
-
                     @Override
                     public void onError(ApiException apiException) {
                         super.onError(apiException);
@@ -51,6 +50,39 @@ public class DeviceStatusModel extends BaseModule<IDeviceStatusView> implements 
                         mViewRef.get().loadError();
                     }
                 });
+//        RxUtils.getObservable(ServiceUrl.getUserApi().findVQD(page, StaticExplain.PAGE_NUM.getCode()))
+//                .compose(mViewRef.get().bindLifecycle())
+//                .subscribe(new BaseHttpRxObserver<VQDSystemRecordVo>() {
+//                    @Override
+//                    protected void onSuccess(VQDSystemRecordVo vqdSystemRecordVo) {
+//                        if (vqdSystemRecordVo == null) {
+//                            vqdSystemRecordVo = new VQDSystemRecordVo();
+//                        }
+//                        List<VQDResultVO> vqdResultVOS = vqdSystemRecordVo.getData();
+//                        if (mViewRef.get().getPage() == StaticExplain.PAGE_NUMBER.getCode()) {
+//                            //刷新
+//                            mViewRef.get().refreshVQD(vqdResultVOS);
+//                            mViewRef.get().finishRefresh();
+//                        } else {
+//                            //加载
+//                            mViewRef.get().loadMoreVQD(vqdResultVOS);
+//                        }
+//                        if (vqdResultVOS.size() < StaticExplain.PAGE_NUM.getCode()) {
+//                            //加载结束
+//                            mViewRef.get().loadMoreEnd();
+//                        } else {
+//                            //加载完成
+//                            mViewRef.get().loadMoreComplete();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onError(ApiException apiException) {
+//                        super.onError(apiException);
+//                        mViewRef.get().finishRefresh();
+//                        mViewRef.get().loadError();
+//                    }
+//                });
 
     }
 

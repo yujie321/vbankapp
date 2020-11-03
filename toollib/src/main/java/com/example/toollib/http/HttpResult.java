@@ -2,8 +2,11 @@ package com.example.toollib.http;
 
 
 import androidx.annotation.NonNull;
+
 import com.example.toollib.http.version.Version;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.Optional;
 
 
 public class HttpResult<T> {
@@ -18,6 +21,7 @@ public class HttpResult<T> {
     private T data ;
 
     private Version version;
+
 
     public String getMsg() {
         return msg;
@@ -34,7 +38,6 @@ public class HttpResult<T> {
     public void setCode(String code) {
         this.code = code;
     }
-
 
     public T getData() {
         return data;
