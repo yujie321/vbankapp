@@ -5,26 +5,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_main"
-    android:orientation="vertical"
-    android:paddingLeft="12dp"
-    android:paddingRight="12dp"
-    android:paddingBottom="16dp">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/tvHomeTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="259dp"
+        android:layout_height="36dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="6dp"
+        android:background="@drawable/bg_home_title"
+        android:gravity="center"
         android:text="@string/main_home_title"
         android:textColor="@android:color/white"
         android:textSize="16sp" />
-    <!-- 头部标题 -->
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_home_decorate" />
+
+    <!-- 头部标题左边 -->
     <RelativeLayout
         android:id="@+id/relHomeTitle"
         android:layout_width="match_parent"
         android:layout_height="28dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="-24dp"
+        android:layout_toStartOf="@+id/tvHomeTitle"
+        android:background="@drawable/ic_home_left"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         tools:ignore="UselessParent">
@@ -34,7 +42,7 @@
             android:layout_width="16dp"
             android:layout_height="17dp"
             android:layout_centerVertical="true"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="18dp"
             android:src="@drawable/ic_home_log" />
 
         <TextView
@@ -44,6 +52,7 @@
             android:layout_alignTop="@+id/ivHomeLog"
             android:layout_alignBottom="@+id/ivHomeLog"
             android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:layout_marginStart="3dp"
             android:layout_toEndOf="@+id/ivHomeLog"
             android:gravity="center_vertical"
@@ -54,7 +63,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/tvHomeName"
             android:layout_centerVertical="true"
             android:layout_marginStart="4dp"
             android:layout_toEndOf="@+id/tvHomeName"
@@ -63,11 +71,26 @@
             android:textColor="@color/tool_lib_color_314396"
             android:textSize="18sp" />
 
+    </RelativeLayout>
+
+    <!-- 头部标题右边 -->
+    <RelativeLayout
+        android:id="@+id/relHomeTitleRight"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:layout_marginStart="-24dp"
+        android:layout_marginTop="21dp"
+        android:layout_toEndOf="@+id/tvHomeTitle"
+        android:background="@drawable/ic_home_right"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        tools:ignore="UselessParent">
+
         <TextClock
             android:id="@+id/tcHomeDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/tvHomeName"
+            android:layout_centerVertical="true"
             android:layout_marginEnd="12dp"
             android:layout_toStartOf="@+id/ivHomeSetting"
             android:gravity="center"
@@ -91,8 +114,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/ivHomeBottom"
         android:layout_below="@+id/relHomeTitle"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="4dp"
         android:orientation="vertical">
 
         <!--中间三个部分-->
@@ -595,4 +622,14 @@
 
         </LinearLayout>
     </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/ivHomeBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="43dp"
+        android:layout_marginEnd="43dp"
+        android:src="@drawable/ic_home_bottom" />
 </RelativeLayout>
