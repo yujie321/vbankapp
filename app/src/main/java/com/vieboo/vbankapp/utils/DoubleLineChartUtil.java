@@ -21,10 +21,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DoubleLineChartUtil {
-    protected static String[] mLabels2 = new String[]{
-            "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"
-    };
-
     public static void initDoubleLineChart(LineChart lineChart, List<String> datalist) {
 
         // no description text

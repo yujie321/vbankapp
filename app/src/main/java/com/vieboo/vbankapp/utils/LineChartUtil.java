@@ -21,7 +21,7 @@ import java.util.List;
 
 public class LineChartUtil {
 
-    public static void initLineChart(LineChart lineChart, List<String> datalist) {
+    public static void initLineChart(LineChart lineChart, List<String> datalist, int labelSize) {
 
         // no description text
         lineChart.getDescription().setEnabled(false);
@@ -35,7 +35,7 @@ public class LineChartUtil {
         x.setGranularity(1f);
         //x.setCenterAxisLabels(true);
         x.setValueFormatter(new IndexAxisValueFormatter(datalist));
-        x.setLabelCount(10);
+        x.setLabelCount(labelSize);
         x.setTextColor(Color.WHITE);
 
         YAxis y = lineChart.getAxisLeft();

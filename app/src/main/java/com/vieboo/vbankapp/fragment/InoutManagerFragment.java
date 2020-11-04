@@ -75,7 +75,7 @@ public class InoutManagerFragment extends BaseListFragment<IInoutManagerModel, I
                 }
             }
         }
-        LineChartUtil.initLineChart(lineChart, datalist);
+        LineChartUtil.initLineChart(lineChart, datalist, datalist.size());
         iModule.getTodayPersonInoutStatic();
     }
 

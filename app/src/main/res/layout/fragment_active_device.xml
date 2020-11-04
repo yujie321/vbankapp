@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@drawable/bg_main"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -19,6 +20,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
+            android:textColor="@color/tool_lib_white_FFFFFF"
             android:tooltipText="输入授权码"
             android:text="0858-112P-H14A-AE1U" />
         <Button
