@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_main"
     android:orientation="vertical">
 
     <LinearLayout
@@ -15,6 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:gravity="center_vertical"
+            android:textColor="@color/tool_lib_white_FFFFFF"
             android:text="服务器地址："></TextView>
 
         <EditText
@@ -23,6 +25,7 @@
             android:layout_height="50dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
+            android:textColor="@color/tool_lib_white_FFFFFF"
             android:hint="输入服务器地址" />
     </LinearLayout>
 
@@ -53,7 +56,7 @@
             android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="重新同步数据"
+            android:text="取消"
             android:textSize="16sp"
             android:textStyle="bold" />
     </LinearLayout>

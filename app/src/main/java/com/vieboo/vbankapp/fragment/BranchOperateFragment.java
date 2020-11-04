@@ -116,12 +116,14 @@ public class BranchOperateFragment extends BaseFragment<IBranchOperateModel> imp
                     datalist2.add("");
                 }else {
                     String dateStr = mLabels[i];
-                    datalist.add(dateStr);
+                    datalist2.add(dateStr);
                 }
             }
         }
+        String tmpDate = mLabels[10];
+        datalist2.add(tmpDate);
 
-        LineChartUtil.initLineChart(lineChart, datalist);
+        LineChartUtil.initLineChart(lineChart, datalist, 11);
         DoubleLineChartUtil.initDoubleLineChart(lineChart2, datalist2);
         iModule.getTodayPassengerSummery();
         iModule.getLast7dayPeriodStatic();

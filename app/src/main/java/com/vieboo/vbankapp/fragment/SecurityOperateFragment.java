@@ -69,7 +69,9 @@ public class SecurityOperateFragment extends BaseListFragment<ISecurityOperateMo
                 }
             }
         }
-        LineChartUtil.initLineChart(lineChart, datalist);
+        String tmpDate = mLabels[10];
+        datalist.add(tmpDate);
+        LineChartUtil.initLineChart(lineChart, datalist, datalist.size());
         iModule.getTodaySecureStatic();
     }
 
