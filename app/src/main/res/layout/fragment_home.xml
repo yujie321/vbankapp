@@ -20,7 +20,7 @@
         android:textSize="16sp" />
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_home_decorate" />
 
@@ -29,8 +29,8 @@
         android:id="@+id/relHomeTitle"
         android:layout_width="match_parent"
         android:layout_height="28dp"
-        android:layout_marginTop="21dp"
-        android:layout_marginEnd="-24dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="-32dp"
         android:layout_toStartOf="@+id/tvHomeTitle"
         android:background="@drawable/ic_home_left"
         android:gravity="center_vertical"
@@ -78,8 +78,8 @@
         android:id="@+id/relHomeTitleRight"
         android:layout_width="match_parent"
         android:layout_height="28dp"
-        android:layout_marginStart="-24dp"
-        android:layout_marginTop="21dp"
+        android:layout_marginStart="-32dp"
+        android:layout_marginTop="28dp"
         android:layout_toEndOf="@+id/tvHomeTitle"
         android:background="@drawable/ic_home_right"
         android:gravity="center_vertical"
