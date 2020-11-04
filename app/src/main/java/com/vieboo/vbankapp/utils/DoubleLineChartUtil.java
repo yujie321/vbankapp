@@ -58,8 +58,8 @@ public class DoubleLineChartUtil {
         l.setForm(Legend.LegendForm.LINE);
         l.setTextSize(11f);
         l.setTextColor(Color.WHITE);
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
         l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
         l.setDrawInside(false);
 //        l.setYOffset(11f);
@@ -90,12 +90,16 @@ public class DoubleLineChartUtil {
         ArrayList<Entry> values1 = new ArrayList<>();
 
         for (int i = 0; i < mChartXYList.size(); i++) {
+//            float val = (float) (Math.random() * 61) + 450;
+//            values1.add(new Entry(i, val));
             values1.add(new Entry(i, mChartXYList.get(i).getChartY()));
         }
 
         ArrayList<Entry> values2 = new ArrayList<>();
 
         for (int i = 0; i < chartXYList.size(); i++) {
+//            float val = (float) (Math.random() * 61) + 300;
+//            values2.add(new Entry(i, val));
             values2.add(new Entry(i, chartXYList.get(i).getChartY()));
         }
 
@@ -129,16 +133,16 @@ public class DoubleLineChartUtil {
 
             // create a dataset and give it a type
             set2 = new LineDataSet(values2, "VIP客户");
-//            set2.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-//            set2.setAxisDependency(YAxis.AxisDependency.LEFT);
-//            set2.setColor(Color.RED);
-//            set2.setCircleColor(Color.WHITE);
-//            set2.setLineWidth(2f);
-//            set2.setCircleRadius(3f);
-//            set2.setFillAlpha(65);
-//            set2.setFillColor(Color.RED);
-//            set2.setDrawCircleHole(false);
-//            set2.setHighLightColor(Color.rgb(244, 117, 117));
+            set2.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+            set2.setAxisDependency(YAxis.AxisDependency.LEFT);
+            set2.setColor(Color.RED);
+            set2.setCircleColor(Color.WHITE);
+            set2.setLineWidth(2f);
+            set2.setCircleRadius(3f);
+            set2.setFillAlpha(65);
+            set2.setFillColor(Color.RED);
+            set2.setDrawCircleHole(false);
+            set2.setHighLightColor(Color.rgb(244, 117, 117));
             //set2.setFillFormatter(new MyFillFormatter(900f));
 
 

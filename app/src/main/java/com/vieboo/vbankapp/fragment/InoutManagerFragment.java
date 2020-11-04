@@ -75,6 +75,8 @@ public class InoutManagerFragment extends BaseListFragment<IInoutManagerModel, I
                 }
             }
         }
+        String tmpDate = mLabels[10];
+        datalist.add(tmpDate);
         LineChartUtil.initLineChart(lineChart, datalist, datalist.size());
         iModule.getTodayPersonInoutStatic();
     }
@@ -107,7 +109,7 @@ public class InoutManagerFragment extends BaseListFragment<IInoutManagerModel, I
 
     @Override
     public void setAccessPersonInOut(List<PersonInOutVO> personInOutVOS) {
-        //实时进出记录
+        //历史进出记录
         InoutManagerAdapter inoutAccessPersonAdapter = new InoutManagerAdapter();
         inoutAccessPersonAdapter.setList(personInOutVOS);
         rvAccessRecord.setAdapter(inoutAccessPersonAdapter);
