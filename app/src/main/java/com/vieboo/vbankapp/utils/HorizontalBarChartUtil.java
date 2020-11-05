@@ -74,6 +74,7 @@ public class HorizontalBarChartUtil {
         l.setDrawInside(false);
         l.setFormSize(8f);
         l.setXEntrySpace(4f);
+        l.setTextColor(Color.WHITE);
     }
 
     public static void setHorizontalBarChartData(FragmentActivity activity, HorizontalBarChart horizontalBarChart, DeviceStatusVo deviceStatusVo) {

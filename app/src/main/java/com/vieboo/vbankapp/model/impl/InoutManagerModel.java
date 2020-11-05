@@ -17,15 +17,22 @@ import com.vieboo.vbankapp.model.IInoutManagerModel;
 import com.vieboo.vbankapp.model.IInoutManagerView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class InoutManagerModel extends BaseModule<IInoutManagerView> implements IInoutManagerModel {
     @Override
     public void requestPersonInOut() {
         int page = mViewRef.get().getPage();
-        String startTime = "1990-01-01 00:00:00";
-        int timeTwentyFour = DateUtil.getTimeTwentyFour();
-        String endTime = DateUtil.getDateToString(timeTwentyFour, "yyyy-MM-dd HH:mm:dd");
+        //String startTime = "1990-01-01 00:00:00";
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        String startTime = DateUtil.dateToString(cal.getTime(), "yyyy-MM-dd HH:mm:dd");
+        String endTime = DateUtil.dateToString(new Date(), "yyyy-MM-dd HH:mm:dd");
         RxUtils.getObservable(ServiceUrl.getUserApi().findPersonInOut(startTime, endTime, page, StaticExplain.PAGE_NUM.getCode()))
                 .compose(mViewRef.get().bindLifecycle())
                 .subscribe(new BaseHttpRxObserver<InOutVO>() {
@@ -65,10 +72,14 @@ public class InoutManagerModel extends BaseModule<IInoutManagerView> implements 
     public void requestAccessPersonInOut() {
         //String date = DateUtil.dateToString(new Date(), "yyyy-MM-dd");
         //String startTime = date + " 00:00:00";
-        int timeZero = DateUtil.getTimeZero();
-        String startTime = DateUtil.getDateToString(timeZero, "yyyy-MM-dd HH:mm:dd");
-        int timeTwentyFour = DateUtil.getTimeTwentyFour();
-        String endTime = DateUtil.getDateToString(timeTwentyFour, "yyyy-MM-dd HH:mm:dd");
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        Date date = new Date();
+        String startTime = DateUtil.dateToString(cal.getTime(), "yyyy-MM-dd HH:mm:dd");
+        String endTime = DateUtil.dateToString(date, "yyyy-MM-dd HH:mm:dd");
         RxUtils.getObservable(ServiceUrl.getUserApi().findPersonInOut(startTime, endTime, 1, 10000))
                 .compose(mViewRef.get().bindLifecycle())
                 .subscribe(new BaseHttpRxObserver<InOutVO>() {

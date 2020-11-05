@@ -94,6 +94,11 @@ public class BranchOperateFragment extends BaseFragment<IBranchOperateModel> imp
             chartXY.setChartX(i);
             chartXY.setChartY(0);
             mChartXYList.add(chartXY);
+        }
+        for(int i = 0; i< 61; i++){
+            ChartXY chartXY = new ChartXY();
+            chartXY.setChartX(i);
+            chartXY.setChartY(0);
             mVipchartXYList.add(chartXY);
         }
 
