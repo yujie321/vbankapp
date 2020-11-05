@@ -12,10 +12,10 @@ android {
         versionCode config.versionCode
         versionName config.versionName
         multiDexEnabled true
-        ndk {
-            abiFilters "armeabi-v7a"
-        }
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters "armeabi","armeabi-v7a"
+        }
     }
     buildTypes {
         release {
@@ -68,7 +68,8 @@ dependencies {
     annotationProcessor libs["butterknife-compiler"]
     implementation libs["autosize"]
     implementation project(':toollib')
-    implementation project(':idlibrary')
+    implementation project(':idcard')
+    //implementation project(':idlibrary')
     implementation files('libs/smdt.jar')
     implementation project(':ttslibrary')
     implementation files('libs/arcsoft_face.jar')

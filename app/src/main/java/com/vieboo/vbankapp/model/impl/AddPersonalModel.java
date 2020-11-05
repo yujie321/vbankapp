@@ -1,15 +1,13 @@
 package com.vieboo.vbankapp.model.impl;
 
-import android.annotation.SuppressLint;
-import android.util.DisplayMetrics;
+import android.app.Activity;
 
 import com.example.toollib.data.BaseModule;
 import com.example.toollib.data.base.BaseCallback;
 import com.example.toollib.http.HttpResult;
-import com.example.toollib.http.observer.BaseHttpRxObserver;
 import com.example.toollib.http.observer.BaseHttpZipRxObserver;
 import com.example.toollib.http.util.RxUtils;
-import com.example.toollib.util.Log;
+import com.sdses.idCard.IdCardCallBack;
 import com.sdses.idCard.IdCardHelper;
 import com.sdses.idCard.IdInfo;
 import com.vieboo.vbankapp.MainActivity;
@@ -24,13 +22,8 @@ import com.vieboo.vbankapp.model.IAddPersonalView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function3;
 import io.reactivex.schedulers.Schedulers;
 
@@ -73,7 +66,6 @@ public class AddPersonalModel extends BaseModule<IAddPersonalView> implements IA
     }
 
 
-
     private void setDepartment(List<DepartmentVO> departmentVOS) {
         List<SpinnerVO> spinnerVOS = new ArrayList<>();
         for (DepartmentVO departmentVO : departmentVOS) {
@@ -108,34 +100,54 @@ public class AddPersonalModel extends BaseModule<IAddPersonalView> implements IA
     }
 
 
+    /* @Override
+     public void initIDCard() {
+         IdCardHelper.getInstance().open();
+         Observable.interval(1500, TimeUnit.MILLISECONDS).observeOn(Schedulers.computation()).subscribe(new Consumer<Long>() {
+             @Override
+             public void accept(Long aLong) throws Exception {
+                 if (mViewRef.get() == null) {
+                     return;
+                 }
+                 IdInfo info = IdCardHelper.getInstance().getIdInfo();
+                 Observable.create(new ObservableOnSubscribe<Object>() {
+                     @Override
+                     public void subscribe(ObservableEmitter<Object> emitter) throws Exception {
+                         if (info != null && info.getPhotoBmp() != null) {
+                             if (mViewRef.get() != null) {
+                                 mViewRef.get().getIdInfo(info);
+                             }
+                         } else {
+                             if (mViewRef.get() != null) {
+                                 mViewRef.get().notObtained();
+                             }
+                         }
+                     }
+                 }).subscribeOn(AndroidSchedulers.mainThread()).subscribe();
+             }
+         });
+     }*/
     @Override
     public void initIDCard() {
-        IdCardHelper.getInstance().open();
-        Observable.interval(1500, TimeUnit.MILLISECONDS).observeOn(Schedulers.computation()).subscribe(new Consumer<Long>() {
+        IdCardHelper.getInstance().init((MainActivity) mContext.get()).openContinueReadCard().setIdCardCallBack(new IdCardCallBack() {
             @Override
-            public void accept(Long aLong) throws Exception {
-                if (mViewRef.get() == null) {
-                    return;
-                }
-                IdInfo info = IdCardHelper.getInstance().getIdInfo();
-                Observable.create(new ObservableOnSubscribe<Object>() {
-                    @Override
-                    public void subscribe(ObservableEmitter<Object> emitter) throws Exception {
-                        if (info != null && info.getPhotoBmp() != null) {
-                            if (mViewRef.get() != null) {
-                                mViewRef.get().getIdInfo(info);
-                            }
-                        } else {
-                            if (mViewRef.get() != null) {
-                                mViewRef.get().notObtained();
-                            }
-                        }
+            public void onSuccess(IdInfo idInfo) {
+                if (idInfo != null && idInfo.getPhotoBmp() != null) {
+                    if (mViewRef.get() != null) {
+                        mViewRef.get().getIdInfo(idInfo);
                     }
-                }).subscribeOn(AndroidSchedulers.mainThread()).subscribe();
+                } else {
+                    if (mViewRef.get() != null) {
+                        mViewRef.get().notObtained();
+                    }
+                }
+            }
+            @Override
+            public void onError(String error) {
+                mViewRef.get().showToast(error);
             }
         });
     }
-
 
 
 }

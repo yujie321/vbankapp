@@ -1,0 +1,8 @@
+<manifest xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.toollib">
+
+
+    <application
+        tools:targetApi="n">
+    </application>
+</manifest>

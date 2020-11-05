@@ -343,20 +343,22 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
     }
 
     private void refreshIDCard(IdInfo idInfo, Bitmap bitmap) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                tvPersonalName.setText(idInfo.getName());
-                tvPersonalSex.setText(idInfo.getSex());
-                tvPersonalNation.setText(idInfo.getNational());
-                tvDateBirth.setText(idInfo.getBirthday());
-                tvIdCardAddress.setText(idInfo.getAddress());
-                tvIdCardNumber.setText(idInfo.getIdCardNum());
-                ivPersonnelHead.setImageBitmap(bitmap);
-                btnSave.setEnabled(true);
+        if (getActivity() != null){
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    tvPersonalName.setText(idInfo.getName());
+                    tvPersonalSex.setText(idInfo.getSex());
+                    tvPersonalNation.setText(idInfo.getNational());
+                    tvDateBirth.setText(idInfo.getBirthday());
+                    tvIdCardAddress.setText(idInfo.getAddress());
+                    tvIdCardNumber.setText(idInfo.getIdCardNum());
+                    ivPersonnelHead.setImageBitmap(bitmap);
+                    btnSave.setEnabled(true);
 
-            }
-        });
+                }
+            });
+        }
     }
 
     @Override
@@ -475,7 +477,7 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
             cameraHelper = null;
         }
         unInitEngine();
-        IdCardHelper.getInstance().close();
+        IdCardHelper.getInstance().closeContinueReadCard();
         cameraListenerUtil.clearLeftFace(null );
         super.onDestroy();
     }
