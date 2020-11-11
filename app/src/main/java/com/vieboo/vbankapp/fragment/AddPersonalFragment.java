@@ -226,9 +226,16 @@ public class AddPersonalFragment extends BaseFragment<IAddPersonalModel> impleme
         userInfo.setIdCard(idInfo.getIdCardNum());
         userInfo.setPadFeature(faceFeature.getFeatureData());
 
-        userInfo.setAuth((int) spinnerJurisdiction.getSelectedView().findViewById(R.id.tvSpinnerName).getTag());
-        userInfo.setDepartmentId((int) spinnerDepartment.getSelectedView().findViewById(R.id.tvSpinnerName).getTag());
-        userInfo.setPositionId((int) spinnerPositions.getSelectedView().findViewById(R.id.tvSpinnerName).getTag());
+        if(spinnerJurisdiction.getSelectedView() != null){
+            userInfo.setAuth((int) spinnerJurisdiction.getSelectedView().findViewById(R.id.tvSpinnerName).getTag());
+        }
+
+        if(spinnerDepartment.getSelectedView() != null){
+            userInfo.setDepartmentId((int) spinnerDepartment.getSelectedView().findViewById(R.id.tvSpinnerName).getTag());
+        }
+        if(spinnerPositions.getSelectedView() != null){
+            userInfo.setPositionId((int) spinnerPositions.getSelectedView().findViewById(R.id.tvSpinnerName).getTag());
+        }
 
         byte[] currentImgData = ImageUtil.Bitmap2Bytes(this.bitmap);
         File fileFromBytes = ImageUtil.getFileFromBytes(currentImgData, DownLoadUtil.mSinglePath + "test.jpg");

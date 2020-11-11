@@ -50,11 +50,11 @@ public class Constants {
     /**
      * 视频画面宽度
      */
-    public static final int CAMERA_PREVIEW_WIDTH = 800;
+    public static final int CAMERA_PREVIEW_WIDTH = 640;
     /**
      * 视频画面高度
      */
-    public static final int CAMERA_PREVIEW_HEIGHT = 600;
+    public static final int CAMERA_PREVIEW_HEIGHT = 480;
 
     /**
      * 默认的摄像头id

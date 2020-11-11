@@ -110,7 +110,7 @@ public class IdCardDialog {
             Window window = qmuiDialog.getWindow();
             if (window != null) {
                 window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                window.getDecorView().setPadding(DensityUtil.dp2px(270), DensityUtil.dp2px(215), DensityUtil.dp2px(270), 0);
+                window.getDecorView().setPadding(DensityUtil.dp2px(70), DensityUtil.dp2px(215), DensityUtil.dp2px(70), 0);
             }
         }
     }
