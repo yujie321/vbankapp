@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_main"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvHomeTitle"
+        android:layout_width="259dp"
+        android:layout_height="36dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/bg_home_title"
+        android:gravity="center"
+        android:text="@string/main_home_title"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_home_decorate" />
+
+    <!-- 头部标题左边 -->
+    <RelativeLayout
+        android:id="@+id/relHomeTitle"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="-32dp"
+        android:layout_toStartOf="@+id/tvHomeTitle"
+        android:background="@drawable/ic_home_left"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        tools:ignore="UselessParent">
+
+        <ImageView
+            android:id="@+id/ivHomeLog"
+            android:layout_width="16dp"
+            android:layout_height="17dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="18dp"
+            android:src="@drawable/ic_home_log" />
+
+        <TextView
+            android:id="@+id/tvHomeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/ivHomeLog"
+            android:layout_alignBottom="@+id/ivHomeLog"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="3dp"
+            android:layout_toEndOf="@+id/ivHomeLog"
+            android:gravity="center_vertical"
+            android:text="@string/main_home_name"
+            android:textColor="@color/tool_lib_color_314396"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="4dp"
+            android:layout_toEndOf="@+id/tvHomeName"
+            android:gravity="center_vertical"
+            android:text="@string/main_home_logs"
+            android:textColor="@color/tool_lib_color_314396"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <!-- 头部标题右边 -->
+    <RelativeLayout
+        android:id="@+id/relHomeTitleRight"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:layout_marginStart="-32dp"
+        android:layout_marginTop="28dp"
+        android:layout_toEndOf="@+id/tvHomeTitle"
+        android:background="@drawable/ic_home_right"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        tools:ignore="UselessParent">
+
+        <TextClock
+            android:id="@+id/tcHomeDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
+            android:layout_toStartOf="@+id/ivHomeSetting"
+            android:gravity="center"
+            android:textColor="@color/tool_lib_color_E3E3E3"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="2020年10月1日 星期一" />
+
+
+        <ImageView
+            android:id="@+id/ivHomeSetting"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="18dp"
+            android:src="@drawable/ic_setting" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/ivHomeBottom"
+        android:layout_below="@+id/relHomeTitle"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="4dp"
+        android:orientation="vertical">
+
+        <!--中间三个部分-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.54"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.36"
+                android:background="@drawable/bg_grey"
+                android:orientation="vertical"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                tools:ignore="NestedWeights">
+
+                <RelativeLayout
+                    android:id="@+id/relHomeClock"
+                    android:layout_width="155dp"
+                    android:layout_height="68dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="5.5dp"
+                    android:background="@drawable/bg_clock">
+
+                    <TextView
+                        android:id="@+id/tvClockInNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="66.5dp"
+                        android:layout_marginTop="5.5dp"
+                        android:textColor="@android:color/white"
+                        android:textSize="25sp"
+                        tools:text="155" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvClockInNum"
+                        android:layout_marginStart="66.5dp"
+                        android:layout_marginTop="5.5dp"
+                        android:text="@string/sign_same_day"
+                        android:textColor="@color/tool_lib_color_d5d5d5"
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="155dp"
+                    android:layout_height="68dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="5.5dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_rank">
+
+                    <TextView
+                        android:id="@+id/tvRank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="66.5dp"
+                        android:layout_marginTop="5.5dp"
+                        android:letterSpacing="0.2"
+                        android:lineSpacingExtra="3dp"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        tools:text="第3名" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvRank"
+                        android:layout_marginStart="66.5dp"
+                        android:layout_marginTop="5.5dp"
+                        android:text="@string/network_ranking"
+                        android:textColor="#ffd2d2d2"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/barChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/relHomeClock" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="7dp"
+                android:layout_weight="0.283"
+                android:background="@drawable/bg_grey"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/relPassenger"
+                    android:layout_width="match_parent"
+                    android:layout_height="68dp"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="17dp"
+                    android:background="@drawable/bg_yellow_frame">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="9.5dp"
+                        android:layout_marginEnd="7.5dp"
+                        android:text="@string/passenger_flow_volume_today"
+                        android:textColor="@color/tool_lib_color_d5d5d5"
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
+
+                    <TextView
+                        android:id="@+id/tvPassengerNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="12dp"
+                        android:textColor="@color/tool_lib_color_FF8600"
+                        android:textSize="25sp"
+                        tools:text="150" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/tvPassengerNum"
+                        android:layout_marginStart="3dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_toEndOf="@+id/tvPassengerNum"
+                        android:text="@string/person_times"
+                        android:textColor="@android:color/white"
+                        android:textSize="8sp"
+                        tools:ignore="SmallSp" />
+
+                    <TextView
+                        android:id="@+id/tvPassengerDesc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="12.5dp"
+                        android:layout_toStartOf="@+id/ivDown"
+                        android:textColor="@android:color/white"
+                        android:textSize="11sp"
+                        tools:ignore="SmallSp"
+                        tools:text="相比前一天200/150" />
+
+                    <ImageView
+                        android:id="@+id/ivDown"
+                        android:layout_width="8dp"
+                        android:layout_height="5dp"
+                        android:layout_alignTop="@+id/tvPercentage"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginEnd="3dp"
+                        android:layout_marginBottom="12.5dp"
+                        android:layout_toStartOf="@+id/tvPercentage"
+                        tools:src="@drawable/ic_down" />
+
+                    <TextView
+                        android:id="@+id/tvPercentage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginEnd="7.5dp"
+                        android:layout_marginBottom="12.5dp"
+                        android:textColor="@android:color/white"
+                        android:textSize="12sp"
+                        tools:text="25%" />
+                </RelativeLayout>
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/pieChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/tvSecurityPeopleNumber"
+                    android:layout_below="@+id/relPassenger" />
+
+                <TextView
+                    android:id="@+id/tvSecurityPeopleNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/tvSecurityRegion"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginBottom="3dp"
+                    android:textColor="@color/tool_lib_color_1CD3F3"
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp"
+                    tools:text="安保运营人数：5人" />
+
+                <TextView
+                    android:id="@+id/tvSecurityRegion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/tool_lib_color_1CD3F3"
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp"
+                    tools:text="运营区域：10个" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="7dp"
+                android:layout_weight="0.36"
+                android:background="@drawable/bg_grey"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <VideoView
+                        android:id="@+id/videoView1"
+                        style="@style/main_video_view"
+                        android:layout_marginEnd="5dp" />
+
+                    <VideoView
+                        android:id="@+id/videoView2"
+                        style="@style/main_video_view" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <VideoView
+                        android:id="@+id/videoView3"
+                        style="@style/main_video_view"
+                        android:layout_marginEnd="5dp" />
+
+                    <VideoView
+                        android:id="@+id/videoView4"
+                        style="@style/main_video_view" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--底部-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="0.32"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.36"
+                android:background="@drawable/bg_main4"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20.5dp"
+                    android:background="@drawable/bg_notice">
+
+                    <ImageView
+                        style="@style/main_title_ic"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        style="@style/main_blue_bg"
+                        android:text="@string/main_notice_title" />
+                </LinearLayout>
+
+
+                <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                    android:id="@+id/refreshBaseList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    app:srlAccentColor="@android:color/white"
+                    app:srlEnableHeaderTranslationContent="false"
+                    app:srlEnableLoadMore="false"
+                    app:srlPrimaryColor="@android:color/white">
+
+                    <com.scwang.smartrefresh.header.MaterialHeader
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvBaseList"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="7dp"
+                android:layout_weight="0.284"
+                android:background="@drawable/bg_main5"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20.5dp"
+                    android:background="@drawable/bg_notice">
+
+                    <ImageView
+                        style="@style/main_title_ic"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        style="@style/main_blue_bg"
+                        android:text="@string/main_escort_vehicle" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/main_escort_vehicle_day"
+                        android:textColor="@android:color/white"
+                        android:textSize="8sp"
+                        tools:ignore="SmallSp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="66dp"
+                        android:layout_marginLeft="18dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="18dp"
+                        android:layout_marginBottom="6dp"
+                        android:background="@drawable/bg_car_line">
+
+                        <ImageView
+                            android:layout_width="43dp"
+                            android:layout_height="43dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="15dp"
+                            android:src="@drawable/bg_car" />
+
+                        <TextView
+                            android:id="@+id/tvCarNum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="64dp"
+                            android:layout_marginTop="16dp"
+                            android:textColor="@color/tool_lib_color_18B9E7"
+                            android:textSize="20sp"
+                            tools:text="京A·11013" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvCarNum"
+                            android:layout_marginStart="64dp"
+                            android:layout_marginTop="5dp"
+                            android:textColor="#ffc7c7c7"
+                            android:textSize="8sp"
+                            tools:ignore="SmallSp"
+                            tools:text="预计到达时间:2020-08-02 16:50:24" />
+
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="3dp"
+                        android:text="@string/main_escort_day"
+                        android:textColor="@android:color/white"
+                        android:textSize="8sp"
+                        tools:ignore="SmallSp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="66dp"
+                        android:layout_marginLeft="18dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginRight="18dp"
+                        android:background="@drawable/bg_car_person_line">
+
+                        <ImageView
+                            android:id="@+id/ivPeople"
+                            android:layout_width="43dp"
+                            android:layout_height="43dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5dp"
+                            android:src="@drawable/bg_car_people" />
+
+                        <ImageView
+                            android:id="@+id/ivEscortOne"
+                            android:layout_width="45dp"
+                            android:layout_height="54dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="16dp"
+                            android:layout_toEndOf="@+id/ivPeople"
+                            android:src="@drawable/bg_car_people" />
+
+                        <TextView
+                            android:id="@+id/tvEscortOne"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5dp"
+                            android:layout_toEndOf="@+id/ivEscortOne"
+                            android:lineSpacingExtra="3dp"
+                            android:textColor="@color/tool_lib_color_29F2F9"
+                            android:textSize="6sp"
+                            tools:ignore="SmallSp"
+                            tools:text=" 彭晓亮 \n 安保部 \n 押运员 " />
+
+                        <ImageView
+                            android:id="@+id/ivEscortTwo"
+                            android:layout_width="45dp"
+                            android:layout_height="54dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="15dp"
+                            android:layout_toEndOf="@+id/tvEscortOne"
+                            android:src="@drawable/bg_car_people" />
+
+                        <TextView
+                            android:id="@+id/tvEscortTwo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5dp"
+                            android:layout_toEndOf="@+id/ivEscortTwo"
+                            android:lineSpacingExtra="3dp"
+                            android:textColor="@color/tool_lib_color_29F2F9"
+                            android:textSize="6sp"
+                            tools:ignore="SmallSp"
+                            tools:text=" 彭晓亮 \n 安保部 \n 押运员 " />
+                    </RelativeLayout>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="7dp"
+                android:layout_weight="0.36"
+                android:background="@drawable/bg_main6"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20.5dp"
+                    android:background="@drawable/bg_notice">
+
+                    <ImageView
+                        style="@style/main_title_ic"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        style="@style/main_blue_bg"
+                        android:text="@string/main_navigation_menu" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvNavigationList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="6dp"
+                    android:paddingTop="26dp"
+                    android:paddingEnd="6dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/ivHomeBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="43dp"
+        android:layout_marginEnd="43dp"
+        android:src="@drawable/ic_home_bottom" />
+</RelativeLayout>

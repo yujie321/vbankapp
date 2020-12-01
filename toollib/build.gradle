@@ -1,0 +1,64 @@
+apply plugin: 'com.android.library'
+apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'com.jakewharton.butterknife'
+
+def libs = rootProject.ext.dependencies
+def config = rootProject.ext.android
+def support = rootProject.ext.support
+android {
+    compileSdkVersion config.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion config.minSdkVersion
+        targetSdkVersion config.targetSdkVersion
+        versionCode config.versionCode
+        versionName config.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+//    resourcePrefix "tool_lib_"
+
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+    buildToolsVersion = config.buildToolsVersion
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    api support["constraint-layout"]
+    api libs["butterknife"]
+    annotationProcessor libs["butterknife-compiler"]
+    api libs["retrofit2"]
+    api libs["converter-gson"]
+    api libs["logging-interceptor"]
+    api libs["rxlifecycle-components"]
+    api libs["rxandroid"]
+    api libs["rxbinding"]
+    api libs["rxjava2-adapter"]
+    api libs["greendao"]
+    api libs["greendao-generator"]
+    api libs["qmui"]
+    api libs["qmui-arch"]
+    api libs["design"]
+    api libs["rxlifecycle-android"]
+    api libs["glide"]
+    api libs["download"]
+    api libs["SmartRefreshLayout"]
+    api libs["SmartRefreshHeader"]
+    api libs["joda-time"]
+    api libs["rxpermissions"]
+    api libs["pickerView"]
+    api libs["photoView"]
+    api libs["eventBus"]
+    api libs["BaseRecyclerViewAdapterHelper"]
+    api libs["multidex"]
+
+}

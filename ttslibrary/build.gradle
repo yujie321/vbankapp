@@ -1,0 +1,58 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven'
+
+def libs = rootProject.ext.dependencies
+def config = rootProject.ext.android
+def support = rootProject.ext.support
+
+android {
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        versionCode rootProject.ext.android["versionCode"]
+        versionName rootProject.ext.android["versionName"]
+
+        testInstrumentationRunner rootProject.ext.dependencies["androidJUnitRunner"]
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api libs["rxandroid"]
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    implementation 'com.blankj:utilcodex:1.25.9'
+}
+
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            pom.version = "2.0.0"
+            pom.groupId = "com.xg.hpface"
+            pom.artifactId = "tts"
+
+            repository(url: "http://172.16.12.252:8081/repository/maven-releases/") {
+                authentication(userName: "admin", password: "admin123") // maven授权信息
+            }
+        }
+    }
+}

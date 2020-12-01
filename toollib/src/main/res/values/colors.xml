@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Appbar背景色-->
+    <color name="tool_lib_colorPrimary">#FFFFFF</color>
+    <!--状态栏颜色-->
+    <color name="tool_lib_colorPrimaryDark">#FFFFFF</color>
+    <!--控制各个控件被选中时的颜色-->
+    <color name="tool_lib_colorAccent">#FFFFFF</color>
+
+    <color name="tool_lib_app_color_blue">#00A8E1</color>
+
+    <color name="tool_lib_white_FFFFFF">#FFFFFF</color>
+    <color name="tool_lib_gray_222222">#222222</color>
+    <color name="tool_lib_gray_777777">#777777</color>
+    <color name="tool_lib_gray_E8E8E8">#E8E8E8</color>
+    <color name="tool_lib_gray_303343">#303343</color>
+    <color name="tool_lib_gray_333333">#333333</color>
+    <color name="tool_lib_gray_B1B1B1">#B1B1B1</color>
+    <color name="tool_lib_gray_F9F9F9">#F9F9F9</color>
+    <color name="tool_lib_gray_F5F8FA">#F5F8FA</color>
+    <color name="tool_lib_gray_F5F6FA">#F5F6FA</color>
+    <color name="tool_lib_gray_F1F1F1">#F1F1F1</color>
+    <color name="tool_lib_gray_C9C9C9">#c9c9c9</color>
+    <color name="tool_lib_gray_D8D8D8">#D8D8D8</color>
+    <color name="tool_lib_gray_C76900">#C76900</color>
+    <color name="tool_lib_gray_666666">#666666</color>
+    <color name="tool_lib_gray_ABB3BD">#ABB3BD</color>
+    <color name="tool_lib_gray_888888">#888888</color>
+    <color name="tool_lib_gray_999999">#999999</color>
+    <color name="tool_lib_default_shadow_color">#88757575</color>
+    <color name="tool_lib_orange_FFFF5C2B">#ffff5c2b</color>
+    <color name="tool_lib_orange_0091FF">#0091FF</color>
+    <color name="tool_lib_blue_007CE6">#007CE6</color>
+
+    <color name="tool_lib_alpha">#00000000</color>
+
+    <color name="tool_lib_red_EF2B2B">#EF2B2B</color>
+    <color name="tool_lib_red_7A591E">#7A591E</color>
+
+    <color name="tool_lib_blue_287CDF">#287CDF</color>
+    <color name="tool_lib_blue_0091FF">#0091FF</color>
+    <color name="tool_lib_orange_F4702C">#F4702C</color>
+
+    <color name="tool_lib_yellow_FFC619">#FFC619</color>
+    <color name="tool_lib_yellow_F7B500">#F7B500</color>
+    <color name="tool_lib_color_F0D8AD">#F0D8AD</color>
+    <color name="tool_lib_color_3AB960">#3AB960</color>
+    <color name="tool_lib_color_199898">#199898</color>
+    <color name="tool_lib_color_22B64A">#22B64A</color>
+    <color name="tool_lib_color_FFE9FFEF">#FFE9FFEF</color>
+    <color name="tool_lib_color_35BBBB">#35BBBB</color>
+    <color name="tool_lib_color_E9FFFF">#E9FFFF</color>
+    <color name="tool_lib_color_E74C3C">#E74C3C</color>
+    <color name="tool_lib_color_FFEDEB">#FFEDEB</color>
+    <color name="tool_lib_color_F4F9FF">#F4F9FF</color>
+    <color name="tool_lib_color_CCCED3">#CCCED3</color>
+    <color name="tool_lib_color_2D3141">#2D3141</color>
+    <color name="tool_lib_color_404352">#404352</color>
+    <color name="tool_lib_color_32313E">#32313E</color>
+    <color name="tool_lib_color_BBBCC1">#BBBCC1</color>
+    <color name="tool_lib_color_D1D1D1">#D1D1D1</color>
+    <color name="tool_lib_color_287CDF">#287CDF</color>
+    <color name="tool_lib_color_E9F3FF">#E9F3FF</color>
+    <color name="tool_lib_color_E3E3E3">#E3E3E3</color>
+    <color name="tool_lib_color_542BE9">#542BE9</color>
+    <color name="tool_lib_color_EFEBFF">#EFEBFF</color>
+    <color name="tool_lib_color_F5F6F7">#F5F6F7</color>
+    <color name="tool_lib_color_000000">#000000</color>
+    <color name="tool_lib_color_9a000000">#9a000000</color>
+    <color name="tool_lib_color_171B27">#171B27</color>
+    <color name="tool_lib_color_104EFF">#104EFF</color>
+    <color name="tool_lib_color_314396">#314396</color>
+    <color name="tool_lib_color_d5d5d5">#d5d5d5</color>
+    <color name="tool_lib_color_FFAE00">#FFAE00</color>
+    <color name="tool_lib_color_0079E0">#0079E0</color>
+    <color name="tool_lib_color_68E0CF">#68E0CF</color>
+    <color name="tool_lib_color_04B2A5">#04B2A5</color>
+    <color name="tool_lib_color_8F6B82">#8F6B82</color>
+    <color name="tool_lib_color_387002">#387002</color>
+    <color name="tool_lib_color_4DFC6A">#4DFC6A</color>
+    <color name="tool_lib_color_8789E0">#8789E0</color>
+    <color name="tool_lib_color_11D314">#11D314</color>
+    <color name="tool_lib_color_0D6E40">#0D6E40</color>
+    <color name="tool_lib_color_C7FC57">#C7FC57</color>
+    <color name="tool_lib_color_6333AB">#6333AB</color>
+    <color name="tool_lib_color_BDC53D">#BDC53D</color>
+    <color name="tool_lib_color_7A1B7D">#7A1B7D</color>
+    <color name="tool_lib_color_FB8254">#FB8254</color>
+    <color name="tool_lib_color_BCBAF7">#BCBAF7</color>
+    <color name="tool_lib_color_B7436D">#B7436D</color>
+    <color name="tool_lib_color_928E3A">#928E3A</color>
+    <color name="tool_lib_color_10C63B">#10C63B</color>
+    <color name="tool_lib_color_22F6AA">#22F6AA</color>
+    <color name="tool_lib_color_521E02">#521E02</color>
+    <color name="tool_lib_color_FB499A">#FB499A</color>
+    <color name="tool_lib_color_902B83">#902B83</color>
+    <color name="tool_lib_color_4D3A10">#4D3A10</color>
+    <color name="tool_lib_color_85BFF8">#85BFF8</color>
+    <color name="tool_lib_color_FF8600">#FF8600</color>
+    <color name="tool_lib_color_1CD3F3">#1CD3F3</color>
+    <color name="tool_lib_color_18B9E7">#18B9E7</color>
+    <color name="tool_lib_color_29F2F9">#29F2F9</color>
+    <color name="tool_lib_color_ACB4B7">#ACB4B7</color>
+    <color name="tool_lib_color_09cfd2">#09cfd2</color>
+    <color name="tool_lib_color_08147B">#08147B</color>
+    <color name="tool_lib_color_A7A7A7">#A7A7A7</color>
+    <color name="tool_lib_color_516790">#516790</color>
+    <color name="tool_lib_color_18B2E1">#18B2E1</color>
+    <color name="tool_lib_color_767676">#767676</color>
+    <color name="tool_lib_color_FFB400">#FFB400</color>
+    <color name="tool_lib_color_757575">#757575</color>
+    <color name="tool_lib_color_cc0101">#cc0101</color>
+    <color name="tool_lib_color_959595">#959595</color>
+    <color name="tool_lib_color_FF9000">#FF9000</color>
+    <color name="tool_lib_color_03ABD6">#03ABD6</color>
+    <color name="tool_lib_color_BCBCBC">#BCBCBC</color>
+    <color name="tool_lib_color_0EC274">#0EC274</color>
+    <color name="tool_lib_color_E09C08">#E09C08</color>
+    <color name="tool_lib_color_00C6FF">#00C6FF</color>
+
+</resources>

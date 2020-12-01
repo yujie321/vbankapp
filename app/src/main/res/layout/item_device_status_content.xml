@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="20dp"
+    android:orientation="horizontal"
+    android:paddingStart="5dp"
+    android:paddingEnd="5dp">
+
+    <LinearLayout
+        style="@style/main_device_status_tv"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivDiagnosisStatus"
+            android:layout_width="33dp"
+            android:layout_height="12dp"
+            android:layout_gravity="center_vertical"
+            android:scaleType="fitStart"
+            tools:src="@drawable/ic_diagnosis_status_success" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tvDeviceName"
+        style="@style/main_device_status_tv"
+        android:layout_height="match_parent"
+        tools:text="@string/main_device_name" />
+
+    <TextView
+        android:id="@+id/tvDiagnosisContent"
+        style="@style/main_device_status_tv"
+        android:layout_height="match_parent"
+        tools:text="@string/main_diagnosis_content" />
+
+    <LinearLayout
+        style="@style/main_device_status_tv"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivNetworkConnectivity"
+            style="@style/main_device_status_tv"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            tools:src="@drawable/ic_network_connectivity" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvDiagnosisDate"
+        style="@style/main_device_status_tv"
+        android:layout_height="match_parent"
+        tools:text="@string/main_diagnosis_date" />
+
+    <LinearLayout
+        style="@style/main_device_status_tv"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivVideoStatus"
+            style="@style/main_device_status_tv"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            tools:src="@drawable/ic_video_success" />
+    </LinearLayout>
+
+</LinearLayout>

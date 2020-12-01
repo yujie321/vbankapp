@@ -1,0 +1,10 @@
+<resources>
+    <string name="tool_lib_app_name">ToolLib</string>
+    <string name="tool_lib_bond_tips">提示信息</string>
+    <string name="tool_lib_close">取消</string>
+    <string name="tool_lib_ok">确定</string>
+
+    <string name="tool_lib_down_load_complete">下载完成</string>
+    <string name="tool_lib_down_load_error">下载错误</string>
+    <string name="tool_lib_not_data">暂无数据</string>
+</resources>

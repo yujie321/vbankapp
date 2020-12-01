@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowAnimationStyle">@style/Animation_Activity</item>
+    </style>
+
+    <style name="Animation_Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/translate_right_to_center</item>
+        <item name="android:activityOpenExitAnimation">@anim/translate_center_to_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/translate_left_to_center</item>
+        <item name="android:activityCloseExitAnimation">@anim/translate_center_to_right</item>
+    </style>
+
+    <style name="main_activity_theme" parent="tool_lib_QMUI_AppTheme">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+
+    <style name="main_back">
+        <item name="android:layout_width">37.5dp</item>
+        <item name="android:layout_height">28.5dp</item>
+        <item name="android:layout_marginStart">17dp</item>
+        <item name="android:layout_marginTop">14dp</item>
+        <item name="android:src">@drawable/ic_back</item>
+    </style>
+
+    <style name="main_blue_bg">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginStart">4dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="main_add_personal_tv_meg">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="main_add_personal_tv_content">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/blue_bg</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="main_add_personal_edit_content">
+        <item name="android:layout_width">156dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/blue_bg</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:textColor">@color/tool_lib_color_A7A7A7</item>
+        <item name="android:textSize">8sp</item>
+    </style>
+
+    <style name="main_vertical_line">
+        <item name="android:layout_width">3dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/tool_lib_white_FFFFFF</item>
+    </style>
+
+    <style name="main_horizontal_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">3dp</item>
+        <item name="android:background">@color/tool_lib_white_FFFFFF</item>
+    </style>
+
+    <style name="main_device_status_tv">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">8sp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:paddingEnd">3dp</item>
+    </style>
+
+    <style name="main_title_ic">
+        <item name="android:layout_width">8dp</item>
+        <item name="android:layout_height">16dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginStart">2.5dp</item>
+        <item name="android:src">@drawable/ic_decorate</item>
+    </style>
+
+    <style name="main_video_view">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+</resources>
