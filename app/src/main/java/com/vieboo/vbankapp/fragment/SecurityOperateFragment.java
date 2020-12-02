@@ -56,7 +56,7 @@ public class SecurityOperateFragment extends BaseListFragment<ISecurityOperateMo
     @Override
     public void initView() {
         super.initView();
-        rvBaseList.setLayoutManager(new StaggeredGridLayoutManager(5, StaggeredGridLayoutManager.VERTICAL));
+        rvBaseList.setLayoutManager(new StaggeredGridLayoutManager(6, StaggeredGridLayoutManager.VERTICAL));
         //rvBaseList.addItemDecoration(new GridSpacingItemDecoration(5, 5, false));
         List<String> datalist = new ArrayList<>();
         for(int i = 0; i< 10; i++){
@@ -95,7 +95,9 @@ public class SecurityOperateFragment extends BaseListFragment<ISecurityOperateMo
             for (SecureRecordVo secureRecordVo : secureRecordVoList) {
                 long date = DateUtil.dateToCurrentTimeMilli(secureRecordVo.getTime(),"yyyy-MM-dd HH:mm:ss");
                 Integer integerX = (int)(date - zeroTime)/(10*60*1000);
-                chartXYList.get(integerX).setChartY(secureRecordVo.getCount());
+                if(integerX>= 0 && integerX < 61){
+                    chartXYList.get(integerX).setChartY(secureRecordVo.getCount());
+                }
             }
         }
         LineChartUtil.setLineChartData(getActivity(), lineChart, chartXYList);

@@ -112,11 +112,11 @@ public class PersonnelControlFragment extends BaseFragment<IPersonnelControlMode
         //人脸识别相关
         texturePreview.getViewTreeObserver().addOnGlobalLayoutListener(this);
         //员工风采
-        rvStaffStyle.setLayoutManager(new StaggeredGridLayoutManager(5, StaggeredGridLayoutManager.VERTICAL));
+        rvStaffStyle.setLayoutManager(new StaggeredGridLayoutManager(6, StaggeredGridLayoutManager.VERTICAL));
         //rvStaffStyle.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, false));
         iModule.getStaffStyle();
         //打卡记录
-        rvPunchRecord.setLayoutManager(new StaggeredGridLayoutManager(5, StaggeredGridLayoutManager.VERTICAL));
+        rvPunchRecord.setLayoutManager(new StaggeredGridLayoutManager(6, StaggeredGridLayoutManager.VERTICAL));
         //rvPunchRecord.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, false));
         iModule.getPunchRecord();
     }

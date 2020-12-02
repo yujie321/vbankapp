@@ -55,6 +55,9 @@ public class AmountUtil {
      */
     public static double div(double value1, double value2, int scale) {
         //如果精确范围小于0，抛出异常信息
+        if(value2 == 0){
+            return 1;
+        }
         if (scale < 0) {
             try {
                 throw new IllegalAccessException("精确度不能小于0");

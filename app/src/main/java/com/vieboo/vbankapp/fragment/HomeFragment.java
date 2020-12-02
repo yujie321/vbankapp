@@ -2,6 +2,8 @@ package com.vieboo.vbankapp.fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -9,10 +11,13 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.TextClock;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,6 +36,7 @@ import com.vieboo.vbankapp.data.Navigation;
 import com.vieboo.vbankapp.data.NoticeListVO;
 import com.vieboo.vbankapp.data.PadInfoVo;
 import com.vieboo.vbankapp.data.PassengerVO;
+import com.vieboo.vbankapp.data.PlayInfo;
 import com.vieboo.vbankapp.data.StaticTodaySummeryVo;
 import com.vieboo.vbankapp.model.IHomeModel;
 import com.vieboo.vbankapp.model.IHomeView;
@@ -39,6 +45,8 @@ import com.vieboo.vbankapp.utils.BarChartUtil;
 import com.vieboo.vbankapp.utils.GridSpacingItemDecoration;
 import com.vieboo.vbankapp.utils.PieChartUtil;
 
+import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -47,7 +55,7 @@ import butterknife.OnClick;
 /**
  * 首页
  */
-public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter> implements IHomeView {
+public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter> implements IHomeView, View.OnTouchListener {
 
     @BindView(R.id.tvHomeTitle)
     TextView tvHomeTitle;
@@ -76,6 +84,17 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
     @BindView(R.id.rvNavigationList)
     RecyclerView rvNavigationList;
 
+    @BindView(R.id.videoView1)
+    VideoView videoView1;
+    @BindView(R.id.videoView2)
+    VideoView videoView2;
+    @BindView(R.id.videoView3)
+    VideoView videoView3;
+    @BindView(R.id.videoView4)
+    VideoView videoView4;
+
+
+    private NavigationAdapter navigationAdapter;
     private NoticeListAdapter noticeListAdapter;
 
     private final static String[] xAxisValue = new String[]{
@@ -84,6 +103,11 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
 
     private Handler handler = null;
     private Runnable runnable = null;
+
+    List<VideoView> videoViewList = new ArrayList<>();
+    private String rtspUrl = "rtsp://admin:icare01!@192.168.1.37:554";
+    private String rtspUrl2 = "rtsp://admin:admin123@192.168.1.243:554";
+    private String rtspurl3 = "rtsp://admin:admin123@192.168.1.244:554";
 
     static HomeFragment newInstance() {
         Bundle args = new Bundle();
@@ -100,9 +124,31 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
     @Override
     public void initView() {
         super.initView();
+        videoViewList.clear();
+        videoView1.setBackgroundResource(R.drawable.bg_home_one);
+        videoView2.setBackgroundResource(R.drawable.bg_home_two);
+        videoView3.setBackgroundResource(R.drawable.bg_home_three);
+        videoView4.setBackgroundResource(R.drawable.bg_home_four);
+        videoViewList.add(videoView1);
+        videoViewList.add(videoView2);
+        videoViewList.add(videoView3);
+        videoViewList.add(videoView4);
         tcHomeDate.setFormat24Hour("yyyy年MM月dd HH:mm   EEEE");
+
+
+        // 3 columns
+        int spanCount = 4;
+        // 50px
+        int spacing = 10;
+        rvNavigationList.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, false));
+        navigationAdapter = new NavigationAdapter();
+        navigationAdapter.setOnItemClickListener(onItemClickListener);
+        rvNavigationList.setAdapter(navigationAdapter);
+
         //获取pad信息
         iModule.getPadInfo();
+        //获取播放列表
+        iModule.getPlayInfo();
         //当日总览设置
         iModule.getTodaySummary();
         //今日客流信息
@@ -113,11 +159,71 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 4);
         rvNavigationList.setLayoutManager(layoutManager);
         iModule.getNavigationList();
+
+//        for(int i = 0; i < 4; i++){
+//            MediaController mediaController = new MediaController(getContext());
+//            videoViewList.get(i).setVideoURI(Uri.parse(rtspUrl));
+//            videoViewList.get(i).setMediaController(mediaController);
+//            videoViewList.get(i).setOnTouchListener(this);
+//            videoViewList.get(i).start();
+//        }
+//        MediaController mediaController1 = new MediaController(getContext());
+//        videoView1.setVideoURI(Uri.parse(rtspUrl));
+//        videoView1.setMediaController(mediaController1);
+//        videoView1.setOnTouchListener(this);
+//        videoView1.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+//            @Override
+//            public void onPrepared(MediaPlayer mp) {
+//                mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
+//                //TODO
+//            }
+//        });
+//        videoView1.setSystemUiVisibility(View.INVISIBLE);
+//        videoView1.start();
+//
+//
+//        MediaController mediaController2 = new MediaController(getContext());
+//        videoView2.setVideoURI(Uri.parse(rtspUrl2));
+//        videoView2.setMediaController(mediaController2);
+//        videoView2.setSystemUiVisibility(View.INVISIBLE);
+//        videoView2.setOnTouchListener(this);
+//        videoView2.start();
+//
+//
+//
+//        MediaController mediaController3 = new MediaController(getContext());
+//        videoView3.setVideoURI(Uri.parse(rtspurl3));
+//        videoView3.setMediaController(mediaController3);
+//        videoView3.setSystemUiVisibility(View.INVISIBLE);
+//        videoView3.setOnTouchListener(this);
+//        videoView3.start();
+//
+//
+//
+//        MediaController mediaController4 = new MediaController(getContext());
+//        videoView4.setVideoURI(Uri.parse(rtspUrl));
+//        videoView4.setMediaController(mediaController4);
+//        videoView4.setSystemUiVisibility(View.INVISIBLE);
+//        videoView4.setOnTouchListener(this);
+//        videoView4.start();
+
     }
 
     @Override
     public void setPadInfo(PadInfoVo padInfoVo) {
         tvHomeTitle.setText(padInfoVo.getName());
+    }
+
+    @Override
+    public void setPlayInfo(List<PlayInfo> playInfoList) {
+        for(int i = 0; i < playInfoList.size(); i++){
+            MediaController mediaController = new MediaController(getContext());
+            videoViewList.get(i).setBackground(null);
+            videoViewList.get(i).setVideoURI(Uri.parse(playInfoList.get(i).getRtspUrl()));
+            videoViewList.get(i).setMediaController(null);
+            videoViewList.get(i).setOnTouchListener(this);
+            videoViewList.get(i).start();
+        }
     }
 
     @Override
@@ -235,21 +341,13 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
 
     @Override
     public void setNavigationList(List<Navigation> navigationList) {
-        // 3 columns
-        int spanCount = 4;
-        // 50px
-        int spacing = 10;
-        rvNavigationList.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, false));
-        NavigationAdapter navigationAdapter = new NavigationAdapter();
         navigationAdapter.addData(navigationList);
-        navigationAdapter.setOnItemClickListener(onItemClickListener);
-        rvNavigationList.setAdapter(navigationAdapter);
     }
 
     @OnClick(R.id.ivHomeSetting)
     public void btnSubmit() {
         //设置
-        startFragmentForResult(SettingFragment.newInstance(),-1);
+        startFragmentForResult(SettingFragment.newInstance(), -1);
     }
 
     private OnItemClickListener onItemClickListener = (adapter, view, position) -> {
@@ -290,7 +388,7 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
     @Override
     protected void onFragmentResult(int requestCode, int resultCode, Intent data) {
         super.onFragmentResult(requestCode, resultCode, data);
-        if (requestCode == -1 && resultCode == 1){
+        if (requestCode == -1 && resultCode == 1) {
             iModule.getPadInfo();
             iModule.getTodaySummary();
             //今日客流信息
@@ -329,12 +427,19 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
     public void onStop() {
+        for(int i = 0; i < videoViewList.size(); i++){
+            videoViewList.get(i).stopPlayback();
+            videoViewList.get(i).suspend();
+        }
+//        videoView1.stopPlayback();
+//        videoView1.suspend();
+//        videoView2.stopPlayback();
+//        videoView2.suspend();
+//        videoView3.stopPlayback();
+//        videoView3.suspend();
+//        videoView4.stopPlayback();
+//        videoView4.suspend();
         handler.removeCallbacks(runnable);
         super.onStop();
     }
@@ -357,7 +462,50 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
             }
         };
         handler.postDelayed(runnable, 200000);
+
+        iModule.getPlayInfo();
+//        for(int i = 0; i < videoViewList.size(); i++){
+//            MediaController mediaController = new MediaController(getContext());
+//            videoViewList.get(i).setVideoURI(Uri.parse(rtspUrl));
+//            videoViewList.get(i).setMediaController(mediaController);
+//            videoViewList.get(i).setOnTouchListener(this);
+//            videoViewList.get(i).start();
+//        }
+
+//        MediaController mediaController1 = new MediaController(getContext());
+//        videoView1.setVideoURI(Uri.parse(rtspUrl));
+//        videoView1.setMediaController(mediaController1);
+//        videoView1.start();
+//        videoView1.setOnTouchListener(this);
+//
+//
+//        MediaController mediaController2 = new MediaController(getContext());
+//        videoView2.setVideoURI(Uri.parse(rtspUrl2));
+//        videoView2.setMediaController(mediaController2);
+//        videoView2.start();
+//        videoView2.setOnTouchListener(this);
+//
+//
+//        MediaController mediaController3 = new MediaController(getContext());
+//        videoView3.setVideoURI(Uri.parse(rtspurl3));
+//        videoView3.setMediaController(mediaController3);
+//        videoView3.start();
+//        videoView3.setOnTouchListener(this);
+//
+//
+//        MediaController mediaController4 = new MediaController(getContext());
+//        videoView4.setVideoURI(Uri.parse(rtspUrl));
+//        videoView4.setMediaController(mediaController4);
+//        videoView4.start();
+//        videoView4.setOnTouchListener(this);
+
         super.onResume();
     }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        return false;
+    }
+
 
 }

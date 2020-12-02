@@ -1,7 +1,6 @@
 package com.vieboo.vbankapp.fragment;
 
 import android.annotation.SuppressLint;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -10,12 +9,14 @@ import android.widget.ProgressBar;
 
 import com.example.toollib.base.BaseFragment;
 import com.example.toollib.data.IBaseModule;
+import com.example.toollib.util.Log;
 import com.vieboo.vbankapp.R;
 import com.vieboo.vbankapp.download.DownLoadUtil;
 
 import java.io.File;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class PDFFragment extends BaseFragment {
 
@@ -56,11 +57,14 @@ public class PDFFragment extends BaseFragment {
             @Override
             public void onDownloadSuccess(File file) {
                 String path = file.getPath();
+                Log.e("onDownloadSuccess path = " + path);
                 webView.loadUrl("file:///android_asset/pdfjs/web/viewer.html?file=" + path);
+
             }
 
             @Override
             public void onDownloading(int progress) {
+                Log.e("onDownloading = " + progress);
                 progressBar.setProgress(progress);
                 if (progress >= 100 && getActivity() != null) {
                     progressBar.setVisibility(View.GONE);
@@ -69,9 +73,10 @@ public class PDFFragment extends BaseFragment {
 
             @Override
             public void onDownloadFailed() {
+                Log.e("onDownloadFailed");
             }
         });
-    }
+    }  
 
 
     @Override
@@ -97,4 +102,10 @@ public class PDFFragment extends BaseFragment {
     protected boolean translucentFull() {
         return true;
     }
+
+    @OnClick(R.id.ivBack)
+    public void onViewClicked() {
+        popBackStack();
+    }
+
 }

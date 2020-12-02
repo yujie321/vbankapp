@@ -15,7 +15,7 @@ import com.vieboo.vbankapp.data.UserInfo;
 /** 
  * DAO for table "USER_INFO".
 */
-public class UserInfoDao extends AbstractDao<UserInfo, String> {
+public class UserInfoDao extends AbstractDao<UserInfo, Long> {
 
     public static final String TABLENAME = "USER_INFO";
 
@@ -24,21 +24,24 @@ public class UserInfoDao extends AbstractDao<UserInfo, String> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Id = new Property(0, String.class, "id", true, "ID");
-        public final static Property ImageUrl = new Property(1, String.class, "imageUrl", false, "IMAGE_URL");
-        public final static Property Name = new Property(2, String.class, "name", false, "NAME");
-        public final static Property Sex = new Property(3, Integer.class, "sex", false, "SEX");
-        public final static Property Number = new Property(4, String.class, "number", false, "NUMBER");
-        public final static Property DepartmentId = new Property(5, Integer.class, "departmentId", false, "DEPARTMENT_ID");
-        public final static Property PositionId = new Property(6, Integer.class, "positionId", false, "POSITION_ID");
-        public final static Property Auth = new Property(7, Integer.class, "auth", false, "AUTH");
-        public final static Property Nation = new Property(8, String.class, "nation", false, "NATION");
-        public final static Property Company = new Property(9, String.class, "company", false, "COMPANY");
-        public final static Property Birthday = new Property(10, java.util.Date.class, "birthday", false, "BIRTHDAY");
-        public final static Property Phone = new Property(11, String.class, "phone", false, "PHONE");
-        public final static Property Address = new Property(12, String.class, "address", false, "ADDRESS");
-        public final static Property PoliticsStatus = new Property(13, String.class, "politicsStatus", false, "POLITICS_STATUS");
-        public final static Property IdCard = new Property(14, String.class, "idCard", false, "ID_CARD");
+        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
+        public final static Property PersonId = new Property(1, String.class, "personId", false, "PERSON_ID");
+        public final static Property ImageUrl = new Property(2, String.class, "imageUrl", false, "IMAGE_URL");
+        public final static Property Name = new Property(3, String.class, "name", false, "NAME");
+        public final static Property Sex = new Property(4, Integer.class, "sex", false, "SEX");
+        public final static Property Type = new Property(5, String.class, "type", false, "TYPE");
+        public final static Property Number = new Property(6, String.class, "number", false, "NUMBER");
+        public final static Property DepartmentId = new Property(7, Integer.class, "departmentId", false, "DEPARTMENT_ID");
+        public final static Property PositionId = new Property(8, Integer.class, "positionId", false, "POSITION_ID");
+        public final static Property Auth = new Property(9, Integer.class, "auth", false, "AUTH");
+        public final static Property Nation = new Property(10, String.class, "nation", false, "NATION");
+        public final static Property Company = new Property(11, String.class, "company", false, "COMPANY");
+        public final static Property Birthday = new Property(12, java.util.Date.class, "birthday", false, "BIRTHDAY");
+        public final static Property Phone = new Property(13, String.class, "phone", false, "PHONE");
+        public final static Property Address = new Property(14, String.class, "address", false, "ADDRESS");
+        public final static Property PoliticsStatus = new Property(15, String.class, "politicsStatus", false, "POLITICS_STATUS");
+        public final static Property IdCard = new Property(16, String.class, "idCard", false, "ID_CARD");
+        public final static Property PadFeature = new Property(17, byte[].class, "padFeature", false, "PAD_FEATURE");
     }
 
 
@@ -54,21 +57,24 @@ public class UserInfoDao extends AbstractDao<UserInfo, String> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"USER_INFO\" (" + //
-                "\"ID\" TEXT PRIMARY KEY NOT NULL ," + // 0: id
-                "\"IMAGE_URL\" TEXT," + // 1: imageUrl
-                "\"NAME\" TEXT," + // 2: name
-                "\"SEX\" INTEGER," + // 3: sex
-                "\"NUMBER\" TEXT," + // 4: number
-                "\"DEPARTMENT_ID\" INTEGER," + // 5: departmentId
-                "\"POSITION_ID\" INTEGER," + // 6: positionId
-                "\"AUTH\" INTEGER," + // 7: auth
-                "\"NATION\" TEXT," + // 8: nation
-                "\"COMPANY\" TEXT," + // 9: company
-                "\"BIRTHDAY\" INTEGER," + // 10: birthday
-                "\"PHONE\" TEXT," + // 11: phone
-                "\"ADDRESS\" TEXT," + // 12: address
-                "\"POLITICS_STATUS\" TEXT," + // 13: politicsStatus
-                "\"ID_CARD\" TEXT);"); // 14: idCard
+                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
+                "\"PERSON_ID\" TEXT," + // 1: personId
+                "\"IMAGE_URL\" TEXT," + // 2: imageUrl
+                "\"NAME\" TEXT," + // 3: name
+                "\"SEX\" INTEGER," + // 4: sex
+                "\"TYPE\" TEXT," + // 5: type
+                "\"NUMBER\" TEXT," + // 6: number
+                "\"DEPARTMENT_ID\" INTEGER," + // 7: departmentId
+                "\"POSITION_ID\" INTEGER," + // 8: positionId
+                "\"AUTH\" INTEGER," + // 9: auth
+                "\"NATION\" TEXT," + // 10: nation
+                "\"COMPANY\" TEXT," + // 11: company
+                "\"BIRTHDAY\" INTEGER," + // 12: birthday
+                "\"PHONE\" TEXT," + // 13: phone
+                "\"ADDRESS\" TEXT," + // 14: address
+                "\"POLITICS_STATUS\" TEXT," + // 15: politicsStatus
+                "\"ID_CARD\" TEXT," + // 16: idCard
+                "\"PAD_FEATURE\" BLOB);"); // 17: padFeature
     }
 
     /** Drops the underlying database table. */
@@ -81,79 +87,94 @@ public class UserInfoDao extends AbstractDao<UserInfo, String> {
     protected final void bindValues(DatabaseStatement stmt, UserInfo entity) {
         stmt.clearBindings();
  
-        String id = entity.getId();
+        Long id = entity.getId();
         if (id != null) {
-            stmt.bindString(1, id);
+            stmt.bindLong(1, id);
+        }
+ 
+        String personId = entity.getPersonId();
+        if (personId != null) {
+            stmt.bindString(2, personId);
         }
  
         String imageUrl = entity.getImageUrl();
         if (imageUrl != null) {
-            stmt.bindString(2, imageUrl);
+            stmt.bindString(3, imageUrl);
         }
  
         String name = entity.getName();
         if (name != null) {
-            stmt.bindString(3, name);
+            stmt.bindString(4, name);
         }
  
         Integer sex = entity.getSex();
         if (sex != null) {
-            stmt.bindLong(4, sex);
+            stmt.bindLong(5, sex);
+        }
+ 
+        String type = entity.getType();
+        if (type != null) {
+            stmt.bindString(6, type);
         }
  
         String number = entity.getNumber();
         if (number != null) {
-            stmt.bindString(5, number);
+            stmt.bindString(7, number);
         }
  
         Integer departmentId = entity.getDepartmentId();
         if (departmentId != null) {
-            stmt.bindLong(6, departmentId);
+            stmt.bindLong(8, departmentId);
         }
  
         Integer positionId = entity.getPositionId();
         if (positionId != null) {
-            stmt.bindLong(7, positionId);
+            stmt.bindLong(9, positionId);
         }
  
         Integer auth = entity.getAuth();
         if (auth != null) {
-            stmt.bindLong(8, auth);
+            stmt.bindLong(10, auth);
         }
  
         String nation = entity.getNation();
         if (nation != null) {
-            stmt.bindString(9, nation);
+            stmt.bindString(11, nation);
         }
  
         String company = entity.getCompany();
         if (company != null) {
-            stmt.bindString(10, company);
+            stmt.bindString(12, company);
         }
  
         java.util.Date birthday = entity.getBirthday();
         if (birthday != null) {
-            stmt.bindLong(11, birthday.getTime());
+            stmt.bindLong(13, birthday.getTime());
         }
  
         String phone = entity.getPhone();
         if (phone != null) {
-            stmt.bindString(12, phone);
+            stmt.bindString(14, phone);
         }
  
         String address = entity.getAddress();
         if (address != null) {
-            stmt.bindString(13, address);
+            stmt.bindString(15, address);
         }
  
         String politicsStatus = entity.getPoliticsStatus();
         if (politicsStatus != null) {
-            stmt.bindString(14, politicsStatus);
+            stmt.bindString(16, politicsStatus);
         }
  
         String idCard = entity.getIdCard();
         if (idCard != null) {
-            stmt.bindString(15, idCard);
+            stmt.bindString(17, idCard);
+        }
+ 
+        byte[] padFeature = entity.getPadFeature();
+        if (padFeature != null) {
+            stmt.bindBlob(18, padFeature);
         }
     }
 
@@ -161,135 +182,157 @@ public class UserInfoDao extends AbstractDao<UserInfo, String> {
     protected final void bindValues(SQLiteStatement stmt, UserInfo entity) {
         stmt.clearBindings();
  
-        String id = entity.getId();
+        Long id = entity.getId();
         if (id != null) {
-            stmt.bindString(1, id);
+            stmt.bindLong(1, id);
+        }
+ 
+        String personId = entity.getPersonId();
+        if (personId != null) {
+            stmt.bindString(2, personId);
         }
  
         String imageUrl = entity.getImageUrl();
         if (imageUrl != null) {
-            stmt.bindString(2, imageUrl);
+            stmt.bindString(3, imageUrl);
         }
  
         String name = entity.getName();
         if (name != null) {
-            stmt.bindString(3, name);
+            stmt.bindString(4, name);
         }
  
         Integer sex = entity.getSex();
         if (sex != null) {
-            stmt.bindLong(4, sex);
+            stmt.bindLong(5, sex);
+        }
+ 
+        String type = entity.getType();
+        if (type != null) {
+            stmt.bindString(6, type);
         }
  
         String number = entity.getNumber();
         if (number != null) {
-            stmt.bindString(5, number);
+            stmt.bindString(7, number);
         }
  
         Integer departmentId = entity.getDepartmentId();
         if (departmentId != null) {
-            stmt.bindLong(6, departmentId);
+            stmt.bindLong(8, departmentId);
         }
  
         Integer positionId = entity.getPositionId();
         if (positionId != null) {
-            stmt.bindLong(7, positionId);
+            stmt.bindLong(9, positionId);
         }
  
         Integer auth = entity.getAuth();
         if (auth != null) {
-            stmt.bindLong(8, auth);
+            stmt.bindLong(10, auth);
         }
  
         String nation = entity.getNation();
         if (nation != null) {
-            stmt.bindString(9, nation);
+            stmt.bindString(11, nation);
         }
  
         String company = entity.getCompany();
         if (company != null) {
-            stmt.bindString(10, company);
+            stmt.bindString(12, company);
         }
  
         java.util.Date birthday = entity.getBirthday();
         if (birthday != null) {
-            stmt.bindLong(11, birthday.getTime());
+            stmt.bindLong(13, birthday.getTime());
         }
  
         String phone = entity.getPhone();
         if (phone != null) {
-            stmt.bindString(12, phone);
+            stmt.bindString(14, phone);
         }
  
         String address = entity.getAddress();
         if (address != null) {
-            stmt.bindString(13, address);
+            stmt.bindString(15, address);
         }
  
         String politicsStatus = entity.getPoliticsStatus();
         if (politicsStatus != null) {
-            stmt.bindString(14, politicsStatus);
+            stmt.bindString(16, politicsStatus);
         }
  
         String idCard = entity.getIdCard();
         if (idCard != null) {
-            stmt.bindString(15, idCard);
+            stmt.bindString(17, idCard);
+        }
+ 
+        byte[] padFeature = entity.getPadFeature();
+        if (padFeature != null) {
+            stmt.bindBlob(18, padFeature);
         }
     }
 
     @Override
-    public String readKey(Cursor cursor, int offset) {
-        return cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0);
+    public Long readKey(Cursor cursor, int offset) {
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     @Override
     public UserInfo readEntity(Cursor cursor, int offset) {
         UserInfo entity = new UserInfo( //
-            cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // imageUrl
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // name
-            cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3), // sex
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // number
-            cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5), // departmentId
-            cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6), // positionId
-            cursor.isNull(offset + 7) ? null : cursor.getInt(offset + 7), // auth
-            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // nation
-            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // company
-            cursor.isNull(offset + 10) ? null : new java.util.Date(cursor.getLong(offset + 10)), // birthday
-            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // phone
-            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // address
-            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // politicsStatus
-            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14) // idCard
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // personId
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // imageUrl
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // name
+            cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4), // sex
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // type
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // number
+            cursor.isNull(offset + 7) ? null : cursor.getInt(offset + 7), // departmentId
+            cursor.isNull(offset + 8) ? null : cursor.getInt(offset + 8), // positionId
+            cursor.isNull(offset + 9) ? null : cursor.getInt(offset + 9), // auth
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // nation
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // company
+            cursor.isNull(offset + 12) ? null : new java.util.Date(cursor.getLong(offset + 12)), // birthday
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // phone
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // address
+            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // politicsStatus
+            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // idCard
+            cursor.isNull(offset + 17) ? null : cursor.getBlob(offset + 17) // padFeature
         );
         return entity;
     }
      
     @Override
     public void readEntity(Cursor cursor, UserInfo entity, int offset) {
-        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
-        entity.setImageUrl(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setSex(cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3));
-        entity.setNumber(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setDepartmentId(cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5));
-        entity.setPositionId(cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6));
-        entity.setAuth(cursor.isNull(offset + 7) ? null : cursor.getInt(offset + 7));
-        entity.setNation(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
-        entity.setCompany(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
-        entity.setBirthday(cursor.isNull(offset + 10) ? null : new java.util.Date(cursor.getLong(offset + 10)));
-        entity.setPhone(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
-        entity.setAddress(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
-        entity.setPoliticsStatus(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
-        entity.setIdCard(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
+        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
+        entity.setPersonId(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setImageUrl(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setName(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setSex(cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4));
+        entity.setType(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setNumber(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setDepartmentId(cursor.isNull(offset + 7) ? null : cursor.getInt(offset + 7));
+        entity.setPositionId(cursor.isNull(offset + 8) ? null : cursor.getInt(offset + 8));
+        entity.setAuth(cursor.isNull(offset + 9) ? null : cursor.getInt(offset + 9));
+        entity.setNation(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setCompany(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
+        entity.setBirthday(cursor.isNull(offset + 12) ? null : new java.util.Date(cursor.getLong(offset + 12)));
+        entity.setPhone(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
+        entity.setAddress(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
+        entity.setPoliticsStatus(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
+        entity.setIdCard(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
+        entity.setPadFeature(cursor.isNull(offset + 17) ? null : cursor.getBlob(offset + 17));
      }
     
     @Override
-    protected final String updateKeyAfterInsert(UserInfo entity, long rowId) {
-        return entity.getId();
+    protected final Long updateKeyAfterInsert(UserInfo entity, long rowId) {
+        entity.setId(rowId);
+        return rowId;
     }
     
     @Override
-    public String getKey(UserInfo entity) {
+    public Long getKey(UserInfo entity) {
         if(entity != null) {
             return entity.getId();
         } else {

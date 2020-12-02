@@ -321,7 +321,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginStart="12dp"
                     android:layout_marginBottom="10dp"
                     android:textColor="@color/tool_lib_color_1CD3F3"
                     android:textSize="10sp"
@@ -343,20 +342,14 @@
                     android:layout_height="0dp"
                     android:layout_weight="1">
 
-                    <ImageView
-                        android:id="@+id/ivHomeOne"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/bg_home_four" />
+                    <VideoView
+                        android:id="@+id/videoView1"
+                        style="@style/main_video_view"
+                        android:layout_marginEnd="5dp" />
 
-                    <ImageView
-                        android:id="@+id/ivHomeTwo"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:src="@drawable/bg_home_two" />
+                    <VideoView
+                        android:id="@+id/videoView2"
+                        style="@style/main_video_view" />
 
                 </LinearLayout>
 
@@ -365,20 +358,15 @@
                     android:layout_height="0dp"
                     android:layout_weight="1">
 
-                    <ImageView
-                        android:id="@+id/ivHomeThree"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/bg_home_one" />
+                    <VideoView
+                        android:id="@+id/videoView3"
+                        style="@style/main_video_view"
+                        android:src="@drawable/bg_home_one"
+                        android:layout_marginEnd="5dp" />
 
-                    <ImageView
-                        android:id="@+id/ivHomeFour"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:src="@drawable/bg_home_three" />
+                    <VideoView
+                        android:id="@+id/videoView4"
+                        style="@style/main_video_view" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

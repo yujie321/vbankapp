@@ -162,7 +162,9 @@ public class BranchOperateFragment extends BaseFragment<IBranchOperateModel> imp
 
         if (secureRecordVoList != null && secureRecordVoList.size() > 0) {
             for (SecureRecordVo secureRecordVo : secureRecordVoList) {
-                chartXYMap.get(secureRecordVo.getTime()).setChartY(secureRecordVo.getCount());
+                if( chartXYMap.get(secureRecordVo.getTime()) != null){
+                    chartXYMap.get(secureRecordVo.getTime()).setChartY(secureRecordVo.getCount());
+                }
             }
         }
         LineChartUtil.setLineChartData(getActivity(), lineChart, chartXYList);
@@ -180,7 +182,9 @@ public class BranchOperateFragment extends BaseFragment<IBranchOperateModel> imp
             for (SecureRecordVo secureRecordVo : todyPassengerVO.getTodayPassengerStatic()) {
                 long date = DateUtil.dateToCurrentTimeMilli(secureRecordVo.getTime(),"yyyy-MM-dd HH:mm:ss");
                 Integer integerX = (int)(date - zeroTime)/(10*60*1000);
-                mChartXYList.get(integerX).setChartY(secureRecordVo.getCount());
+                if(integerX >= 0 && integerX < 61){
+                    mChartXYList.get(integerX).setChartY(secureRecordVo.getCount());
+                }
             }
         }
 
@@ -188,7 +192,9 @@ public class BranchOperateFragment extends BaseFragment<IBranchOperateModel> imp
             for (SecureRecordVo secureRecordVo : todyPassengerVO.getTodayVipPassengerStatic()) {
                 long date = DateUtil.dateToCurrentTimeMilli(secureRecordVo.getTime(),"yyyy-MM-dd HH:mm:ss");
                 Integer integerX = (int)(date - zeroTime)/(10*60*1000);
-                mVipchartXYList.get(integerX).setChartY(secureRecordVo.getCount());
+                if(integerX >= 0 && integerX < 61) {
+                    mVipchartXYList.get(integerX).setChartY(secureRecordVo.getCount());
+                }
             }
         }
 

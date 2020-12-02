@@ -9,6 +9,7 @@ import com.vieboo.vbankapp.data.NoticeListVO;
 import com.vieboo.vbankapp.data.PadInfoVo;
 import com.vieboo.vbankapp.data.PassengerSummeryVo;
 import com.vieboo.vbankapp.data.PassengerVO;
+import com.vieboo.vbankapp.data.PlayListVo;
 import com.vieboo.vbankapp.data.PositionsVO;
 import com.vieboo.vbankapp.data.PunchRecordVO;
 import com.vieboo.vbankapp.data.RecordVO;
@@ -196,4 +197,9 @@ public interface IApi {
     @GET("/microservice-pad/rest/padinfo/config")
     Observable<HttpResult<PadInfoVo>> getPadInfo(@Query("ip") String ip);
 
+    /**
+     * 获取pad播放列表
+     */
+    @GET("/microservice-pad/rest/padinfo/playinfo")
+    Observable<HttpResult<PlayListVo>> getPlayInfo(@Query("ip") String ip, @Query("isSub") boolean bSub);
 }

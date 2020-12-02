@@ -5,6 +5,7 @@ import com.vieboo.vbankapp.data.Navigation;
 import com.vieboo.vbankapp.data.NoticeListVO;
 import com.vieboo.vbankapp.data.PadInfoVo;
 import com.vieboo.vbankapp.data.PassengerVO;
+import com.vieboo.vbankapp.data.PlayInfo;
 import com.vieboo.vbankapp.data.StaticTodaySummeryVo;
 
 import java.util.List;
@@ -48,4 +49,6 @@ public interface IHomeView extends IBaseListView {
     void readNotice(int position,String pdfUrl);
 
     void setPadInfo(PadInfoVo padInfoVo);
+
+    void setPlayInfo(List<PlayInfo> playInfoList);
 }

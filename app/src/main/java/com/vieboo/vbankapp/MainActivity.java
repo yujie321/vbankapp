@@ -1,5 +1,6 @@
 package com.vieboo.vbankapp;
 
+import android.app.smdt.SmdtManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.IBinder;

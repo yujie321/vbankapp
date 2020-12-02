@@ -11,6 +11,8 @@ import com.vieboo.vbankapp.data.Navigation;
 import com.vieboo.vbankapp.data.NoticeListVO;
 import com.vieboo.vbankapp.data.PadInfoVo;
 import com.vieboo.vbankapp.data.PassengerVO;
+import com.vieboo.vbankapp.data.PlayInfo;
+import com.vieboo.vbankapp.data.PlayListVo;
 import com.vieboo.vbankapp.data.StaticTodaySummeryVo;
 import com.vieboo.vbankapp.http.ServiceUrl;
 import com.vieboo.vbankapp.model.IHomeModel;
@@ -152,6 +154,23 @@ public class HomeModel extends BaseModule<IHomeView> implements IHomeModel  {
                             padInfoVo = new PadInfoVo();
                         }
                         mViewRef.get().setPadInfo(padInfoVo);
+                    }
+                });
+    }
+
+    @Override
+    public void getPlayInfo() {
+        String ip = NetworkUtils.getIPAddress(true);
+        RxUtils.getObservable(ServiceUrl.getUserApi().getPlayInfo(ip, true))
+                .compose(mViewRef.get().bindLifecycle())
+                .subscribe(new BaseHttpRxObserver<PlayListVo>(mContext.get()) {
+                    @Override
+                    protected void onSuccess(PlayListVo playListVo) {
+                        if(playListVo == null){
+                            playListVo = new PlayListVo();
+                        }
+                        List<PlayInfo> playInfoList = playListVo.getData();
+                        mViewRef.get().setPlayInfo(playInfoList);
                     }
                 });
     }

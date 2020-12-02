@@ -11,7 +11,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/idlibrary" />
+            <option value="$PROJECT_DIR$/idcard" />
             <option value="$PROJECT_DIR$/toollib" />
             <option value="$PROJECT_DIR$/ttslibrary" />
           </set>

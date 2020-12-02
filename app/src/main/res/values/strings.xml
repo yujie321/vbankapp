@@ -75,7 +75,7 @@
     <string name="main_show_video_status">可以查看录像状态</string>
     <string name="main_passenger_flow">近七日客流趋势图</string>
     <string name="main_passenger_flow_trend_chart">客流趋势图</string>
-    <string name="branch_operate_title">徐汇区南京路支行网点</string>
+    <string name="branch_operate_title">农商行网点</string>
     <string name="main_front_passenger">前一日客流</string>
     <string name="main_month_passenger">上月同天客流</string>
     <string name="main_month_all_passenger">上月日均客流</string>
