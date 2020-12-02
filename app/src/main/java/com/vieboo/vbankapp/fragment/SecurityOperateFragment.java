@@ -56,7 +56,7 @@ public class SecurityOperateFragment extends BaseListFragment<ISecurityOperateMo
     @Override
     public void initView() {
         super.initView();
-        rvBaseList.setLayoutManager(new StaggeredGridLayoutManager(5, StaggeredGridLayoutManager.VERTICAL));
+        rvBaseList.setLayoutManager(new StaggeredGridLayoutManager(6, StaggeredGridLayoutManager.VERTICAL));
         //rvBaseList.addItemDecoration(new GridSpacingItemDecoration(5, 5, false));
         List<String> datalist = new ArrayList<>();
         for(int i = 0; i< 10; i++){

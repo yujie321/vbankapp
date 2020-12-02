@@ -123,6 +123,10 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
     public void initView() {
         super.initView();
         videoViewList.clear();
+        videoView1.setBackgroundResource(R.drawable.bg_home_one);
+        videoView2.setBackgroundResource(R.drawable.bg_home_two);
+        videoView3.setBackgroundResource(R.drawable.bg_home_three);
+        videoView4.setBackgroundResource(R.drawable.bg_home_four);
         videoViewList.add(videoView1);
         videoViewList.add(videoView2);
         videoViewList.add(videoView3);
@@ -207,8 +211,9 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
 
     @Override
     public void setPlayInfo(List<PlayInfo> playInfoList) {
-        for(int i = 0; i < videoViewList.size(); i++){
+        for(int i = 0; i < playInfoList.size(); i++){
             MediaController mediaController = new MediaController(getContext());
+            videoViewList.get(i).setBackground(null);
             videoViewList.get(i).setVideoURI(Uri.parse(playInfoList.get(i).getRtspUrl()));
             videoViewList.get(i).setMediaController(null);
             videoViewList.get(i).setOnTouchListener(this);
@@ -417,11 +422,6 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
     public void onStop() {
         for(int i = 0; i < videoViewList.size(); i++){
             videoViewList.get(i).stopPlayback();
@@ -501,4 +501,6 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
     public boolean onTouch(View v, MotionEvent event) {
         return false;
     }
+
+
 }
