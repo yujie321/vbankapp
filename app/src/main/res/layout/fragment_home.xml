@@ -361,7 +361,6 @@
                     <VideoView
                         android:id="@+id/videoView3"
                         style="@style/main_video_view"
-                        android:src="@drawable/bg_home_one"
                         android:layout_marginEnd="5dp" />
 
                     <VideoView

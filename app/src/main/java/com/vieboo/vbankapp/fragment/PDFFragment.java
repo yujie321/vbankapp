@@ -76,7 +76,7 @@ public class PDFFragment extends BaseFragment {
                 Log.e("onDownloadFailed");
             }
         });
-    }  
+    }
 
 
     @Override
@@ -107,5 +107,4 @@ public class PDFFragment extends BaseFragment {
     public void onViewClicked() {
         popBackStack();
     }
-
 }

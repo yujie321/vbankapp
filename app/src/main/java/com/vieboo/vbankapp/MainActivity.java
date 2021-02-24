@@ -1,6 +1,5 @@
 package com.vieboo.vbankapp;
 
-import android.app.smdt.SmdtManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -37,6 +36,15 @@ public class MainActivity extends BaseActivity {
                 .addToBackStack(qmuiFragment.getClass().getSimpleName())
                 .commit();
     }
+
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        //隐藏状态栏
+//        if(SmdtManager.create(getApplicationContext()) != null){
+//            SmdtManager.create(getApplicationContext()).smdtSetStatusBar(getApplicationContext(), false);
+//        }
+//    }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {

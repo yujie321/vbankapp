@@ -2,7 +2,6 @@ package com.vieboo.vbankapp.fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -45,7 +44,6 @@ import com.vieboo.vbankapp.utils.BarChartUtil;
 import com.vieboo.vbankapp.utils.GridSpacingItemDecoration;
 import com.vieboo.vbankapp.utils.PieChartUtil;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,8 +92,8 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
     VideoView videoView4;
 
 
-    private NavigationAdapter navigationAdapter;
     private NoticeListAdapter noticeListAdapter;
+    private NavigationAdapter navigationAdapter;
 
     private final static String[] xAxisValue = new String[]{
             "设备", "人员", "通知公告", "规章制度", "进出记录", "呼叫记录"
@@ -134,7 +132,6 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
         videoViewList.add(videoView3);
         videoViewList.add(videoView4);
         tcHomeDate.setFormat24Hour("yyyy年MM月dd HH:mm   EEEE");
-
 
         // 3 columns
         int spanCount = 4;
@@ -175,7 +172,6 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
 //            @Override
 //            public void onPrepared(MediaPlayer mp) {
 //                mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
-//                //TODO
 //            }
 //        });
 //        videoView1.setSystemUiVisibility(View.INVISIBLE);
@@ -206,7 +202,6 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
 //        videoView4.setSystemUiVisibility(View.INVISIBLE);
 //        videoView4.setOnTouchListener(this);
 //        videoView4.start();
-
     }
 
     @Override
