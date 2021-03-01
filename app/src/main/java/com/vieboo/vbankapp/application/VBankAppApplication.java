@@ -18,7 +18,7 @@ public class VBankAppApplication extends Application {
 
 
 //    public static final String BASE_URL = "http://192.168.3.2:8082/";
-    public static final String BASE_URL = "http://192.168.1.39:8082/";
+    public static final String BASE_URL = "http://192.168.1.39:8082/rest/";
 
     public static VBankAppApplication getInstance() {
         return vBankAppApplication;

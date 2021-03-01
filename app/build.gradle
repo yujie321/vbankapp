@@ -75,4 +75,6 @@ dependencies {
     implementation files('libs/arcsoft_face.jar')
     implementation files('libs/arcsoft_image_util.jar')
     implementation files('libs/jcore-android-2.2.4.jar')
+
+    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
 }
