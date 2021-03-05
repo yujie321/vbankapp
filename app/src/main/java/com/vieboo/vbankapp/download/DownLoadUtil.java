@@ -46,7 +46,7 @@ public class DownLoadUtil {
                     @Override
                     protected void blockComplete(BaseDownloadTask task) {
                         Log.e(TAG, "pending: blockComplete taskId:" + task.getId() + ",filePath:" + task.getPath() + ",fileName:" + task.getFilename() + ",speed:" + task.getSpeed() + ",isReuse:" + task.reuse());
-                        String pdfUrl = task.getPath() + "/" + "notice.pdf";
+                        String pdfUrl = task.getPath() + "/" + System.currentTimeMillis() + "notice.pdf";
                         String fileUrl = task.getPath() + "/" + task.getFilename();
                         renameFile(fileUrl, pdfUrl);
                         ((Activity)mContext).runOnUiThread(() -> {

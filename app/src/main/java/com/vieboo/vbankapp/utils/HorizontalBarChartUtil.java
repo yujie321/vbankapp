@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class HorizontalBarChartUtil {
     protected static String[] mLabels = new String[]{
-            "报警主机", "摄像机", "门禁"
+            "报警主机", "摄像机", "门禁","存储设备","其他设备"
     };
 
     public static void initHorizontalBarChart(HorizontalBarChart horizontalBarChart) {
@@ -65,7 +65,7 @@ public class HorizontalBarChartUtil {
         yr.setTextColor(Color.WHITE);
 
         horizontalBarChart.setFitBars(true);
-        horizontalBarChart.animateY(2500);
+        horizontalBarChart.animateY(1500);
 
         Legend l = horizontalBarChart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
@@ -78,14 +78,14 @@ public class HorizontalBarChartUtil {
     }
 
     public static void setHorizontalBarChartData(FragmentActivity activity, HorizontalBarChart horizontalBarChart, DeviceStatusVo deviceStatusVo) {
-        float groupSpace = 0.20f;
+        float groupSpace = 0.18f;
         float barSpace = 0.00f; // x4 DataSet
-        float barWidth = 0.20f; // x4 DataSet
+        float barWidth = 0.10f; // x4 DataSet
         // (0.2 + 0.03) * 4 + 0.08 = 1.00 -> interval per "group"
         float randomMultiplier = 50;
 
         horizontalBarChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(mLabels));
-        horizontalBarChart.getXAxis().setLabelCount(3);
+        //horizontalBarChart.getXAxis().setLabelCount(5);
         horizontalBarChart.getXAxis().setTextColor(Color.WHITE);
 
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
@@ -95,7 +95,7 @@ public class HorizontalBarChartUtil {
 
         BarDataSet set1, set2, set3, set4;
 
-        for (int i = 0; i < 3; i++) { //每个公司每年的数据
+        for (int i = 0; i < 5; i++) { //每个公司每年的数据
             switch (i) {
                 case 0: {
                     yVals1.add(new BarEntry(i, 10));
@@ -112,6 +112,20 @@ public class HorizontalBarChartUtil {
                 }
                 break;
                 case 2: {
+                    yVals1.add(new BarEntry(i, 10));
+                    yVals2.add(new BarEntry(i, 20));
+                    yVals3.add(new BarEntry(i, 30));
+                    yVals4.add(new BarEntry(i, 40));
+                }
+                break;
+                case 3: {
+                    yVals1.add(new BarEntry(i, 10));
+                    yVals2.add(new BarEntry(i, 20));
+                    yVals3.add(new BarEntry(i, 30));
+                    yVals4.add(new BarEntry(i, 40));
+                }
+                break;
+                case 4: {
                     yVals1.add(new BarEntry(i, 10));
                     yVals2.add(new BarEntry(i, 20));
                     yVals3.add(new BarEntry(i, 30));
@@ -162,7 +176,7 @@ public class HorizontalBarChartUtil {
         horizontalBarChart.getXAxis().setAxisMinimum(0);
 
         // barData.getGroupWith(...) is a helper that calculates the width each group needs based on the provided parameters
-        horizontalBarChart.getXAxis().setAxisMaximum(0 + horizontalBarChart.getBarData().getGroupWidth(groupSpace, barSpace) * 3);
+        horizontalBarChart.getXAxis().setAxisMaximum(0 + horizontalBarChart.getBarData().getGroupWidth(groupSpace, barSpace) * 5);
         horizontalBarChart.groupBars(0, groupSpace, barSpace);
         horizontalBarChart.invalidate(); //刷新图表
     }

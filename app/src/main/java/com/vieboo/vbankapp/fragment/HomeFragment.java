@@ -453,10 +453,10 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
                 //押运信息
                 iModule.getEscortInfo();
                 iModule.requestNoticeList();
-                handler.postDelayed(this, 200000);
+                handler.postDelayed(this, 30000);
             }
         };
-        handler.postDelayed(runnable, 200000);
+        handler.postDelayed(runnable, 30000);
 
         iModule.getPlayInfo();
 //        for(int i = 0; i < videoViewList.size(); i++){

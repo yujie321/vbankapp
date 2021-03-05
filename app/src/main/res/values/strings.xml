@@ -48,7 +48,7 @@
     <string name="main_number">工号：</string>
     <string name="main_department">部门：</string>
     <string name="main_positions">职务：</string>
-    <string name="jurisdiction">权&#12288;&#12288;限：</string>
+    <string name="jurisdiction">岗&#12288;&#12288;位：</string>
     <string name="nation">民&#12288;&#12288;&#12288;族：</string>
     <string name="please_input">请输入</string>
     <string name="company">单&#12288;&#12288;位：</string>
@@ -85,7 +85,7 @@
     <string name="main_person_times">人次</string>
     <string name="main_vip">VIP&#8197;到访</string>
     <string name="main_daily_security_operation_trend_chart">当日安保运营趋势图</string>
-    <string name="main_security_operation_route">安保运营路线</string>
+    <string name="main_security_operation_route">安保履职任务</string>
     <string name="main_security_operation_records">历史运营记录</string>
     <string name="main_trend_chart_daily_records">当日进出记录趋势图</string>
     <string name="main_real_time_access_record">实时进出记录</string>

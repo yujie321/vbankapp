@@ -266,7 +266,7 @@
                         style="@style/main_add_personal_tv_meg"
                         android:text="@string/main_number" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/tvPersonalNumber"
                         style="@style/main_add_personal_tv_content"
                         tools:text="100100" />
