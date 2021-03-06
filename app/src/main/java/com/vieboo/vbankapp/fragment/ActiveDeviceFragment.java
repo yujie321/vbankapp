@@ -1,18 +1,14 @@
 package com.vieboo.vbankapp.fragment;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.TextView;
-
 
 import com.arcsoft.face.ErrorInfo;
 import com.arcsoft.face.FaceEngine;
 import com.blankj.utilcode.util.ToastUtils;
 import com.example.toollib.base.BaseFragment;
 import com.example.toollib.data.IBaseModule;
-import com.vieboo.vbankapp.MainActivity;
 import com.vieboo.vbankapp.R;
 import com.vieboo.vbankapp.service.FaceServer;
 import com.vieboo.vbankapp.utils.Constants;

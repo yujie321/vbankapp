@@ -55,9 +55,6 @@ import com.vieboo.vbankapp.utils.FaceAlgoUtils;
 import com.vieboo.vbankapp.utils.PermissionUtil;
 import com.vieboo.vbankapp.weight.IdCardDialog;
 
-import org.greenrobot.greendao.Property;
-import org.greenrobot.greendao.query.WhereCondition;
-
 import java.io.File;
 import java.util.List;
 

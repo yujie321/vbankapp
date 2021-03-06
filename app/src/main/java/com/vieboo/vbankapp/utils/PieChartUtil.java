@@ -101,7 +101,7 @@ public class PieChartUtil {
         dataSet.setValueLinePart1OffsetPercentage(80.f);
         dataSet.setValueLinePart1Length(0.3f);
         dataSet.setValueLinePart2Length(0.2f);
-        dataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+        dataSet.setYValuePosition(PieDataSet.ValuePosition.INSIDE_SLICE);
 
         PieData data = new PieData(dataSet);
         data.setValueFormatter(new PercentFormatter(chart));

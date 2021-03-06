@@ -103,9 +103,6 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
     private Runnable runnable = null;
 
     List<VideoView> videoViewList = new ArrayList<>();
-    private String rtspUrl = "rtsp://admin:icare01!@192.168.1.37:554";
-    private String rtspUrl2 = "rtsp://admin:admin123@192.168.1.243:554";
-    private String rtspurl3 = "rtsp://admin:admin123@192.168.1.244:554";
 
     static HomeFragment newInstance() {
         Bundle args = new Bundle();
@@ -133,10 +130,8 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
         videoViewList.add(videoView4);
         tcHomeDate.setFormat24Hour("yyyy年MM月dd HH:mm   EEEE");
 
-        // 3 columns
-        int spanCount = 4;
-        // 50px
-        int spacing = 10;
+        int spanCount = 3;
+        int spacing = 6;
         rvNavigationList.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, false));
         navigationAdapter = new NavigationAdapter();
         navigationAdapter.setOnItemClickListener(onItemClickListener);
@@ -153,55 +148,9 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
         //押运信息
         iModule.getEscortInfo();
         //设置导航菜单
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 4);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 3);
         rvNavigationList.setLayoutManager(layoutManager);
         iModule.getNavigationList();
-
-//        for(int i = 0; i < 4; i++){
-//            MediaController mediaController = new MediaController(getContext());
-//            videoViewList.get(i).setVideoURI(Uri.parse(rtspUrl));
-//            videoViewList.get(i).setMediaController(mediaController);
-//            videoViewList.get(i).setOnTouchListener(this);
-//            videoViewList.get(i).start();
-//        }
-//        MediaController mediaController1 = new MediaController(getContext());
-//        videoView1.setVideoURI(Uri.parse(rtspUrl));
-//        videoView1.setMediaController(mediaController1);
-//        videoView1.setOnTouchListener(this);
-//        videoView1.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-//            @Override
-//            public void onPrepared(MediaPlayer mp) {
-//                mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
-//            }
-//        });
-//        videoView1.setSystemUiVisibility(View.INVISIBLE);
-//        videoView1.start();
-//
-//
-//        MediaController mediaController2 = new MediaController(getContext());
-//        videoView2.setVideoURI(Uri.parse(rtspUrl2));
-//        videoView2.setMediaController(mediaController2);
-//        videoView2.setSystemUiVisibility(View.INVISIBLE);
-//        videoView2.setOnTouchListener(this);
-//        videoView2.start();
-//
-//
-//
-//        MediaController mediaController3 = new MediaController(getContext());
-//        videoView3.setVideoURI(Uri.parse(rtspurl3));
-//        videoView3.setMediaController(mediaController3);
-//        videoView3.setSystemUiVisibility(View.INVISIBLE);
-//        videoView3.setOnTouchListener(this);
-//        videoView3.start();
-//
-//
-//
-//        MediaController mediaController4 = new MediaController(getContext());
-//        videoView4.setVideoURI(Uri.parse(rtspUrl));
-//        videoView4.setMediaController(mediaController4);
-//        videoView4.setSystemUiVisibility(View.INVISIBLE);
-//        videoView4.setOnTouchListener(this);
-//        videoView4.start();
     }
 
     @Override
@@ -213,11 +162,15 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
     public void setPlayInfo(List<PlayInfo> playInfoList) {
         for(int i = 0; i < playInfoList.size(); i++){
             MediaController mediaController = new MediaController(getContext());
-            videoViewList.get(i).setBackground(null);
-            videoViewList.get(i).setVideoURI(Uri.parse(playInfoList.get(i).getRtspUrl()));
-            videoViewList.get(i).setMediaController(null);
-            videoViewList.get(i).setOnTouchListener(this);
-            videoViewList.get(i).start();
+            if(playInfoList.get(i) != null) {
+                if(playInfoList.get(i).getRtspUrl() != null) {
+                    videoViewList.get(i).setBackground(null);
+                    videoViewList.get(i).setVideoURI(Uri.parse(playInfoList.get(i).getRtspUrl()));
+                    videoViewList.get(i).setMediaController(null);
+                    videoViewList.get(i).setOnTouchListener(this);
+                    videoViewList.get(i).start();
+                }
+            }
         }
     }
 
@@ -427,14 +380,6 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
             videoViewList.get(i).stopPlayback();
             videoViewList.get(i).suspend();
         }
-//        videoView1.stopPlayback();
-//        videoView1.suspend();
-//        videoView2.stopPlayback();
-//        videoView2.suspend();
-//        videoView3.stopPlayback();
-//        videoView3.suspend();
-//        videoView4.stopPlayback();
-//        videoView4.suspend();
         handler.removeCallbacks(runnable);
         super.onStop();
     }
@@ -459,41 +404,6 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
         handler.postDelayed(runnable, 30000);
 
         iModule.getPlayInfo();
-//        for(int i = 0; i < videoViewList.size(); i++){
-//            MediaController mediaController = new MediaController(getContext());
-//            videoViewList.get(i).setVideoURI(Uri.parse(rtspUrl));
-//            videoViewList.get(i).setMediaController(mediaController);
-//            videoViewList.get(i).setOnTouchListener(this);
-//            videoViewList.get(i).start();
-//        }
-
-//        MediaController mediaController1 = new MediaController(getContext());
-//        videoView1.setVideoURI(Uri.parse(rtspUrl));
-//        videoView1.setMediaController(mediaController1);
-//        videoView1.start();
-//        videoView1.setOnTouchListener(this);
-//
-//
-//        MediaController mediaController2 = new MediaController(getContext());
-//        videoView2.setVideoURI(Uri.parse(rtspUrl2));
-//        videoView2.setMediaController(mediaController2);
-//        videoView2.start();
-//        videoView2.setOnTouchListener(this);
-//
-//
-//        MediaController mediaController3 = new MediaController(getContext());
-//        videoView3.setVideoURI(Uri.parse(rtspurl3));
-//        videoView3.setMediaController(mediaController3);
-//        videoView3.start();
-//        videoView3.setOnTouchListener(this);
-//
-//
-//        MediaController mediaController4 = new MediaController(getContext());
-//        videoView4.setVideoURI(Uri.parse(rtspUrl));
-//        videoView4.setMediaController(mediaController4);
-//        videoView4.start();
-//        videoView4.setOnTouchListener(this);
-
         super.onResume();
     }
 
@@ -501,6 +411,4 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
     public boolean onTouch(View v, MotionEvent event) {
         return false;
     }
-
-
 }

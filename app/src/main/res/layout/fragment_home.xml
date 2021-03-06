@@ -320,6 +320,7 @@
                     android:id="@+id/tvSecurityRegion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="10dp"
                     android:textColor="@color/tool_lib_color_1CD3F3"
@@ -603,7 +604,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingStart="6dp"
-                    android:paddingTop="26dp"
+                    android:paddingTop="6dp"
                     android:paddingEnd="6dp" />
             </LinearLayout>
 

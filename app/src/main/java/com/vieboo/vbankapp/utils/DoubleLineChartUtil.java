@@ -14,10 +14,8 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.vieboo.vbankapp.data.ChartXY;
-import com.vieboo.vbankapp.data.SecureRecordVo;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DoubleLineChartUtil {

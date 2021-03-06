@@ -127,6 +127,10 @@ public class HomeModel extends BaseModule<IHomeView> implements IHomeModel  {
         Navigation call = new Navigation();
         call.setIcon(R.drawable.ic_call);
         navigationList.add(call);
+
+        Navigation record = new Navigation();
+        record.setIcon(R.drawable.ic_record);
+        navigationList.add(record);
         mViewRef.get().setNavigationList(navigationList);
     }
 

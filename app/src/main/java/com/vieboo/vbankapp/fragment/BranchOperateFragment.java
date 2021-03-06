@@ -1,17 +1,13 @@
 package com.vieboo.vbankapp.fragment;
 
-import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.TimeUtils;
 import com.example.toollib.base.BaseFragment;
-import com.example.toollib.data.IBaseModule;
 import com.example.toollib.util.DateUtil;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.vieboo.vbankapp.R;
 import com.vieboo.vbankapp.data.ChartXY;
 import com.vieboo.vbankapp.data.PassengerSummeryVo;
