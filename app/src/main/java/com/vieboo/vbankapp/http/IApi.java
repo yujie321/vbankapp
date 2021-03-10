@@ -171,7 +171,7 @@ public interface IApi {
     /**
      * 获取VIP客户当日客流
      */
-    @GET("rest/passenger/todayperiodrest/static/vip")
+    @GET("rest/passenger/todayperiodstatic/vip")
     Observable<HttpResult<List<SecureRecordVo>>> todayVipPassengerStatic();
 
     /**

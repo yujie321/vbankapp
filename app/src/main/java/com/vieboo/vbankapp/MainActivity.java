@@ -25,8 +25,7 @@ public class MainActivity extends BaseActivity {
         setTheme(R.style.tool_lib_QMUI_AppTheme);
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
-            init(CarManagerFragment.newInstance());
-            //init(SplashFragment.newInstance());
+            init(SplashFragment.newInstance());
         }
 
     }
