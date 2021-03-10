@@ -13,6 +13,7 @@ import com.vieboo.vbankapp.data.PassengerVO;
 import com.vieboo.vbankapp.data.PlayListVo;
 import com.vieboo.vbankapp.data.PositionsVO;
 import com.vieboo.vbankapp.data.PunchRecordVO;
+import com.vieboo.vbankapp.data.RecordPlan;
 import com.vieboo.vbankapp.data.RecordVO;
 import com.vieboo.vbankapp.data.RegulationsVO;
 import com.vieboo.vbankapp.data.SecureRecordVo;
@@ -37,7 +38,7 @@ public interface IApi {
      *
      * @return observable
      */
-    @GET("static/todaysummary")
+    @GET("rest/static/todaysummary")
     Observable<HttpResult<StaticTodaySummeryVo>> toDaySummary();
 
 
@@ -46,89 +47,89 @@ public interface IApi {
      *
      * @return Observable
      */
-    @GET("static/passenger")
+    @GET("rest/static/passenger")
     Observable<HttpResult<PassengerVO>> passenger();
 
     /**
      * 查询统计
      * 通知通告
      */
-    @GET("findNotice")
+    @GET("rest/findNotice")
     Observable<HttpResult<List<NoticeListVO>>> getNoticeList();
 
     /**
      * 阅读通知公告
      */
-    @GET("readNotice")
+    @GET("rest/readNotice")
     Observable<HttpResult<String>> readNotice(@Query("id") int id);
 
     /**
      * 查询员工
      */
-    @GET("findPerson")
+    @GET("rest/findPerson")
     Observable<HttpResult<List<PunchRecordVO>>> findPerson(@Query("type") String type, @Query("pageNum") int pageNum, @Query("size") int size);
 
 
     /**
      * 查询员工今日打卡记录
      */
-    @GET("findPunchRecord")
+    @GET("rest/findPunchRecord")
     Observable<HttpResult<List<RecordVO>>> findPunchRecord();
 
 
     /**
      * 上班打卡
      */
-    @POST("clockIn")
+    @POST("rest/clockIn")
     Observable<HttpResult<String>> clockIn(@Query("personHead") String personHead, @Query("id") String id);
 
     /**
      * 下班打卡
      */
-    @POST("clockOut")
+    @POST("rest/clockOut")
     Observable<HttpResult<String>> clockOut(@Query("personHead") String personHead, @Query("id") String id);
 
     /**
      * 部门查询
      */
-    @GET("findDepartment")
+    @GET("rest/findDepartment")
     Observable<HttpResult<List<DepartmentVO>>> findDepartment();
 
     /**
      * 职务查询
      */
-    @GET("findPositions")
+    @GET("rest/findPositions")
     Observable<HttpResult<List<PositionsVO>>> findPositions();
 
     /**
      * 权限查询
      */
-    @GET("findAuth")
+    @GET("rest/findAuth")
     Observable<HttpResult<List<AuthVO>>> findAuth();
 
     //设备状态查询
     /**
      * 查询VQD记录
      */
-    @GET("vqd")
+    @GET("rest/vqd")
     Observable<HttpResult<VQDSystemRecordVo>> findVQD(@Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
 
     /**
      * 查询设备在线状态
      */
-    @GET("vqd/static")
+    @GET("rest/vqd/static")
     Observable<HttpResult<DeviceStatusVo>> getVqdStatic();
 
     /**
      * 查询记录
      */
-    @GET("secure")
+    @GET("rest/secure")
     Observable<HttpResult<SecureVO>> findSecure(@Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
 
     /**
      * 获取当日安保运营统计
      */
-    @GET("secure/todayperiodstatic")
+    @GET("rest/secure/todayperiodstatic")
     Observable<HttpResult<List<SecureRecordVo>>> todaySecureStatic();
 
     //进出管理统计
@@ -136,7 +137,7 @@ public interface IApi {
     /**
      * 查询多个人员进出登记信息
      */
-    @GET("personinout")
+    @GET("rest/personinout")
     Observable<HttpResult<InOutVO>> findPersonInOut(@Query("beginTime") String beginTime, @Query("endTime") String endTime,
                                                     @Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
 
@@ -144,64 +145,64 @@ public interface IApi {
     /**
      * 当日进出记录趋势图
      */
-    @GET("personinout/todayperiodstatic")
+    @GET("rest/personinout/todayperiodstatic")
     Observable<HttpResult<List<SecureRecordVo>>> todayPersonInoutStatic();
 
     //网点运营统计
     /**
      * 获取当日客流和VIP到访人数
      */
-    @GET("passenger/todaysummery")
+    @GET("rest/passenger/todaysummery")
     Observable<HttpResult<PassengerSummeryVo>> todayPassengerSummery();
 
 
     /**
      * 获取近七日客流趋势
      */
-    @GET("passenger/last7dayperiodstatic")
+    @GET("rest/passenger/last7dayperiodstatic")
     Observable<HttpResult<List<SecureRecordVo>>> last7dayPeriodStatic();
 
     /**
      * 获取普通客户当日客流
      */
-    @GET("passenger/todayperiodstatic")
+    @GET("rest/passenger/todayperiodstatic")
     Observable<HttpResult<List<SecureRecordVo>>> todayPassengerStatic();
 
     /**
      * 获取VIP客户当日客流
      */
-    @GET("passenger/todayperiodstatic/vip")
+    @GET("rest/passenger/todayperiodrest/static/vip")
     Observable<HttpResult<List<SecureRecordVo>>> todayVipPassengerStatic();
 
     /**
      * 查询规章制度
      */
-    @GET("findRegulations")
+    @GET("rest/findRegulations")
     Observable<HttpResult<List<RegulationsVO>>> findRegulations(@Query("name") String name, @Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
 
     //人员管控
     /**
      * 添加人员
      */
-    @POST("addPerson")
+    @POST("rest/addPerson")
     Observable<HttpResult<String>> addPerson(@Body RequestBody body);
 
     /**
      * 上传人员图片
      */
-    @POST("file/upload")
+    @POST("rest/file/upload")
     Observable<HttpResult<String>> upload(@Body RequestBody body);
 
     /**
      * 获取pad信息
      */
-    @GET("padinfo/config")
+    @GET("rest/padinfo/config")
     Observable<HttpResult<PadInfoVo>> getPadInfo(@Query("ip") String ip);
 
     /**
      * 获取pad播放列表
      */
-    @GET("padinfo/playinfo")
+    @GET("rest/padinfo/playinfo")
     Observable<HttpResult<PlayListVo>> getPlayInfo(@Query("ip") String ip, @Query("isSub") boolean bSub);
 
     /**
@@ -209,6 +210,11 @@ public interface IApi {
      * @param date 日期
      * @return HttpResult
      */
-    @GET("escort")
+    @GET("rest/escort")
     Observable<HttpResult<List<EscortInfo>>> getEscort(@Query("date") String date);
+    /*
+    * 获取录像计划列表
+     */
+    @GET("rest/record/plan")
+    Observable<HttpResult<List<RecordPlan>>> getRecordPlans( @Query("key") String name, @Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
 }
