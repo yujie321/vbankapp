@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="58dp"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvEstimatedTime"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:textColor="@color/tool_lib_gray_888888"
+        android:textSize="5sp"
+        tools:ignore="SmallSp"
+        tools:text="预计到达时间\n2020-10-10 11:00:00" />
+
+    <RelativeLayout
+        android:id="@+id/relEscort"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp">
+
+        <ImageView
+            android:id="@+id/ivEscortStatus"
+            android:layout_width="36dp"
+            android:layout_height="45dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/ic_not_arrive" />
+
+        <TextView
+            android:id="@+id/tvEscort"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/blue_circular"
+            android:gravity="center"
+            android:textSize="8sp"
+            tools:ignore="SmallSp"
+            tools:text="省行"
+            tools:textColor="@color/tool_lib_gray_888888" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:layout_marginTop="3dp"
+        android:background="@color/tool_lib_color_164BA2">
+
+        <ImageView
+            android:id="@+id/ivEscortSpot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            tools:src="@drawable/ic_gray_spot" />
+    </RelativeLayout>
+
+
+</LinearLayout>

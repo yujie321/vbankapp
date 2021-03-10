@@ -1,0 +1,853 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_car_manager"
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp"
+    android:paddingBottom="12dp">
+
+    <RelativeLayout
+        android:id="@+id/relCarManagerTitle"
+        android:layout_width="match_parent"
+        android:layout_height="115dp">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            style="@style/main_back"
+            tools:ignore="ContentDescription" />
+
+    </RelativeLayout>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshBaseList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relCarManagerTitle"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:srlAccentColor="@android:color/white"
+        app:srlEnableHeaderTranslationContent="false"
+        app:srlEnableLoadMore="false"
+        app:srlPrimaryColor="@android:color/white">
+
+        <com.scwang.smartrefresh.header.MaterialHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <!--押运管理-->
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="7dp"
+                    android:layout_weight="1.2">
+
+                    <!--今日押运-->
+                    <LinearLayout
+                        android:id="@+id/layCarManagerEscortToDay"
+                        android:layout_width="match_parent"
+                        android:layout_height="20.5dp"
+                        android:background="@drawable/bg_notice">
+
+                        <ImageView
+                            style="@style/main_title_ic"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            style="@style/main_blue_bg"
+                            android:text="@string/escort_today" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/layCarManagerEscortToDay"
+                        android:orientation="vertical">
+
+                        <!--上午-->
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:paddingStart="5dp"
+                            android:paddingEnd="5dp">
+
+                            <ImageView
+                                android:id="@+id/ivCarManagerAm"
+                                android:layout_width="56dp"
+                                android:layout_height="42dp"
+                                android:layout_marginTop="10dp"
+                                android:src="@drawable/ic_am" />
+
+                            <RelativeLayout
+                                android:id="@+id/relEscort"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="18dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_toEndOf="@+id/ivCarManagerAm">
+
+                                <TextView
+                                    android:id="@+id/tvEscortCar_"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:text="@string/escort_car"
+                                    android:textColor="@color/tool_lib_color_D2D2D2"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tvEscortCar"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBaseline="@+id/tvEscortCar_"
+                                    android:layout_toEndOf="@+id/tvEscortCar_"
+                                    android:textColor="@color/tool_lib_color_18C0EB"
+                                    android:textSize="14sp"
+                                    tools:text="沪A 11200" />
+
+                                <TextView
+                                    android:id="@+id/tvEscortPerson"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tvEscortCar_"
+                                    android:layout_marginTop="10dp"
+                                    android:text="@string/escort_person"
+                                    android:textColor="@color/tool_lib_color_D1D1D1"
+                                    android:textSize="10sp"
+                                    android:textStyle="bold"
+                                    tools:ignore="SmallSp" />
+
+                                <!--押运人员1-->
+                                <RelativeLayout
+                                    android:id="@+id/relEscortOne"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tvEscortPerson"
+                                    android:layout_marginTop="3dp"
+                                    android:background="@drawable/bg_blue"
+                                    android:padding="5dp">
+
+                                    <ImageView
+                                        android:id="@+id/ivEscortHead"
+                                        android:layout_width="36dp"
+                                        android:layout_height="48dp"
+                                        android:scaleType="fitXY"
+                                        tools:src="@mipmap/ic_launcher" />
+
+                                    <TextView
+                                        android:id="@+id/tvEscortName"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_toEndOf="@+id/ivEscortHead"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="10sp"
+                                        tools:ignore="SmallSp"
+                                        tools:text="肖笑笑" />
+
+                                    <TextView
+                                        android:id="@+id/tvEscortPosition"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/tvEscortName"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_toEndOf="@+id/ivEscortHead"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="8sp"
+                                        tools:ignore="SmallSp"
+                                        tools:text="押运员" />
+
+                                    <TextView
+                                        android:id="@+id/tvEscortNumber"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/tvEscortPosition"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_toEndOf="@+id/ivEscortHead"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="8sp"
+                                        tools:ignore="SmallSp"
+                                        tools:text="100121" />
+                                </RelativeLayout>
+
+                                <!--押运人员2-->
+                                <RelativeLayout
+                                    android:id="@+id/relEscortTwo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tvEscortPerson"
+                                    android:layout_marginStart="11dp"
+                                    android:layout_marginTop="3dp"
+                                    android:layout_toEndOf="@+id/relEscortOne"
+                                    android:background="@drawable/bg_blue"
+                                    android:padding="5dp">
+
+                                    <ImageView
+                                        android:id="@+id/ivEscortHeadTwo"
+                                        android:layout_width="36dp"
+                                        android:layout_height="48dp"
+                                        android:scaleType="fitXY"
+                                        tools:src="@mipmap/ic_launcher" />
+
+                                    <TextView
+                                        android:id="@+id/tvEscortNameTwo"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_toEndOf="@+id/ivEscortHeadTwo"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="10sp"
+                                        tools:ignore="SmallSp"
+                                        tools:text="肖笑笑" />
+
+                                    <TextView
+                                        android:id="@+id/tvEscortPositionTwo"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/tvEscortNameTwo"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_toEndOf="@+id/ivEscortHeadTwo"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="8sp"
+                                        tools:ignore="SmallSp"
+                                        tools:text="押运员" />
+
+                                    <TextView
+                                        android:id="@+id/tvEscortNumberTwo"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/tvEscortPositionTwo"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_toEndOf="@+id/ivEscortHeadTwo"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="8sp"
+                                        tools:ignore="SmallSp"
+                                        tools:text="100121" />
+                                </RelativeLayout>
+
+                                <TextView
+                                    android:id="@+id/tvEscortStatus_"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/relEscortTwo"
+                                    android:layout_marginTop="5dp"
+                                    android:text="@string/escort_status"
+                                    android:textColor="@color/tool_lib_color_D1D1D1"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tvEscortStatus"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/relEscortTwo"
+                                    android:layout_alignBaseline="@+id/tvEscortStatus_"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_toEndOf="@+id/tvEscortStatus_"
+                                    android:textColor="@color/tool_lib_color_017F34"
+                                    android:textSize="12sp"
+                                    tools:text="完成" />
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/relCarManager"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="32dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_toEndOf="@+id/relEscort"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    android:id="@+id/tvEstimatedTime_"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/estimated_time_of_arrival"
+                                    android:textColor="@color/tool_lib_color_D2D2D2"
+                                    android:textSize="11sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tvEstimatedTime"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBaseline="@+id/tvEstimatedTime_"
+                                    android:layout_toEndOf="@+id/tvEstimatedTime_"
+                                    android:textColor="@color/tool_lib_color_D2D2D2"
+                                    android:textSize="10sp"
+                                    tools:ignore="SmallSp"
+                                    tools:text="2020-10-10 11:00:00" />
+
+                                <TextView
+                                    android:id="@+id/tvHandover"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tvEstimatedTime_"
+                                    android:layout_marginTop="10dp"
+                                    android:text="@string/branch_handover_personnel"
+                                    android:textColor="@color/tool_lib_color_D1D1D1"
+                                    android:textSize="10sp"
+                                    android:textStyle="bold"
+                                    tools:ignore="SmallSp" />
+
+                                <!--交接人员-->
+                                <RelativeLayout
+                                    android:id="@+id/relHandover"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tvHandover"
+                                    android:layout_marginTop="3dp"
+                                    android:background="@drawable/bg_blue"
+                                    android:padding="5dp">
+
+                                    <ImageView
+                                        android:id="@+id/ivHandover"
+                                        android:layout_width="36dp"
+                                        android:layout_height="48dp"
+                                        android:scaleType="fitXY"
+                                        tools:src="@mipmap/ic_launcher" />
+
+                                    <TextView
+                                        android:id="@+id/tvHandoverName"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_toEndOf="@+id/ivHandover"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="10sp"
+                                        tools:ignore="SmallSp"
+                                        tools:text="肖笑笑" />
+
+                                    <TextView
+                                        android:id="@+id/tvHandoverPosition"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/tvHandoverName"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_toEndOf="@+id/ivHandover"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="8sp"
+                                        tools:ignore="SmallSp"
+                                        tools:text="押运员" />
+
+                                    <TextView
+                                        android:id="@+id/tvHandoverNumber"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/tvHandoverPosition"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_toEndOf="@+id/ivHandover"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="8sp"
+                                        tools:ignore="SmallSp"
+                                        tools:text="100121" />
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:id="@+id/relHandoverTwo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tvHandover"
+                                    android:layout_marginStart="11dp"
+                                    android:layout_marginTop="3dp"
+                                    android:layout_toEndOf="@+id/relHandover"
+                                    android:background="@drawable/bg_blue"
+                                    android:padding="5dp">
+
+                                    <ImageView
+                                        android:id="@+id/ivHandoverTwo"
+                                        android:layout_width="36dp"
+                                        android:layout_height="48dp"
+                                        android:scaleType="fitXY"
+                                        tools:src="@mipmap/ic_launcher" />
+
+                                    <TextView
+                                        android:id="@+id/tvHandoverNameTwo"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_toEndOf="@+id/ivHandoverTwo"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="10sp"
+                                        tools:ignore="SmallSp"
+                                        tools:text="肖笑笑" />
+
+                                    <TextView
+                                        android:id="@+id/tvHandoverPositionTwo"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/tvHandoverNameTwo"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_toEndOf="@+id/ivHandoverTwo"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="8sp"
+                                        tools:ignore="SmallSp"
+                                        tools:text="押运员" />
+
+                                    <TextView
+                                        android:id="@+id/tvHandoverNumberTwo"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/tvHandoverPositionTwo"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_toEndOf="@+id/ivHandoverTwo"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="8sp"
+                                        tools:ignore="SmallSp"
+                                        tools:text="100121" />
+                                </RelativeLayout>
+
+                                <ImageView
+                                    android:id="@+id/ivEscortHandover"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/relHandoverTwo"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="18dp"
+                                    tools:src="@drawable/ic_handover_nor" />
+                            </RelativeLayout>
+
+                            <TextView
+                                android:id="@+id/tvAMEscortRoute"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:text="@string/escort_route"
+                                android:layout_marginBottom="-2dp"
+                                android:textColor="@color/tool_lib_color_D1D1D1"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/relAmEscort"
+                                android:layout_marginTop="12dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/relCarManager"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginStart="5dp"
+                                android:layout_toEndOf="@+id/tvAMEscortRoute" />
+                        </RelativeLayout>
+
+                        <!--下午-->
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1">
+
+                            <ImageView
+                                android:id="@+id/ivCarManagerPM"
+                                android:layout_width="56dp"
+                                android:layout_height="42dp"
+                                android:layout_marginTop="10dp"
+                                android:src="@drawable/ic_pm" />
+
+                            <RelativeLayout
+                                android:id="@+id/relEscortPM"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="18dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_toEndOf="@+id/ivCarManagerPM">
+
+                                <TextView
+                                    android:id="@+id/tvEscortCarPM_"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:text="@string/escort_car"
+                                    android:textColor="@color/tool_lib_color_D2D2D2"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tvEscortCarPM"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBaseline="@+id/tvEscortCarPM_"
+                                    android:layout_toEndOf="@+id/tvEscortCarPM_"
+                                    android:textColor="@color/tool_lib_color_18C0EB"
+                                    android:textSize="14sp"
+                                    tools:text="沪A 11200" />
+
+                                <TextView
+                                    android:id="@+id/tvEscortPersonPM"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tvEscortCarPM_"
+                                    android:layout_marginTop="10dp"
+                                    android:text="@string/escort_person"
+                                    android:textColor="@color/tool_lib_color_D1D1D1"
+                                    android:textSize="10sp"
+                                    android:textStyle="bold"
+                                    tools:ignore="SmallSp" />
+
+                                <!--押运人员1-->
+                                <RelativeLayout
+                                    android:id="@+id/relEscortPMOne"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tvEscortPersonPM"
+                                    android:layout_marginTop="3dp"
+                                    android:background="@drawable/bg_blue"
+                                    android:padding="5dp">
+
+                                    <ImageView
+                                        android:id="@+id/tvEscortHeadPM"
+                                        android:layout_width="36dp"
+                                        android:layout_height="48dp"
+                                        android:scaleType="fitXY"
+                                        tools:src="@mipmap/ic_launcher" />
+
+                                    <TextView
+                                        android:id="@+id/tvEscortNamePM"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_toEndOf="@+id/tvEscortHeadPM"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="10sp"
+                                        tools:ignore="SmallSp"
+                                        tools:text="肖笑笑" />
+
+                                    <TextView
+                                        android:id="@+id/tvEscortPositionPM"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/tvEscortNamePM"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_toEndOf="@+id/tvEscortHeadPM"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="8sp"
+                                        tools:ignore="SmallSp"
+                                        tools:text="押运员" />
+
+                                    <TextView
+                                        android:id="@+id/tvEscortNumberPM"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/tvEscortPositionPM"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_toEndOf="@+id/tvEscortHeadPM"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="8sp"
+                                        tools:ignore="SmallSp"
+                                        tools:text="100121" />
+                                </RelativeLayout>
+
+                                <!--押运人员2-->
+                                <RelativeLayout
+                                    android:id="@+id/relEscortPMTwo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tvEscortPersonPM"
+                                    android:layout_marginStart="11dp"
+                                    android:layout_marginTop="3dp"
+                                    android:layout_toEndOf="@+id/relEscortPMOne"
+                                    android:background="@drawable/bg_blue"
+                                    android:padding="5dp">
+
+                                    <ImageView
+                                        android:id="@+id/tvEscortHeadPMTwo"
+                                        android:layout_width="36dp"
+                                        android:layout_height="48dp"
+                                        android:scaleType="fitXY"
+                                        tools:src="@mipmap/ic_launcher" />
+
+                                    <TextView
+                                        android:id="@+id/tvEscortNamePMTwo"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_toEndOf="@+id/tvEscortHeadPMTwo"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="10sp"
+                                        tools:ignore="SmallSp"
+                                        tools:text="肖笑笑" />
+
+                                    <TextView
+                                        android:id="@+id/tvEscortPositionPMTwo"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/tvEscortNamePMTwo"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_toEndOf="@+id/tvEscortHeadPMTwo"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="8sp"
+                                        tools:ignore="SmallSp"
+                                        tools:text="押运员" />
+
+                                    <TextView
+                                        android:id="@+id/tvEscortNumberPMTwo"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/tvEscortPositionPMTwo"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_toEndOf="@+id/tvEscortHeadPMTwo"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="8sp"
+                                        tools:ignore="SmallSp"
+                                        tools:text="100121" />
+                                </RelativeLayout>
+
+                                <TextView
+                                    android:id="@+id/tvEscortStatusPM_"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/relEscortPMTwo"
+                                    android:layout_marginTop="5dp"
+                                    android:text="@string/escort_status"
+                                    android:textColor="@color/tool_lib_color_D1D1D1"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tvEscortStatusPM"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/relEscortPMTwo"
+                                    android:layout_alignBaseline="@+id/tvEscortStatusPM_"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_toEndOf="@+id/tvEscortStatusPM_"
+                                    android:textColor="@color/tool_lib_color_017F34"
+                                    android:textSize="12sp"
+                                    tools:text="完成" />
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/relCarManagerPM"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="32dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_toEndOf="@+id/relEscortPM"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    android:id="@+id/tvEstimatedTimePM_"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/estimated_time_of_arrival"
+                                    android:textColor="@color/tool_lib_color_D2D2D2"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tvEstimatedTimePM"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBaseline="@+id/tvEstimatedTimePM_"
+                                    android:layout_toEndOf="@+id/tvEstimatedTimePM_"
+                                    android:textColor="@color/tool_lib_color_D2D2D2"
+                                    android:textSize="10sp"
+                                    tools:ignore="SmallSp"
+                                    tools:text="2020-10-10 11:00:00" />
+
+                                <TextView
+                                    android:id="@+id/tvHandoverPM"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tvEstimatedTimePM_"
+                                    android:layout_marginTop="10dp"
+                                    android:text="@string/branch_handover_personnel"
+                                    android:textColor="@color/tool_lib_color_D1D1D1"
+                                    android:textSize="10sp"
+                                    android:textStyle="bold"
+                                    tools:ignore="SmallSp" />
+
+                                <!--交接人员-->
+                                <RelativeLayout
+                                    android:id="@+id/relHandoverPM"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tvHandoverPM"
+                                    android:layout_marginTop="3dp"
+                                    android:background="@drawable/bg_blue"
+                                    android:padding="5dp">
+
+                                    <ImageView
+                                        android:id="@+id/ivHandoverPM"
+                                        android:layout_width="36dp"
+                                        android:layout_height="48dp"
+                                        android:scaleType="fitXY"
+                                        tools:src="@mipmap/ic_launcher" />
+
+                                    <TextView
+                                        android:id="@+id/tvHandoverNamePM"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_toEndOf="@+id/ivHandoverPM"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="10sp"
+                                        tools:ignore="SmallSp"
+                                        tools:text="肖笑笑" />
+
+                                    <TextView
+                                        android:id="@+id/tvHandoverPositionPM"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/tvHandoverNamePM"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_toEndOf="@+id/ivHandoverPM"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="8sp"
+                                        tools:ignore="SmallSp"
+                                        tools:text="押运员" />
+
+                                    <TextView
+                                        android:id="@+id/tvHandoverNumberPM"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/tvHandoverPositionPM"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_toEndOf="@+id/ivHandoverPM"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="8sp"
+                                        tools:ignore="SmallSp"
+                                        tools:text="100121" />
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:id="@+id/relHandoverPMTwo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tvHandoverPM"
+                                    android:layout_marginStart="11dp"
+                                    android:layout_marginTop="3dp"
+                                    android:layout_toEndOf="@+id/relHandoverPM"
+                                    android:background="@drawable/bg_blue"
+                                    android:padding="5dp">
+
+                                    <ImageView
+                                        android:id="@+id/ivHandoverPMTwo"
+                                        android:layout_width="36dp"
+                                        android:layout_height="48dp"
+                                        android:scaleType="fitXY"
+                                        tools:src="@mipmap/ic_launcher" />
+
+                                    <TextView
+                                        android:id="@+id/tvHandoverNamePMTwo"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_toEndOf="@+id/ivHandoverPMTwo"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="10sp"
+                                        tools:ignore="SmallSp"
+                                        tools:text="肖笑笑" />
+
+                                    <TextView
+                                        android:id="@+id/tvHandoverPositionPMTwo"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/tvHandoverNamePMTwo"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_toEndOf="@+id/ivHandoverPMTwo"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="8sp"
+                                        tools:ignore="SmallSp"
+                                        tools:text="押运员" />
+
+                                    <TextView
+                                        android:id="@+id/tvHandoverNumberPMTwo"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/tvHandoverPositionPMTwo"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_toEndOf="@+id/ivHandoverPMTwo"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="8sp"
+                                        tools:ignore="SmallSp"
+                                        tools:text="100121" />
+                                </RelativeLayout>
+
+                                <ImageView
+                                    android:id="@+id/ivEscortHandoverPM"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/relHandoverPMTwo"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="18dp"
+                                    tools:src="@drawable/ic_handover_nor" />
+                            </RelativeLayout>
+
+                            <TextView
+                                android:id="@+id/tvAMEscortRoutePM"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:text="@string/escort_route"
+                                android:textColor="@color/tool_lib_color_D1D1D1"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/relAmEscortPM"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/relCarManagerPM"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginStart="5dp"
+                                android:layout_toEndOf="@+id/tvAMEscortRoutePM" />
+
+
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <!--录像管理-->
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+                    android:layout_weight="1">
+
+                </RelativeLayout>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvBaseList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+</RelativeLayout>
