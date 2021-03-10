@@ -4,6 +4,7 @@ import com.example.toollib.http.HttpResult;
 import com.vieboo.vbankapp.data.AuthVO;
 import com.vieboo.vbankapp.data.DepartmentVO;
 import com.vieboo.vbankapp.data.DeviceStatusVo;
+import com.vieboo.vbankapp.data.EscortInfo;
 import com.vieboo.vbankapp.data.InOutVO;
 import com.vieboo.vbankapp.data.NoticeListVO;
 import com.vieboo.vbankapp.data.PadInfoVo;
@@ -202,4 +203,12 @@ public interface IApi {
      */
     @GET("padinfo/playinfo")
     Observable<HttpResult<PlayListVo>> getPlayInfo(@Query("ip") String ip, @Query("isSub") boolean bSub);
+
+    /**
+     * 查询押运信息
+     * @param date 日期
+     * @return HttpResult
+     */
+    @GET("escort")
+    Observable<HttpResult<List<EscortInfo>>> getEscort(@Query("date") String date);
 }

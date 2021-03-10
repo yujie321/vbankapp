@@ -60,6 +60,7 @@
     <color name="tool_lib_color_32313E">#32313E</color>
     <color name="tool_lib_color_BBBCC1">#BBBCC1</color>
     <color name="tool_lib_color_D1D1D1">#D1D1D1</color>
+    <color name="tool_lib_color_D2D2D2">#D2D2D2</color>
     <color name="tool_lib_color_287CDF">#287CDF</color>
     <color name="tool_lib_color_E9F3FF">#E9F3FF</color>
     <color name="tool_lib_color_E3E3E3">#E3E3E3</color>
@@ -107,6 +108,7 @@
     <color name="tool_lib_color_A7A7A7">#A7A7A7</color>
     <color name="tool_lib_color_516790">#516790</color>
     <color name="tool_lib_color_18B2E1">#18B2E1</color>
+    <color name="tool_lib_color_18C0EB">#18C0EB</color>
     <color name="tool_lib_color_767676">#767676</color>
     <color name="tool_lib_color_FFB400">#FFB400</color>
     <color name="tool_lib_color_757575">#757575</color>
@@ -118,5 +120,8 @@
     <color name="tool_lib_color_0EC274">#0EC274</color>
     <color name="tool_lib_color_E09C08">#E09C08</color>
     <color name="tool_lib_color_00C6FF">#00C6FF</color>
+    <color name="tool_lib_color_017F34">#017F34</color>
+    <color name="tool_lib_color_164BA2">#164BA2</color>
+    <color name="tool_lib_color_FFB500">#FFB500</color>
 
 </resources>

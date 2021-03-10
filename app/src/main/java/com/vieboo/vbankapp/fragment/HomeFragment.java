@@ -314,6 +314,7 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
                 break;
             case 3:
                 //车辆管控
+                startFragment(CarManagerFragment.newInstance());
                 break;
             case 4:
                 //安保运营

@@ -1,16 +1,10 @@
 package com.vieboo.vbankapp.data;
 
-import com.google.gson.Gson;
-
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 
 import java.util.Date;
-
-import okhttp3.FormBody;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 
 @Entity
 public class UserInfo {

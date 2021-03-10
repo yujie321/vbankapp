@@ -1,8 +1,6 @@
 package com.vieboo.vbankapp.data;
 
 
-import java.util.Date;
-
 public class DepartmentVO {
 
     private Integer id;

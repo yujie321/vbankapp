@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import com.example.toollib.base.BaseActivity;
 import com.qmuiteam.qmui.arch.QMUIFragment;
+import com.vieboo.vbankapp.fragment.CarManagerFragment;
 import com.vieboo.vbankapp.fragment.SplashFragment;
 
 public class MainActivity extends BaseActivity {
@@ -24,7 +25,8 @@ public class MainActivity extends BaseActivity {
         setTheme(R.style.tool_lib_QMUI_AppTheme);
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
-            init(SplashFragment.newInstance());
+            init(CarManagerFragment.newInstance());
+            //init(SplashFragment.newInstance());
         }
 
     }
