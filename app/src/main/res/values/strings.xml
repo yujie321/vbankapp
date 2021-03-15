@@ -103,4 +103,8 @@
     <string name="current_location">当前位置</string>
     <string name="main_manual_tasks">手动任务</string>
     <string name="main_plan_tasks">计划任务</string>
+    <string name="main_task_name">任务名称</string>
+    <string name="main_start_time">开始时间</string>
+    <string name="main_end_time">结束时间</string>
+    <string name="main_task_status">任务状态</string>
 </resources>

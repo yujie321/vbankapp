@@ -13,7 +13,8 @@ import com.vieboo.vbankapp.data.PassengerVO;
 import com.vieboo.vbankapp.data.PlayListVo;
 import com.vieboo.vbankapp.data.PositionsVO;
 import com.vieboo.vbankapp.data.PunchRecordVO;
-import com.vieboo.vbankapp.data.RecordPlan;
+import com.vieboo.vbankapp.data.RecordList;
+import com.vieboo.vbankapp.data.RecordPlanList;
 import com.vieboo.vbankapp.data.RecordVO;
 import com.vieboo.vbankapp.data.RegulationsVO;
 import com.vieboo.vbankapp.data.SecureRecordVo;
@@ -212,9 +213,17 @@ public interface IApi {
      */
     @GET("rest/escort")
     Observable<HttpResult<List<EscortInfo>>> getEscort(@Query("date") String date);
+
     /*
     * 获取录像计划列表
      */
     @GET("rest/record/plan")
-    Observable<HttpResult<List<RecordPlan>>> getRecordPlans( @Query("key") String name, @Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
+    Observable<HttpResult<RecordPlanList>> getRecordPlans(@Query("key") String name, @Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
+
+    /*
+     * 获取存储录像列表
+     */
+    @GET("rest/record/detail")
+    Observable<HttpResult<RecordList>> getRecordList(@Query("key") String name, @Query("beginTime") String beginTime, @Query("endTime") String endTime,
+                                                 @Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
 }

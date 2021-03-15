@@ -331,6 +331,10 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
             case 7:
                 //呼叫管理
                 break;
+            case 8:
+                //呼叫管理
+                startFragment(new RecordManagerFragment());
+                break;
         }
     };
 

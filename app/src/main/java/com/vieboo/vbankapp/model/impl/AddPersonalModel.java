@@ -1,6 +1,11 @@
 package com.vieboo.vbankapp.model.impl;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.hardware.usb.UsbDevice;
+import android.hardware.usb.UsbManager;
 
 import com.example.toollib.data.BaseModule;
 import com.example.toollib.data.base.BaseCallback;
@@ -21,6 +26,8 @@ import com.vieboo.vbankapp.model.IAddPersonalModel;
 import com.vieboo.vbankapp.model.IAddPersonalView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -129,7 +136,24 @@ public class AddPersonalModel extends BaseModule<IAddPersonalView> implements IA
      }*/
     @Override
     public void initIDCard() {
-        IdCardHelper.getInstance().init((MainActivity) mContext.get()).openContinueReadCard().setIdCardCallBack(new IdCardCallBack() {
+
+        UsbDevice mUsbDevice = null;
+        @SuppressLint("WrongConstant")
+        UsbManager manager = (UsbManager) mContext.get().getSystemService("usb");
+        if (manager != null) {
+            HashMap<String, UsbDevice> deviceList = manager.getDeviceList();
+            Iterator<UsbDevice> deviceIterator = deviceList.values().iterator();
+            while(deviceIterator.hasNext()) {
+                UsbDevice device = (UsbDevice)deviceIterator.next();
+                if (device.getVendorId() == 1024 && device.getProductId() == 50010) {
+                    mUsbDevice = device;
+                }
+            }
+            PendingIntent pi = PendingIntent.getBroadcast(mContext.get(), 0, new Intent("com.android.USB_PERMISSION"), 0);
+            manager.requestPermission(mUsbDevice, pi);
+        }
+
+        IdCardHelper.getInstance().init(((MainActivity)mContext.get())).openContinueReadCard().setIdCardCallBack(new IdCardCallBack() {
             @Override
             public void onSuccess(IdInfo idInfo) {
                 if (idInfo != null && idInfo.getPhotoBmp() != null) {

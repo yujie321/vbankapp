@@ -1,9 +1,13 @@
 package com.vieboo.vbankapp.fragment;
 
+import android.os.Bundle;
+import android.view.View;
+
 import com.example.toollib.base.BaseListFragment;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.vieboo.vbankapp.R;
 import com.vieboo.vbankapp.adapter.RecordPlanAdapter;
+import com.vieboo.vbankapp.data.Record;
 import com.vieboo.vbankapp.data.RecordPlan;
 import com.vieboo.vbankapp.model.IRecordManagerModel;
 import com.vieboo.vbankapp.model.IRecordManagerView;
@@ -11,8 +15,17 @@ import com.vieboo.vbankapp.model.impl.RecordManagerModel;
 
 import java.util.List;
 
+import butterknife.OnClick;
+
 public class RecordManagerFragment  extends BaseListFragment<IRecordManagerModel, RecordPlanAdapter> implements IRecordManagerView {
     RecordPlanAdapter recordPlanAdapter;
+
+    public static RecordManagerFragment newInstance() {
+        Bundle args = new Bundle();
+        RecordManagerFragment fragment = new RecordManagerFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
     @Override
     public void initView() {
         super.initView();
@@ -32,6 +45,8 @@ public class RecordManagerFragment  extends BaseListFragment<IRecordManagerModel
     @Override
     public RecordPlanAdapter getBaseListAdapter() {
         recordPlanAdapter = new RecordPlanAdapter();
+        View view = View.inflate(getActivity(), R.layout.item_record_plan, null);
+        recordPlanAdapter.addHeaderView(view);
         return recordPlanAdapter;
     }
 
@@ -53,6 +68,16 @@ public class RecordManagerFragment  extends BaseListFragment<IRecordManagerModel
     @Override
     public void loadMoreRecordPlan(List<RecordPlan> recordPlans) {
         recordPlanAdapter.addData(recordPlans);
+    }
+
+    @Override
+    public void setRecordList(List<Record> records) {
+
+    }
+
+    @OnClick(R.id.ivBack)
+    public void onClick() {
+        popBackStack();
     }
 
     @Override

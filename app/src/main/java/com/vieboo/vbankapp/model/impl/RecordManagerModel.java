@@ -8,7 +8,10 @@ import com.example.toollib.http.util.RxUtils;
 import com.vieboo.vbankapp.data.InOutVO;
 import com.vieboo.vbankapp.data.NoticeListVO;
 import com.vieboo.vbankapp.data.PersonInOutVO;
+import com.vieboo.vbankapp.data.Record;
+import com.vieboo.vbankapp.data.RecordList;
 import com.vieboo.vbankapp.data.RecordPlan;
+import com.vieboo.vbankapp.data.RecordPlanList;
 import com.vieboo.vbankapp.http.ServiceUrl;
 import com.vieboo.vbankapp.model.IRecordManagerModel;
 import com.vieboo.vbankapp.model.IRecordManagerView;
@@ -21,12 +24,13 @@ public class RecordManagerModel extends BaseModule<IRecordManagerView> implement
     public void requestRecordPlan() {
         RxUtils.getObservable(ServiceUrl.getUserApi().getRecordPlans("", mViewRef.get().getPage(), StaticExplain.PAGE_NUM.getCode()))
                 .compose(mViewRef.get().bindLifecycle())
-                .subscribe(new BaseHttpRxObserver<List<RecordPlan>>() {
+                .subscribe(new BaseHttpRxObserver<RecordPlanList>() {
                     @Override
-                    protected void onSuccess(List<RecordPlan> recordPlans) {
-                        if(recordPlans == null){
-                            recordPlans = new ArrayList<RecordPlan>();
+                    protected void onSuccess(RecordPlanList recordPlanList) {
+                        if(recordPlanList == null){
+                            recordPlanList = new RecordPlanList();
                         }
+                        List<RecordPlan> recordPlans = recordPlanList.getData();
                         if (mViewRef.get().getPage() == StaticExplain.PAGE_NUMBER.getCode()) {
                             //刷新
                             mViewRef.get().refreshRecordPlan(recordPlans);
@@ -49,6 +53,27 @@ public class RecordManagerModel extends BaseModule<IRecordManagerView> implement
                         super.onError(apiException);
                         mViewRef.get().finishRefresh();
                         mViewRef.get().loadError();
+                    }
+                });
+    }
+
+    @Override
+    public void requestRecordList() {
+        RxUtils.getObservable(ServiceUrl.getUserApi().getRecordList("", "", "", mViewRef.get().getPage(), StaticExplain.PAGE_NUM.getCode()))
+                .compose(mViewRef.get().bindLifecycle())
+                .subscribe(new BaseHttpRxObserver<RecordList>() {
+                    @Override
+                    protected void onSuccess(RecordList recordList) {
+                        if(recordList == null){
+                            recordList = new RecordList();
+                        }
+                        List<Record> records = recordList.getData();
+                        mViewRef.get().setRecordList(records);
+                    }
+
+                    @Override
+                    public void onError(ApiException apiException) {
+                        super.onError(apiException);
                     }
                 });
     }

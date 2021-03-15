@@ -243,7 +243,7 @@ public class IdCardHelper {
             } else if (msg.what == MSG_USBDEV_NOAUTHORIZE) {
                 //usb设备已经重新授权，应用重新启动
                 if (idCardCallBack != null) {
-                    idCardCallBack.onError("usb设备已经重新授权，应用重新启动");
+                    //idCardCallBack.onError("usb设备已经重新授权，应用重新启动");
                 }
             } else if (msg.what == MSG_READCARD_OK) {
                 ID2Data _id2data = (ID2Data) msg.obj;
