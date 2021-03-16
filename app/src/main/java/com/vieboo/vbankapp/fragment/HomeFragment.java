@@ -2,6 +2,7 @@ package com.vieboo.vbankapp.fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -43,6 +44,7 @@ import com.vieboo.vbankapp.model.impl.HomeModel;
 import com.vieboo.vbankapp.utils.BarChartUtil;
 import com.vieboo.vbankapp.utils.GridSpacingItemDecoration;
 import com.vieboo.vbankapp.utils.PieChartUtil;
+import com.vieboo.vbankapp.weight.VideoViewDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -165,9 +167,21 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
             if(playInfoList.get(i) != null) {
                 if(playInfoList.get(i).getRtspUrl() != null) {
                     videoViewList.get(i).setBackground(null);
-                    videoViewList.get(i).setVideoURI(Uri.parse(playInfoList.get(i).getRtspUrl()));
+                    Uri rtspUrl = Uri.parse(playInfoList.get(i).getRtspUrl());
+                    videoViewList.get(i).setVideoURI(rtspUrl);
                     videoViewList.get(i).setMediaController(null);
+                    videoViewList.get(i).setTag(rtspUrl);
                     videoViewList.get(i).setOnTouchListener(this);
+                    // 设置准备完成监听
+                    videoViewList.get(i).setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        @Override
+                        public void onPrepared(MediaPlayer mp) {
+                            // 准备完成后开始播放
+                            mp.start();
+                            // 设置静音
+                            mp.setVolume(0, 0);
+                        }
+                    });
                     videoViewList.get(i).start();
                 }
             }
@@ -412,8 +426,35 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
         super.onResume();
     }
 
+
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+        switch (v.getId()){
+            case R.id.videoView1:
+                Uri rtspUrl = (Uri) videoView1.getTag();
+                showVideoViewDialog(rtspUrl);
+                break;
+            case R.id.videoView2:
+                Uri rtspUrl2 = (Uri) videoView2.getTag();
+                showVideoViewDialog(rtspUrl2);
+                break;
+            case R.id.videoView3:
+                Uri rtspUrl3 = (Uri) videoView3.getTag();
+                showVideoViewDialog(rtspUrl3);
+                break;
+            case R.id.videoView4:
+                Uri rtspUrl4 = (Uri) videoView4.getTag();
+                showVideoViewDialog(rtspUrl4);
+                break;
+        }
         return false;
     }
+
+    private void showVideoViewDialog(Uri rtspUrl) {
+        VideoViewDialog instance = VideoViewDialog.getInstance();
+        instance.initView(getActivity())
+                .setRtspUrl(rtspUrl)
+                .showDialog();
+    }
+
 }
