@@ -7,7 +7,7 @@
 
     <TextView
         style="@style/main_device_status_tv"
-        android:text="@string/main_task_name" />
+        android:text="@string/main_record_name" />
 
     <TextView
         style="@style/main_device_status_tv"
@@ -19,6 +19,6 @@
 
     <TextView
         style="@style/main_device_status_tv"
-        android:text="@string/main_task_status" />
+        android:text="@string/main_record_status" />
 
 </LinearLayout>

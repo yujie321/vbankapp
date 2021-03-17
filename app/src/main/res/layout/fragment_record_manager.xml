@@ -109,7 +109,7 @@
                     </LinearLayout>
 
                     <com.scwang.smartrefresh.layout.SmartRefreshLayout
-                        android:id="@+id/refreshPlanTaskList"
+                        android:id="@+id/refreshRecordList"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="3dp"
@@ -125,7 +125,7 @@
                             android:layout_height="wrap_content" />
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rvBasePlanList"
+                            android:id="@+id/rvBaseRecordList"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
 

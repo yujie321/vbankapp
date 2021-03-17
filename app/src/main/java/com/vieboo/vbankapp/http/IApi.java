@@ -13,6 +13,7 @@ import com.vieboo.vbankapp.data.PassengerVO;
 import com.vieboo.vbankapp.data.PlayListVo;
 import com.vieboo.vbankapp.data.PositionsVO;
 import com.vieboo.vbankapp.data.PunchRecordVO;
+import com.vieboo.vbankapp.data.Record;
 import com.vieboo.vbankapp.data.RecordList;
 import com.vieboo.vbankapp.data.RecordPlanList;
 import com.vieboo.vbankapp.data.RecordVO;
@@ -29,6 +30,7 @@ import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface IApi {
@@ -226,4 +228,10 @@ public interface IApi {
     @GET("rest/record/detail")
     Observable<HttpResult<RecordList>> getRecordList(@Query("key") String name, @Query("beginTime") String beginTime, @Query("endTime") String endTime,
                                                  @Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
+
+    /*
+     * 获取单条录像详情
+     */
+    @GET("rest/record/detail/{id}")
+    Observable<HttpResult<Record>> getRecordDetail(@Path("id") int id);
 }

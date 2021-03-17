@@ -22,53 +22,60 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
 
+            <LinearLayout
+                android:id="@+id/tvVideoWindow"
+                android:layout_width="match_parent"
+                android:layout_height="20.5dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/bg_notice">
+
+                <ImageView
+                    style="@style/main_title_ic"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    style="@style/main_blue_bg"
+                    android:text="@string/main_video_window" />
+            </LinearLayout>
+
+            <TextureView
+                android:id="@+id/texture_preview"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_below="@+id/tvVideoWindow" />
+
+            <com.vieboo.vbankapp.face.FaceRectView
+                android:id="@+id/faceRectView"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_below="@+id/tvVideoWindow"
+                android:layout_marginTop="5dp" />
 
             <ImageView
                 android:id="@+id/ivClockIn"
                 android:layout_width="144dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="7dp"
-                android:layout_marginTop="31dp"
-                android:src="@drawable/ic_clock_in" />
+                android:src="@drawable/ic_clock_in"
+                android:layout_below="@+id/faceRectView"/>
 
             <ImageView
                 android:id="@+id/ivClockOut"
                 android:layout_width="144dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="7dp"
-                android:layout_marginTop="31dp"
                 android:layout_toEndOf="@+id/ivClockIn"
-                android:src="@drawable/ic_clock_out" />
+                android:src="@drawable/ic_clock_out"
+                android:layout_below="@+id/faceRectView"/>
 
             <ImageView
                 android:id="@+id/ivAddPersonal"
                 android:layout_width="144dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="7dp"
-                android:layout_marginTop="31dp"
                 android:layout_toEndOf="@+id/ivClockOut"
-                android:src="@drawable/ic_add_personal" />
-
-
-            <TextView
-                android:id="@+id/tvVideoWindow"
-                style="@style/main_blue_bg"
-                android:layout_below="@+id/ivAddPersonal"
-                android:layout_marginTop="18dp"
-                android:text="@string/main_video_window" />
-
-            <TextureView
-                android:id="@+id/texture_preview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/tvVideoWindow" />
-
-            <com.vieboo.vbankapp.face.FaceRectView
-                android:id="@+id/faceRectView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/tvVideoWindow"
-                android:layout_margin="3.5dp" />
+                android:src="@drawable/ic_person_manager"
+                android:layout_below="@+id/faceRectView"/>
         </RelativeLayout>
 
         <LinearLayout

@@ -107,4 +107,6 @@
     <string name="main_start_time">开始时间</string>
     <string name="main_end_time">结束时间</string>
     <string name="main_task_status">任务状态</string>
+    <string name="main_record_name">录像名称</string>
+    <string name="main_record_status">录像状态</string>
 </resources>

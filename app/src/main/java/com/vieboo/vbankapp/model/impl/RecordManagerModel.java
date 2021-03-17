@@ -5,9 +5,6 @@ import com.example.toollib.enums.StaticExplain;
 import com.example.toollib.http.exception.ApiException;
 import com.example.toollib.http.observer.BaseHttpRxObserver;
 import com.example.toollib.http.util.RxUtils;
-import com.vieboo.vbankapp.data.InOutVO;
-import com.vieboo.vbankapp.data.NoticeListVO;
-import com.vieboo.vbankapp.data.PersonInOutVO;
 import com.vieboo.vbankapp.data.Record;
 import com.vieboo.vbankapp.data.RecordList;
 import com.vieboo.vbankapp.data.RecordPlan;
@@ -16,7 +13,6 @@ import com.vieboo.vbankapp.http.ServiceUrl;
 import com.vieboo.vbankapp.model.IRecordManagerModel;
 import com.vieboo.vbankapp.model.IRecordManagerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RecordManagerModel extends BaseModule<IRecordManagerView> implements IRecordManagerModel  {
@@ -69,6 +65,26 @@ public class RecordManagerModel extends BaseModule<IRecordManagerView> implement
                         }
                         List<Record> records = recordList.getData();
                         mViewRef.get().setRecordList(records);
+                    }
+
+                    @Override
+                    public void onError(ApiException apiException) {
+                        super.onError(apiException);
+                    }
+                });
+    }
+
+    @Override
+    public void requestRecordDetail(int id) {
+        RxUtils.getObservable(ServiceUrl.getUserApi().getRecordDetail(id))
+                .compose(mViewRef.get().bindLifecycle())
+                .subscribe(new BaseHttpRxObserver<Record>() {
+                    @Override
+                    protected void onSuccess(Record record) {
+                        if(record == null){
+                            record = new Record();
+                        }
+                        mViewRef.get().setRecordDetail(record);
                     }
 
                     @Override

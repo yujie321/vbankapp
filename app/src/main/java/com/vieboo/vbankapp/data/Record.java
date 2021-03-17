@@ -1,6 +1,9 @@
 package com.vieboo.vbankapp.data;
 
+import java.util.List;
+
 public class Record {
+
     /**
      * id : 1
      * planId : 17
@@ -8,7 +11,7 @@ public class Record {
      * beginTime : 2021-03-10 16:34:16
      * endTime : 2021-03-10 16:34:46
      * status : 1
-     * recordList : null
+     * recordList : [{"cameraName":null,"fileUrl":"http://192.168.1.254:28280/record/1/0/2021/03/10/16/34_16.mp4","recordBeginTime":"2021-03-10 16:34:17","recordEndTime":"2021-03-10 16:34:47"}]
      */
 
     private int id;
@@ -17,7 +20,7 @@ public class Record {
     private String beginTime;
     private String endTime;
     private int status;
-    private Object recordList;
+    private List<RecordListBean> recordList;
 
     public int getId() {
         return id;
@@ -67,11 +70,11 @@ public class Record {
         this.status = status;
     }
 
-    public Object getRecordList() {
+    public List<RecordListBean> getRecordList() {
         return recordList;
     }
 
-    public void setRecordList(Object recordList) {
+    public void setRecordList(List<RecordListBean> recordList) {
         this.recordList = recordList;
     }
 }

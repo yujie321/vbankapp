@@ -15,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.MediaController;
+import android.widget.RelativeLayout;
 import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -44,6 +45,7 @@ import com.vieboo.vbankapp.model.impl.HomeModel;
 import com.vieboo.vbankapp.utils.BarChartUtil;
 import com.vieboo.vbankapp.utils.GridSpacingItemDecoration;
 import com.vieboo.vbankapp.utils.PieChartUtil;
+import com.vieboo.vbankapp.weight.RankDialog;
 import com.vieboo.vbankapp.weight.VideoViewDialog;
 
 import java.util.ArrayList;
@@ -92,6 +94,8 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
     VideoView videoView3;
     @BindView(R.id.videoView4)
     VideoView videoView4;
+    @BindView(R.id.rlRank)
+    RelativeLayout rlRank;
 
 
     private NoticeListAdapter noticeListAdapter;
@@ -133,7 +137,7 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
         tcHomeDate.setFormat24Hour("yyyy年MM月dd HH:mm   EEEE");
 
         int spanCount = 3;
-        int spacing = 6;
+        int spacing = 3;
         rvNavigationList.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, false));
         navigationAdapter = new NavigationAdapter();
         navigationAdapter.setOnItemClickListener(onItemClickListener);
@@ -153,6 +157,7 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 3);
         rvNavigationList.setLayoutManager(layoutManager);
         iModule.getNavigationList();
+        rlRank.setOnClickListener(this::onClick);
     }
 
     @Override
@@ -162,10 +167,10 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
 
     @Override
     public void setPlayInfo(List<PlayInfo> playInfoList) {
-        for(int i = 0; i < playInfoList.size(); i++){
+        for (int i = 0; i < playInfoList.size(); i++) {
             MediaController mediaController = new MediaController(getContext());
-            if(playInfoList.get(i) != null) {
-                if(playInfoList.get(i).getRtspUrl() != null) {
+            if (playInfoList.get(i) != null) {
+                if (playInfoList.get(i).getRtspUrl() != null) {
                     videoViewList.get(i).setBackground(null);
                     Uri rtspUrl = Uri.parse(playInfoList.get(i).getRtspUrl());
                     videoViewList.get(i).setVideoURI(rtspUrl);
@@ -395,7 +400,7 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
 
     @Override
     public void onStop() {
-        for(int i = 0; i < videoViewList.size(); i++){
+        for (int i = 0; i < videoViewList.size(); i++) {
             videoViewList.get(i).stopPlayback();
             videoViewList.get(i).suspend();
         }
@@ -429,7 +434,7 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.videoView1:
                 Uri rtspUrl = (Uri) videoView1.getTag();
                 showVideoViewDialog(rtspUrl);
@@ -457,4 +462,15 @@ public class HomeFragment extends BaseListFragment<IHomeModel, NoticeListAdapter
                 .showDialog();
     }
 
+    @OnClick({})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.rlRank: {
+                RankDialog rankDialog = RankDialog.getInstance();
+                rankDialog.initView(getActivity())
+                        .showDialog();
+                break;
+            }
+        }
+    }
 }

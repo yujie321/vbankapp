@@ -12,4 +12,6 @@ public interface IRecordManagerView extends IBaseListView {
     void loadMoreRecordPlan(List<RecordPlan> recordPlans);
 
     void setRecordList(List<Record> records);
+
+    void setRecordDetail(Record record);
 }

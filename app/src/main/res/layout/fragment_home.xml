@@ -171,6 +171,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rlRank"
                     android:layout_width="155dp"
                     android:layout_height="68dp"
                     android:layout_alignParentEnd="true"

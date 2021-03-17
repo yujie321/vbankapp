@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="20dp"
+    android:orientation="horizontal"
+    android:paddingStart="5dp"
+    android:paddingEnd="5dp">
+
+    <TextView
+        android:id="@+id/tvRecordName"
+        style="@style/main_device_status_tv"
+        android:layout_height="match_parent"
+        android:text="@string/main_record_name" />
+
+    <TextView
+        android:id="@+id/tvStartTime"
+        style="@style/main_device_status_tv"
+        android:layout_height="match_parent"
+        android:text="@string/main_start_time" />
+
+    <TextView
+        android:id="@+id/tvEndTime"
+        style="@style/main_device_status_tv"
+        android:layout_height="match_parent"
+        android:text="@string/main_end_time" />
+
+    <LinearLayout
+        style="@style/main_device_status_tv"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivRecordControl"
+            style="@style/main_device_status_tv"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:src="@drawable/ic_video_success" />
+    </LinearLayout>
+
+</LinearLayout>

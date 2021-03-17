@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class RecordPlanAdapter extends BaseQuickAdapter<RecordPlan, BaseViewHolder> implements LoadMoreModule {
     public RecordPlanAdapter() {
-        super(R.layout.item_record_plan);
+        super(R.layout.item_record_plan_content);
     }
 
     @Override
