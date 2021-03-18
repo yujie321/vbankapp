@@ -86,7 +86,7 @@ public class CameraHelper implements Camera.PreviewCallback {
                 mCameraId = specificCameraId;
             }
 
-            mCameraId = 0;
+            //mCameraId = 0;
             //没有相机
             if (mCameraId == -1) {
                 if (cameraListener != null) {

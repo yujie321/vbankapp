@@ -1,6 +1,5 @@
 package com.vieboo.vbankapp.face.util;
 
-import android.content.Context;
 import android.hardware.Camera;
 import android.view.TextureView;
 
@@ -10,6 +9,7 @@ import com.arcsoft.face.FaceFeature;
 import com.arcsoft.face.GenderInfo;
 import com.arcsoft.face.LivenessInfo;
 import com.example.toollib.util.Log;
+import com.luoye.bzyuvlib.BZYUVUtil;
 import com.vieboo.vbankapp.application.VBankAppApplication;
 import com.vieboo.vbankapp.face.CameraListener;
 import com.vieboo.vbankapp.face.ConfigUtil;
@@ -23,6 +23,7 @@ import com.vieboo.vbankapp.face.LivenessType;
 import com.vieboo.vbankapp.face.RecognizeColor;
 import com.vieboo.vbankapp.face.RequestFeatureStatus;
 import com.vieboo.vbankapp.face.RequestLivenessStatus;
+import com.vieboo.vbankapp.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -84,6 +85,8 @@ public class CameraListenerUtil implements CameraListener {
         this.texturePreview = texturePreview;
     }
 
+    private byte[] cropYuvBuffer = new byte[Constants.FACE_DATA_WIDTH * Constants.FACE_DATA_HEIGHT * 3 / 2];
+
     @Override
     public void onCameraOpened(Camera camera, int cameraId, int displayOrientation, boolean isMirror) {
         Log.e("onCameraOpened: " + cameraId + "  " + displayOrientation + " " + isMirror);
@@ -112,10 +115,12 @@ public class CameraListenerUtil implements CameraListener {
 
     @Override
     public void onPreview(byte[] data, Camera camera) {
+
         if (faceRectView != null) {
             faceRectView.clearFaceInfo();
         }
-        List<FacePreviewInfo> facePreviewInfoList = faceHelper.onPreviewFrame(data);
+        BZYUVUtil.cropNV21(data, cropYuvBuffer, previewSize.width, previewSize.height, Constants.CROP_START_X, Constants.CROP_START_Y, Constants.FACE_DATA_WIDTH, Constants.FACE_DATA_HEIGHT);
+        List<FacePreviewInfo> facePreviewInfoList = faceHelper.onPreviewFrame(cropYuvBuffer);
         if (facePreviewInfoList != null && faceRectView != null && drawHelper != null) {
             drawPreviewInfo(facePreviewInfoList);
         }
@@ -131,7 +136,7 @@ public class CameraListenerUtil implements CameraListener {
                     if (liveness == null
                             || (liveness != LivenessInfo.ALIVE && liveness != LivenessInfo.NOT_ALIVE && liveness != RequestLivenessStatus.ANALYZING)) {
                         livenessMap.put(facePreviewInfoList.get(i).getTrackId(), RequestLivenessStatus.ANALYZING);
-                        faceHelper.requestFaceLiveness(data, facePreviewInfoList.get(i).getFaceInfo(), previewSize.width, previewSize.height, FaceEngine.CP_PAF_NV21, facePreviewInfoList.get(i).getTrackId(), LivenessType.RGB);
+                        faceHelper.requestFaceLiveness(cropYuvBuffer, facePreviewInfoList.get(i).getFaceInfo(), Constants.FACE_DATA_WIDTH, Constants.FACE_DATA_HEIGHT, FaceEngine.CP_PAF_NV21, facePreviewInfoList.get(i).getTrackId(), LivenessType.RGB);
                     }
                 }
                 /**
@@ -141,7 +146,7 @@ public class CameraListenerUtil implements CameraListener {
                 if (status == null
                         || status == RequestFeatureStatus.TO_RETRY) {
                     requestFeatureStatusMap.put(facePreviewInfoList.get(i).getTrackId(), RequestFeatureStatus.SEARCHING);
-                    faceHelper.requestFaceFeature(data, facePreviewInfoList.get(i).getFaceInfo(), previewSize.width, previewSize.height, FaceEngine.CP_PAF_NV21, facePreviewInfoList.get(i).getTrackId());
+                    faceHelper.requestFaceFeature(cropYuvBuffer, facePreviewInfoList.get(i).getFaceInfo(), Constants.FACE_DATA_WIDTH, Constants.FACE_DATA_HEIGHT, FaceEngine.CP_PAF_NV21, facePreviewInfoList.get(i).getTrackId());
 //                            Log.i(TAG, "onPreview: fr start = " + System.currentTimeMillis() + " trackId = " + facePreviewInfoList.get(i).getTrackedFaceCount());
                 }
             }

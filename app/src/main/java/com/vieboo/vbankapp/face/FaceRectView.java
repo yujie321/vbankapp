@@ -49,11 +49,13 @@ public class FaceRectView extends View {
 
     public void addFaceInfo(DrawInfo faceInfo) {
         drawInfoList.add(faceInfo);
+        DrawHelper.isOffsetValue = 150;
         postInvalidate();
     }
 
     public void addFaceInfo(List<DrawInfo> faceInfoList) {
         drawInfoList.addAll(faceInfoList);
+        DrawHelper.isOffsetValue = 250;
         postInvalidate();
     }
 }

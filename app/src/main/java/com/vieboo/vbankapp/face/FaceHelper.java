@@ -9,6 +9,7 @@ import com.arcsoft.face.FaceEngine;
 import com.arcsoft.face.FaceFeature;
 import com.arcsoft.face.FaceInfo;
 import com.arcsoft.face.LivenessInfo;
+import com.vieboo.vbankapp.utils.Constants;
 import com.vieboo.vbankapp.utils.FaceImageUtil;
 
 import java.util.ArrayList;
@@ -20,6 +21,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+
+import static com.vieboo.vbankapp.utils.Constants.FACE_DATA_HEIGHT;
+import static com.vieboo.vbankapp.utils.Constants.FACE_DATA_WIDTH;
 
 /**
  * 人脸操作辅助类
@@ -209,7 +213,7 @@ public class FaceHelper {
             if (ftEngine != null) {
                 faceInfoList.clear();
                 long ftStartTime = System.currentTimeMillis();
-                int code = ftEngine.detectFaces(nv21, previewSize.width, previewSize.height, FaceEngine.CP_PAF_NV21, faceInfoList);
+                int code = ftEngine.detectFaces(nv21, Constants.FACE_DATA_WIDTH, Constants.FACE_DATA_HEIGHT, FaceEngine.CP_PAF_NV21, faceInfoList);
                 if (code != ErrorInfo.MOK) {
                     faceListener.onFail(new Exception("ft failed,code is " + code));
                 } else {

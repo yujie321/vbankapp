@@ -77,4 +77,5 @@ dependencies {
     implementation files('libs/jcore-android-2.2.4.jar')
 
     implementation 'com.squareup.okhttp3:okhttp:3.12.1'
+    implementation 'com.luoye.bzlib:bzyuv:1.1.16'
 }

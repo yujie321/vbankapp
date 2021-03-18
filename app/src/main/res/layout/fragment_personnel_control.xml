@@ -52,6 +52,13 @@
                 android:layout_marginTop="5dp" />
 
             <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:scaleType="fitXY"
+                android:layout_below="@+id/tvVideoWindow"
+                android:src="@mipmap/face_outline"/>
+
+            <ImageView
                 android:id="@+id/ivClockIn"
                 android:layout_width="144dp"
                 android:layout_height="60dp"

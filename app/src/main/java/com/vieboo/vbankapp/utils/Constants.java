@@ -56,6 +56,19 @@ public class Constants {
      */
     public static final int CAMERA_PREVIEW_HEIGHT = 480;
 
+    public static int CROP_START_X = 200;
+    public static int CROP_START_Y = 0;
+
+    /**
+     * 人脸识别宽度
+     */
+    public static final int FACE_DATA_WIDTH = 320;
+
+    /**
+     * 人脸识别高度
+     */
+    public static final int FACE_DATA_HEIGHT = 480;
+
     /**
      * 默认的摄像头id
      */

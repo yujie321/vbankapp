@@ -177,6 +177,8 @@ public class DrawHelper {
         return newRect;
     }
 
+    public static int isOffsetValue = 250;
+
     /**
      * 绘制数据信息到view上，若 {@link DrawInfo#getName()} 不为null则绘制 {@link DrawInfo#getName()}
      *
@@ -197,6 +199,8 @@ public class DrawHelper {
         Path mPath = new Path();
         // 左上
         Rect rect = drawInfo.getRect();
+        rect.left = rect.left + isOffsetValue;
+        rect.right = rect.right + isOffsetValue;
         mPath.moveTo(rect.left, rect.top + rect.height() / 4);
         mPath.lineTo(rect.left, rect.top);
         mPath.lineTo(rect.left + rect.width() / 4, rect.top);
